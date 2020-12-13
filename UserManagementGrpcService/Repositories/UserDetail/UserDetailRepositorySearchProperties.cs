@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace UserManagementLibrary.Repositories.UserDetail
+namespace UserManagementGrpcService.Repositories.UserDetail
 {
     public class UserDetailRepositorySearchProperties : SearchProperties
     {

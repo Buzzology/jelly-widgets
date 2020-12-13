@@ -1,7 +1,7 @@
 ﻿using MicroservicesProjectLibrary.EventHandling.Events;
 using System.Threading.Tasks;
 
-namespace UserManagementLibrary.IntegrationEvents
+namespace UserManagementGrpcService.EventHandling
 {
     public interface IUserManagementIntegrationEventService
     {

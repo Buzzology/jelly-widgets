@@ -6,21 +6,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using UserManagementData.Infrastructure;
+using UserManagementGrpcService.EventHandling;
+using UserManagementGrpcService.Infrastructure;
 using UserManagementIntegrationEvents.UserDetail;
-using UserManagementLibrary.IntegrationEvents;
 using Models = UserManagementData.Models;
 
-namespace UserManagementLibrary.Repositories.UserDetail
+namespace UserManagementGrpcService.Repositories.UserDetail
 {
-    public class UserRepository : IUserDetailRepository
+    public class UserDetailRepository : IUserDetailRepository
     {
         private readonly UserManagementDbContext _userManagementDbContext;
         private readonly IUserManagementIntegrationEventService _userManagementIntegrationEventService;
         private readonly IEventBus _eventBus;
 
-        public UserRepository(
-            ILogger<UserRepository> logger,
+        public UserDetailRepository(
+            ILogger<UserDetailRepository> logger,
             UserManagementDbContext userManagementDbContext,
             IUserManagementIntegrationEventService userManagementIntegrationEventService,
             IEventBus eventBus
@@ -90,7 +90,7 @@ namespace UserManagementLibrary.Repositories.UserDetail
             return query.ToListAsync();
         }
 
-        
+
         public async Task<Models.UserDetail> Update(Models.UserDetail userInput, string currentUserId)
         {
             // Ensure that only the user can only update their own profile           

@@ -38,14 +38,14 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                 return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
             });
 
-            var subscriptionClientName = configuration["SubscriptionClientName"];
+            var subscriptionClientName = configuration["SubscriptionClientName"] ?? throw new ArgumentException($"Subscription client name needs to be added to config.");
             services.AddSingleton<IEventBus, EventBusRabbitMQ>(serviceProvider =>
             {
                 var rabbitMQPersistentConnection = serviceProvider.GetRequiredService<IRabbitMQPersistentConnection>();
                 var logger = serviceProvider.GetRequiredService<ILogger<EventBusRabbitMQ>>();
                 var eventBusSubscriptionsManager = serviceProvider.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                var retryCount = 5;
+                int retryCount = 5;
                 if (!string.IsNullOrEmpty(configuration["EventBusRetryCount"]))
                 {
                     retryCount = int.Parse(configuration["EventBusRetryCount"]);
@@ -55,7 +55,12 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(sp => (DbConnection c) => new IntegrationEventLogService(c));
+            services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(sp => {
+                return (DbConnection c) =>
+                {
+                    return new IntegrationEventLogService(c);
+                };
+            });
         }
     }
 }

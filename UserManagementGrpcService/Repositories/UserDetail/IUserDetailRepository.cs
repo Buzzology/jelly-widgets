@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace UserManagementLibrary.Repositories.UserDetail
+namespace UserManagementGrpcService.Repositories.UserDetail
 {
     public interface IUserDetailRepository
     {

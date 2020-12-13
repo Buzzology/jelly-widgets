@@ -19,12 +19,13 @@ namespace UserManagementData.Models
         [Required]
         public string DisplayName { get; set; }
 
+        public string ImageId { get; set; }
+
         [Required]
         public DateTime Created { get; set; }
 
         [Required]
         public DateTime Updated { get; set; }
 
-        public string ImageId { get; set; }
     }
 }
