@@ -5,11 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\WidgetRequest\**" />
+    <Content Remove="Repositories\WidgetRequest\**" />
+    <EmbeddedResource Remove="Repositories\WidgetRequest\**" />
+    <None Remove="Repositories\WidgetRequest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj" />
+    <ProjectReference Include="..\WidgetManagementConstants\WidgetManagementConstants.csproj" />
+    <ProjectReference Include="..\WidgetManagementData\WidgetManagementData.csproj" />
+    <ProjectReference Include="..\WidgetManagementIntegrationEvents\WidgetManagementIntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

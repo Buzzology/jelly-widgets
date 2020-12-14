@@ -3,13 +3,11 @@
 namespace WidgetManagementData.Models
 {
     [BsonIgnoreExtraElements]
-    public class Widget
+    public class DashboardWidget
     {
         [BsonId]
         public string WidgetId { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        public int OrderNumber { get; set; }
     }
 }

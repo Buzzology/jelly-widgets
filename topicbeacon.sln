@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30028.174
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentManagementLibrary", "contentmanagementlibrary\ContentManagementLibrary.csproj", "{71AEAD05-E34E-4513-8444-0EAFF1A28A58}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementData", "UserManagementData\UserManagementData.csproj", "{91C4D4A1-47E4-4D0F-84DF-59B418399072}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesProjectLibrary", "MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj", "{FBF64D9C-5650-41F9-91DA-1952BE3F7C8B}"
@@ -27,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementGrpcService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementIntegrationEvents", "WidgetManagementIntegrationEvents\WidgetManagementIntegrationEvents.csproj", "{B95165D1-AC4A-4C46-9743-7F690E311798}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementConstants", "WidgetManagementConstants\WidgetManagementConstants.csproj", "{053202CA-D1DD-4873-A6AC-D21F71317285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,18 +37,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|x64.Build.0 = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Debug|x86.Build.0 = Debug|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|x64.ActiveCfg = Release|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|x64.Build.0 = Release|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|x86.ActiveCfg = Release|Any CPU
-		{71AEAD05-E34E-4513-8444-0EAFF1A28A58}.Release|x86.Build.0 = Release|Any CPU
 		{91C4D4A1-47E4-4D0F-84DF-59B418399072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91C4D4A1-47E4-4D0F-84DF-59B418399072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91C4D4A1-47E4-4D0F-84DF-59B418399072}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -157,6 +145,18 @@ Global
 		{B95165D1-AC4A-4C46-9743-7F690E311798}.Release|x64.Build.0 = Release|Any CPU
 		{B95165D1-AC4A-4C46-9743-7F690E311798}.Release|x86.ActiveCfg = Release|Any CPU
 		{B95165D1-AC4A-4C46-9743-7F690E311798}.Release|x86.Build.0 = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|x64.Build.0 = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Debug|x86.Build.0 = Debug|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x64.ActiveCfg = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x64.Build.0 = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x86.ActiveCfg = Release|Any CPU
+		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +170,7 @@ Global
 		{AB63C25D-C71B-470A-B39B-B7624A032C4F} = {624234F3-45AA-4089-90B8-211202B51564}
 		{29BAFA47-CC9B-4BCC-810D-FB4EC6459DC7} = {624234F3-45AA-4089-90B8-211202B51564}
 		{B95165D1-AC4A-4C46-9743-7F690E311798} = {624234F3-45AA-4089-90B8-211202B51564}
+		{053202CA-D1DD-4873-A6AC-D21F71317285} = {624234F3-45AA-4089-90B8-211202B51564}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E207188B-1C80-4179-A7E5-62D1C80B60BE}

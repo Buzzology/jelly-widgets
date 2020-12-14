@@ -11,7 +11,7 @@ using UserManagementGrpcService.Infrastructure;
 using UserManagementIntegrationEvents.UserDetail;
 using Models = UserManagementData.Models;
 
-namespace UserManagementGrpcService.Repositories.UserDetail
+namespace WidgetManagementGrpcService.Repositories.UserDetail
 {
     public class UserDetailRepository : IUserDetailRepository
     {
