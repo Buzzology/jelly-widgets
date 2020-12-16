@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Protos\dashboard-services.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\dashboard-services.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 
@@ -22,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj" />
+    <ProjectReference Include="..\UserManagementIntegrationEvents\UserManagementIntegrationEvents.csproj" />
     <ProjectReference Include="..\WidgetManagementConstants\WidgetManagementConstants.csproj" />
     <ProjectReference Include="..\WidgetManagementData\WidgetManagementData.csproj" />
     <ProjectReference Include="..\WidgetManagementIntegrationEvents\WidgetManagementIntegrationEvents.csproj" />

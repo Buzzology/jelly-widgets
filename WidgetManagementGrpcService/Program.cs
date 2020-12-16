@@ -1,18 +1,25 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using WidgetManagementGrpcService.Repositories.Widget;
+using WidgetManagementGrpcService.Utilities.Seed;
 
 namespace WidgetManagementGrpcService
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static readonly string Namespace = typeof(Program).Namespace;
+        public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.') >= 0 ? Namespace.LastIndexOf('.') - 1 : 0);
+
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            // Seed data
+            await SeedWidgets.Run(host);
+            
+            host.Run();
         }
 
         // Additional configuration is required to successfully run gRPC on macOS.

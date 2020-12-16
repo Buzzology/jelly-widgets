@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WidgetManagementData.Models;
 using WidgetManagementGrpcService.Utilities.Configuration;
@@ -32,7 +33,7 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
         }
 
         
-        public Models.Dashboard Get(string id, string currentUserId)
+        public async Task<Models.Dashboard> Get(string id, string currentUserId)
         {
             return _dashboards
                 .Find<Models.Dashboard>(dashboard => dashboard.DashboardId == id && dashboard.UserId == currentUserId)
@@ -40,7 +41,7 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
         }
 
 
-        public Models.Dashboard Create(Models.Dashboard dashboard, string currentUserId)
+        public async Task<Models.Dashboard> Create(Models.Dashboard dashboard, string currentUserId)
         {
             dashboard.UserId = currentUserId;
             _dashboards.InsertOne(dashboard);
@@ -49,53 +50,76 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
         }
 
 
-        public void Update(Models.Dashboard dashboardIn, string currentUserId)
+        public async Task<Models.Dashboard> Update(Models.Dashboard dashboardIn, string currentUserId)
         {
             if (dashboardIn == null) throw new ArgumentException("No values provided for dashboard update.");
 
-            var dashboard = Get(dashboardIn?.DashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardIn.DashboardId}");
+            var dashboard = await Get(dashboardIn?.DashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardIn.DashboardId}");
 
             // Update any relevant dashboard properties
             dashboard.Name = dashboardIn.Name;
             dashboard.OrderNumber = dashboardIn.OrderNumber;
 
             _dashboards.ReplaceOne(dashboard => dashboard.DashboardId == dashboardIn.DashboardId, dashboardIn);
+
+            return await Get(dashboardIn?.DashboardId, currentUserId);
         }
 
 
-        public void AddWidget(string dashboardId, string widgetId, int widgetOrderNumber, string currentUserId)
+        public async Task<Models.Dashboard> AddWidget(string dashboardId, string dashboardWidgetId, string widgetId, int widgetOrderNumber, string currentUserId)
         {
-            var dashboard = Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+            var dashboard = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
             dashboard.DashboardWidgets.Add(
                 new DashboardWidget {
+                DashboardWidgetId = dashboardWidgetId,
                 OrderNumber = widgetOrderNumber,
                 WidgetId = widgetId
             });
 
             _dashboards.ReplaceOne(dashboard => dashboard.DashboardId == dashboardId, dashboard);
+
+            return await Get(dashboardId, currentUserId);
         }
 
 
-        public void RemoveWidget(string dashboardId, string widgetId, int widgetOrderNumber, string currentUserId)
+        public async Task<Models.Dashboard> UpdateWidget(DashboardWidget dashboardWidgetInput, string dashboardId, string currentUserId)
         {
-            var dashboard = Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
-            var indexToRemove = dashboard.DashboardWidgets.FindIndex(x => x.WidgetId == widgetId);
+            var dashboard = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+            var index = dashboard.DashboardWidgets.FindIndex(x => x.DashboardWidgetId == dashboardWidgetInput.DashboardWidgetId);
+            if(index < 0) throw new KeyNotFoundException($"{nameof(DashboardWidget)} was not found: {dashboardWidgetInput.DashboardWidgetId}");
 
-            if (indexToRemove < 0) throw new KeyNotFoundException($"Widget not found on dashboard: {nameof(widgetId)}: {widgetId} {nameof(dashboardId)} {dashboardId}");
+            // Modify allowable properties
+            dashboard.DashboardWidgets[index].OrderNumber = dashboardWidgetInput.OrderNumber;
+
+            // Update the dashboard
+            _dashboards.ReplaceOne(dashboard => dashboard.DashboardId == dashboardId, dashboard);
+
+            return await Get(dashboardId, currentUserId);
+        }
+
+
+        public async Task<Models.Dashboard> RemoveWidget(string dashboardId, string dashboardWidgetId, string currentUserId)
+        {
+            var dashboard = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+            var indexToRemove = dashboard.DashboardWidgets.FindIndex(x => x.DashboardWidgetId == dashboardWidgetId);
+
+            if (indexToRemove < 0) throw new KeyNotFoundException($"Widget not found on dashboard: {nameof(dashboardWidgetId)}: {dashboardWidgetId} {nameof(dashboardId)} {dashboardId}");
 
             dashboard.DashboardWidgets.RemoveAt(indexToRemove);
             _dashboards.ReplaceOne(dashboard => dashboard.DashboardId == dashboardId, dashboard);
+
+            return await Get(dashboardId, currentUserId);
         }
 
 
-        public void Remove(string dashboardId, string currentUserId)
+        public async Task Remove(string dashboardId, string currentUserId)
         {
-            _ = Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+            _ = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
             _dashboards.DeleteOne(membership => membership.DashboardId == dashboardId);
         }
 
 
-        public Task<List<Models.Dashboard>> Search(Repositories.Dashboard.DashboardRepositorySearchProperties request)
+        public Task<List<Models.Dashboard>> Search(DashboardRepositorySearchProperties request)
         {
             var query = _dashboards.AsQueryable();
 
@@ -106,12 +130,12 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
                 query = query.Where(x => x.DashboardId == request.DashboardId);
             }
 
-            if (!string.IsNullOrWhiteSpace(request.Name))
+            if (!string.IsNullOrWhiteSpace(request.Text))
             {
-                query = query.Where(x => x.Name.Contains(request.Name));
+                query = query.Where(x => x.Name.Contains(request.Text));
             }
 
-            // Apply ordering: Will need to break this out into parameters
+            // Apply ordering
             query = query.OrderByDescending(x => x.OrderNumber);
 
             // NOTE: May need to check this implementation, most examples seem to be using limit instead

@@ -6,7 +6,7 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
     {
         public string DashboardId { get; set; }
 
-        public string Name { get; set; }
+        public string Text { get; set; }
 
         public string CurrentUserId { get; set; }
     }

@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+option csharp_namespace = "WidgetManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package WidgetManagementGrpcService.v1;
+
+service DashboardServices {
+  rpc DashboardCreate (DashboardCreateRequest) returns (DashboardCreateResponse);
+  rpc DashboardGet (DashboardGetRequest) returns (DashboardGetResponse);
+  rpc DashboardSearch (DashboardSearchRequest) returns (DashboardSearchResponse);
+  rpc DashboardUpdate (DashboardUpdateRequest) returns (DashboardUpdateResponse);
+  rpc DashboardAddWidget (DashboardAddWidgetRequest) returns (DashboardAddWidgetResponse);
+  rpc DashboardRemoveWidget (DashboardRemoveWidgetRequest) returns (DashboardRemoveWidgetResponse);
+  rpc DashboardUpdateWidget (DashboardUpdateWidgetRequest) returns (DashboardUpdateWidgetResponse);
+}
+
+message DashboardCreateRequest {
+  DashboardDto dashboard = 1;
+  string currentUserId = 2;
+}
+
+message DashboardCreateResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardUpdateRequest {
+  DashboardDto dashboard = 1;
+  string currentUserId = 2;
+}
+
+message DashboardUpdateResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardGetRequest {
+    string dashboardId = 1;
+    string currentUserId = 2;
+}
+
+message DashboardGetResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardAddWidgetRequest {
+    string dashboardId = 1;
+    string widgetId = 2;
+    string currentUserId = 3;
+    int32 widgetOrderNumber = 4;
+    string dashboardWidgetId = 5;
+}
+
+message DashboardAddWidgetResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardUpdateWidgetRequest {
+    DashboardWidgetDto dashboardWidget = 1;
+    string dashboardId = 2;
+    string currentUserId = 3;
+}
+
+message DashboardUpdateWidgetResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardRemoveWidgetRequest {
+    string dashboardId = 1;
+    string dashboardWidgetId = 2;
+    string currentUserId = 3;
+}
+
+message DashboardRemoveWidgetResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardSearchRequest {
+    string currentUserId = 1;
+    string text = 2;
+    string dashboardId = 3;
+    int32 pageSize = 4;
+    int32 pageNumber = 5;
+    string postId = 6;
+}
+
+message DashboardSearchResponse {
+    repeated DashboardDto dashboards = 1;
+}
+
+message DashboardDto {
+	string dashboardId = 1;
+    repeated DashboardWidgetDto dashboardWidgets = 2;
+    string name = 3;
+    int32 orderNumber = 4;
+    string userId = 5;
+}
+
+
+message DashboardWidgetDto {
+    string dashboardWidgetId = 1;
+    string widgetId = 2;
+    int32 orderNumber = 3;
+}
