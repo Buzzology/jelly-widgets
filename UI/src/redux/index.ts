@@ -5,9 +5,13 @@ import { createLogger } from "redux-logger";
 import { messagesReducer } from "./message/reducers";
 import { uiFormStatesReducer } from "./uiFormState/reducers";
 import { userDetailsReducer } from "./userDetail/reducers";
+import { dashboardsReducer } from "./dashboard/reducers";
+import { dashboardWidgetsReducer } from "./dashboardWidget/reducers";
 
 
 const rootReducer = combineReducers({
+    dashboards: dashboardsReducer,
+    dashboardWidgets: dashboardWidgetsReducer,
     messages: messagesReducer,
     uiFormStates: uiFormStatesReducer,
     userDetails: userDetailsReducer,

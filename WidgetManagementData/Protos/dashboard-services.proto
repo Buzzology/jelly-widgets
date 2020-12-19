@@ -101,4 +101,5 @@ message DashboardWidgetDto {
     string dashboardWidgetId = 1;
     string widgetId = 2;
     int32 orderNumber = 3;
+    string dashboardId = 4;
 }

@@ -72,6 +72,7 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
             dashboard.DashboardWidgets.Add(
                 new DashboardWidget {
                 DashboardWidgetId = dashboardWidgetId,
+                DashboardId = dashboard?.DashboardId,
                 OrderNumber = widgetOrderNumber,
                 WidgetId = widgetId
             });

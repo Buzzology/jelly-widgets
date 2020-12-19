@@ -97,7 +97,7 @@ namespace WidgetManagementWebApi.Controllers
         }
 
 
-        [HttpPost]
+        [HttpDelete]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("RemoveWidget")]
         public async Task<ApiMessageResponseBase> RemoveWidget([FromBody] DashboardRemoveWidgetRequest request)
