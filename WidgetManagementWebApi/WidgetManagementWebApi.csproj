@@ -8,6 +8,19 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj" />
+    <ProjectReference Include="..\WidgetManagementData\WidgetManagementData.csproj" />
+    <ProjectReference Include="..\WidgetManagementGrpcService\WidgetManagementGrpcService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\WidgetManagementData\Protos\dashboard-services.proto" GrpcServices="Client">
+      <Link>Protos\dashboard-services.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

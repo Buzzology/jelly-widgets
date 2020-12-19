@@ -21,18 +21,13 @@ namespace UserManagementWebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    SetConfiguration(config);
+                    config.SetDefaultConfiguration();
+                    config.SetAzureKeyVaultConfiguration();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static void SetConfiguration(IConfigurationBuilder builder)
-        {
-            // Loaded via library extensions
-            builder.SetDefaultConfiguration();
-            builder.SetAzureKeyVaultConfiguration();
-        }
     }
 }

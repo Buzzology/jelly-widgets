@@ -19,3 +19,18 @@
 
 AT THIS POINT NOW 
 Once we reach this point we should probably start on the ui and see if we can get at least the two sample widgets going.
+
+Widgets:
+- TFN Generator
+- TFN Validator
+- NZ TFN Generator
+- NZ TFN Validator
+- Social security number generator
+- Social security number validator
+- GUID Generator
+- Notepad (save state)
+- Random number generator (min, max, decimal places - save settings)
+- Random person name generator
+- Random address generator
+- Random australian postcode
+- Random email address generator
