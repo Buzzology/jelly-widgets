@@ -17,15 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserManagement", "UserManag
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WidgetManagement", "WidgetManagement", "{624234F3-45AA-4089-90B8-211202B51564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementData", "WidgetManagementData\WidgetManagementData.csproj", "{5F410CB6-7D9D-4FA5-A49F-6E499EB4ECFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetManagementData", "WidgetManagementData\WidgetManagementData.csproj", "{5F410CB6-7D9D-4FA5-A49F-6E499EB4ECFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementWebApi", "WidgetManagementWebApi\WidgetManagementWebApi.csproj", "{AB63C25D-C71B-470A-B39B-B7624A032C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetManagementWebApi", "WidgetManagementWebApi\WidgetManagementWebApi.csproj", "{AB63C25D-C71B-470A-B39B-B7624A032C4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementGrpcService", "WidgetManagementGrpcService\WidgetManagementGrpcService.csproj", "{29BAFA47-CC9B-4BCC-810D-FB4EC6459DC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetManagementGrpcService", "WidgetManagementGrpcService\WidgetManagementGrpcService.csproj", "{29BAFA47-CC9B-4BCC-810D-FB4EC6459DC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementIntegrationEvents", "WidgetManagementIntegrationEvents\WidgetManagementIntegrationEvents.csproj", "{B95165D1-AC4A-4C46-9743-7F690E311798}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetManagementIntegrationEvents", "WidgetManagementIntegrationEvents\WidgetManagementIntegrationEvents.csproj", "{B95165D1-AC4A-4C46-9743-7F690E311798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetManagementConstants", "WidgetManagementConstants\WidgetManagementConstants.csproj", "{053202CA-D1DD-4873-A6AC-D21F71317285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetManagementConstants", "WidgetManagementConstants\WidgetManagementConstants.csproj", "{053202CA-D1DD-4873-A6AC-D21F71317285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionManagementGrpcService", "SubscriptionManagementGrpcService\SubscriptionManagementGrpcService.csproj", "{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscription", "Subscription", "{DEED1D5E-CD5C-4990-8318-3C9D58CC20D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +161,18 @@ Global
 		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x64.Build.0 = Release|Any CPU
 		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x86.ActiveCfg = Release|Any CPU
 		{053202CA-D1DD-4873-A6AC-D21F71317285}.Release|x86.Build.0 = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|x64.Build.0 = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Debug|x86.Build.0 = Debug|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|x64.ActiveCfg = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|x64.Build.0 = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|x86.ActiveCfg = Release|Any CPU
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +187,7 @@ Global
 		{29BAFA47-CC9B-4BCC-810D-FB4EC6459DC7} = {624234F3-45AA-4089-90B8-211202B51564}
 		{B95165D1-AC4A-4C46-9743-7F690E311798} = {624234F3-45AA-4089-90B8-211202B51564}
 		{053202CA-D1DD-4873-A6AC-D21F71317285} = {624234F3-45AA-4089-90B8-211202B51564}
+		{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C} = {DEED1D5E-CD5C-4990-8318-3C9D58CC20D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E207188B-1C80-4179-A7E5-62D1C80B60BE}
