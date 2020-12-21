@@ -9,3 +9,9 @@ dotnet ef migrations add new-migration --project UserManagementGrpcService --con
 ### User management db context
 dotnet ef database update --project UserManagementGrpcService --context UserManagementDbContext  
 dotnet ef migrations add new-migration --project UserManagementGrpcService --context UserManagementDbContext  
+
+
+TODODOD
+New user not created in db
+New dashboard not created for user
+Investigate tototo
