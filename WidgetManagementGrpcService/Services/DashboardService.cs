@@ -179,5 +179,27 @@ namespace WidgetManagementGrpcService.Services
 
             return new DashboardUpdateWidgetResponse { Dashboard = _mapper.Map<Dashboard, DashboardDto>(dashboard) };
         }
+
+
+        public override async Task<DashboardDeleteResponse> DashboardDelete(DashboardDeleteRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation($"Deleting {nameof(request.DashboardId)} {request.DashboardId}");
+
+            try
+            {
+                var dashboard = await _dashboardRepository.Get(request?.DashboardId, request.CurrentUserId);
+
+                await _dashboardRepository.Remove(request.DashboardId, request.CurrentUserId);
+
+                return new DashboardDeleteResponse
+                {
+                    Dashboard = _mapper.Map<Dashboard, DashboardDto>(dashboard)
+                };
+            }
+            catch (Exception e)
+            {
+                throw LibraryHelpers.GenerateRpcException(e);
+            }
+        }
     }
 }

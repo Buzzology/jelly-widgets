@@ -27,7 +27,7 @@ namespace UserManagementGrpcService.Utilities
 
         public static void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            app.ApplicationServices.GetRequiredService<IEventBus>();
         }
 
 
@@ -35,9 +35,6 @@ namespace UserManagementGrpcService.Utilities
         {
             // Add repositories
             services.AddTransient(typeof(IUserDetailRepository), typeof(UserDetailRepository));
-
-            // Add grpc services
-            services.AddTransient(typeof(UserDetailServices.UserDetailServicesBase), typeof(UserDetailServiceV1));
         }
     }
 }

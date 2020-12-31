@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using static UserManagementGrpcService.UserDetailServices;
 using System;
 using UserManagementGrpcService;
+using Grpc.Core;
 
 namespace UserManagementWebApi.Controllers
 {
@@ -55,6 +56,10 @@ namespace UserManagementWebApi.Controllers
                                 },
                             });
                     }
+                }
+                else
+                {
+                    resp.AddError($"No user id provided.");
                 }
             }
             catch (Exception e)

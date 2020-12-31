@@ -30,7 +30,7 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                     jwtOptions.Authority = azureConfig.Authority;
                     jwtOptions.Audience = azureConfig.AppClientId;
                     jwtOptions.Events = new JwtBearerEvents {
-                        //OnAuthenticationFailed = AuthenticationFailed,
+                        OnAuthenticationFailed = AuthenticationFailed,
                     };
                 });
         }

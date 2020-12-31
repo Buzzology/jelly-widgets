@@ -1,26 +1,30 @@
-import React, {  } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route } from "react-router-dom";
 import { GetLoginUrl } from './RouteLinkHelpers';
 import CognitoAuthHandler from '../components/user/CognitoAuthHandler';
 import LayoutDefault from '../components/layout/LayoutDefault';
 import RouteRedirects from './RouteRedirects';
 import usePageTracking from '../components/generic/util/ReactRouterAnalytics';
+import RouteDashboards from './RouteDashboards';
+import { useDispatch } from 'react-redux';
+import { fetchSearchDashboards } from '../redux/dashboard/actions';
+import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
 
 
 const RouteManagerCustom = () => {
     
 	usePageTracking();
 
-    // const dispatch = useDispatch();
-    // const [fetchingTopics, setFetchingTopics] = useState(false);
+    const dispatch = useDispatch();
+    const [fetchingDashboards, setFetchingDashboards] = useState(false);
 
-    // useEffect(() => {
-    //     setFetchingTopics(true);
-    //     (async () => {
-    //         await dispatch(fetchSearchTopics({ pageSize: 20, pageNumber: 1 }));
-    //         setFetchingTopics(false);
-    //     })();
-    // }, [dispatch]);
+    useEffect(() => {
+        setFetchingDashboards(true);
+        (async () => {
+            await dispatch(fetchSearchDashboards({ pageSize: 20, pageNumber: 1 }));
+            setFetchingDashboards(false);
+        })();
+    }, [dispatch]);
 
     return (
         <Switch>
@@ -30,11 +34,11 @@ const RouteManagerCustom = () => {
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
             <Route render={props => <LayoutDefault routeProps={props}>
                 {/* <DashboardPage {...props} /> */}
-                {/* <LoaderAbsoluteCentred loading={fetchingMemberships || fetchingTopics} /> */}
+                <LoaderAbsoluteCentred loading={fetchingDashboards} />
             </LayoutDefault>} />
-            {/* <Route path={'/topics'}>
-            <RouteTopics />
-            </Route> */}
+            <Route path={'/dashboards'}>
+                <RouteDashboards />
+            </Route>
         </Switch>
     )
 }

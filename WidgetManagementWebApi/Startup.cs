@@ -25,17 +25,27 @@ namespace WidgetManagementWebApi
             // Load authentication via shared library
             services.LoadAuthentication(Configuration);
 
+            // Add cors
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials());
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WidgetManagementWebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = nameof(WidgetManagementWebApi), Version = "v1" });
             });
 
             // Add additional libraries/packages
             object p = services.AddAutoMapper(typeof(Startup).Assembly); // https://tutexchange.com/how-to-set-up-automapper-in-asp-net-core-3-0/            
 
             // Add custom services etc
-            StartupHelper.AddServices(services, Configuration);
+            StartupHelper.AddGrpcServices(services, Configuration);
         }
 
 
@@ -50,9 +60,11 @@ namespace WidgetManagementWebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware(typeof(ApiErrorHandlingMiddleware));
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

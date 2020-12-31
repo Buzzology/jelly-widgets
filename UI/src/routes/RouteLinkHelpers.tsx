@@ -1,7 +1,6 @@
 // Models
 // export const GetModelLinkByModel = (model: IModel) => `${GetModelLinkByModelId(model.modelId)}`;
 // export const GetModelLinkByModelId = (modelId: string) => `/models/${modelId}`;
-// export const GetModelTemplateDownloadUrlByModelId = (modelId: string) => `${Configuration.BASE_API_URL}/models/template?modelId=${modelId}`;
 
 import { IUserDetail } from "../@types/UserDetail";
 import { Slugify } from "../utilities/Helpers";

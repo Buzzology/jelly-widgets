@@ -1,4 +1,6 @@
+using MicroservicesProjectLibrary.Utilities.Startup;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -26,9 +28,22 @@ namespace WidgetManagementGrpcService
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                 .ConfigureAppConfiguration((context, config) =>
+                 {
+                     config.SetDefaultConfiguration();
+                     config.SetAzureKeyVaultConfiguration();
+                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    .ConfigureKestrel(options =>
+                    {
+                        //options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http2);
+                        options.ListenLocalhost(5109, listenOptions =>
+                        {
+                            listenOptions.Protocols = HttpProtocols.Http2;
+                        });
+                    });
                 });
     }
 }

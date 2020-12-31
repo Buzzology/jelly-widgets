@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MicroservicesProjectLibrary.Infrastructure;
-using MicroservicesProjectLibrary.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,10 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UserManagementGrpcService.Infrastructure;
 using UserManagementGrpcService.Services;
 using UserManagementGrpcService.Utilities;
@@ -48,7 +43,12 @@ namespace UserManagementGrpcService
                 });
             
             // Add misc
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
+
+            // Add automapper
             services.AddAutoMapper(typeof(Startup).Assembly); // https://tutexchange.com/how-to-set-up-automapper-in-asp-net-core-3-0/
 
             // Add custom services etc
@@ -64,16 +64,13 @@ namespace UserManagementGrpcService
                 app.UseDeveloperExceptionPage();
             }
 
+            //app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<UserDetailServiceV1>();
-
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-                });
             });
         }
     }

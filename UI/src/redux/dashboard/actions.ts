@@ -42,7 +42,7 @@ export const fetchCreateDashboard = (dashboardToCreate: IFetchCreateDashboardPro
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.BASE_CONTENT_MANAGEMENT_API_URL}/dashboards/create`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/create`, {
             method: 'POST',
             headers: headers,
             body: PrepareBody({ dashboard: dashboardToCreate }),
@@ -81,7 +81,7 @@ export const fetchUpdateDashboard = (props: IFetchUpdateDashboardProps): AppThun
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.BASE_API_URL}/dashboards`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards`, {
             method: 'PUT',
             headers: headers,
             body: PrepareBody(props),
@@ -121,7 +121,7 @@ export const fetchSearchDashboards = (searchParams: IFetchSearchDashboardsProps)
     var headers = GetDefaultHeaders(true, false, true);
 
     try {
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.BASE_API_URL}/dashboards/search`, searchParams), {
+        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/search`, searchParams), {
             method: 'GET',
             headers: headers
         });
@@ -157,7 +157,7 @@ export const fetchGetDashboard = (params: IFetchGetDashboardsProps): AppThunk<Pr
     var headers = GetDefaultHeaders(true, false, true);
 
     try {
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.BASE_API_URL}/dashboards/get`, params), {
+        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/get`, params), {
             method: 'GET',
             headers: headers
         });
@@ -195,7 +195,7 @@ export const fetchDeleteDashboard = (props: IFetchDeleteDashboardProps): AppThun
 
     try {
 
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.BASE_API_URL}/dashboards`, props), {
+        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards`, props), {
             method: 'DELETE',
             headers: headers
         });

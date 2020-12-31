@@ -38,7 +38,7 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.BASE_CONTENT_MANAGEMENT_API_URL}/dashboardWidgets/create`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboardWidgets/create`, {
             method: 'POST',
             headers: headers,
             body: PrepareBody({ dashboardWidget: createRequest?.dashboardWidget }),
@@ -75,7 +75,7 @@ export const fetchUpdateDashboardWidget = (props: IFetchUpdateDashboardWidgetPro
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.BASE_API_URL}/dashboardWidgets`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboardWidgets`, {
             method: 'PUT',
             headers: headers,
             body: PrepareBody(props),
@@ -129,7 +129,7 @@ export const fetchRemoveDashboardWidget = (props: IFetchRemoveDashboardWidgetPro
 
     try {
 
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.BASE_API_URL}/dashboards/removewidget`, props), {
+        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/removewidget`, props), {
             method: 'DELETE',
             headers: headers
         });

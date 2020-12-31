@@ -11,6 +11,7 @@ service DashboardServices {
   rpc DashboardGet (DashboardGetRequest) returns (DashboardGetResponse);
   rpc DashboardSearch (DashboardSearchRequest) returns (DashboardSearchResponse);
   rpc DashboardUpdate (DashboardUpdateRequest) returns (DashboardUpdateResponse);
+  rpc DashboardDelete (DashboardDeleteRequest) returns (DashboardDeleteResponse);
   rpc DashboardAddWidget (DashboardAddWidgetRequest) returns (DashboardAddWidgetResponse);
   rpc DashboardRemoveWidget (DashboardRemoveWidgetRequest) returns (DashboardRemoveWidgetResponse);
   rpc DashboardUpdateWidget (DashboardUpdateWidgetRequest) returns (DashboardUpdateWidgetResponse);
@@ -31,6 +32,15 @@ message DashboardUpdateRequest {
 }
 
 message DashboardUpdateResponse {
+    DashboardDto dashboard = 1;
+}
+
+message DashboardDeleteRequest {
+  string dashboardId = 1;
+  string currentUserId = 2;
+}
+
+message DashboardDeleteResponse {
     DashboardDto dashboard = 1;
 }
 

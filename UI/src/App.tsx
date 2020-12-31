@@ -11,6 +11,7 @@ import RouteManagerCustom from './routes';
 // Initialisation info
 console.log(`Environment Name: ${process.env.REACT_APP_ENV_DISPLAY_NAME}`);
 console.log(`Cognito Endpoint: ${process.env.REACT_APP_COGNITO_ENDPOINT}`);
+console.log(`Configuration: ${JSON.stringify(process.env, null, '    ')}`)
 
 const theme = createMuiTheme({
 	palette: {

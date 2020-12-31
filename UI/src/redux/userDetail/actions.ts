@@ -35,7 +35,7 @@ export const fetchSearchUserDetails = ({ userIds = [], pageSize, pageNumber, use
     var headers = GetDefaultHeaders(true, false, true);
 
     try {
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.BASE_API_URL}/userDetails`, {
+        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userDetails`, {
             userIds: userIds.join('_'),
             pageSize,
             pageNumber,
@@ -63,7 +63,7 @@ export const fetchValidateUser = (): AppThunk<Promise<IUserDetail[]>> => async d
     var headers = GetDefaultHeaders(true, false, true);
 
     try {
-        var apiResponse = await fetch(`${Configuration.BASE_CONTENT_MANAGEMENT_API_URL}/userPrep/validate`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userDetails/validate`, {
             method: 'POST',
             headers: headers,
             body: PrepareBody({

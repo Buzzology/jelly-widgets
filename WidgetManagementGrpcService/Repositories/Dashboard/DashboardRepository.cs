@@ -116,7 +116,7 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
         public async Task Remove(string dashboardId, string currentUserId)
         {
             _ = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
-            _dashboards.DeleteOne(membership => membership.DashboardId == dashboardId);
+            _dashboards.DeleteOne(dashboard => dashboard.DashboardId == dashboardId);
         }
 
 

@@ -1,8 +1,10 @@
-﻿using MicroservicesProjectLibrary.Utilities.Api;
+﻿using MicroservicesProjectLibrary.Utilities;
+using MicroservicesProjectLibrary.Utilities.Api;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService;
 using static WidgetManagementGrpcService.DashboardServices;
@@ -45,6 +47,8 @@ namespace WidgetManagementWebApi.Controllers
             var resp = new ApiMessageResponseBase(this?.User);
 
             request.CurrentUserId = resp.UserId;
+            if(request?.Dashboard != null) request.Dashboard.DashboardId = Guid.NewGuid().GetUrlFriendlyString();
+
             resp.Data = new { (await _dashboardServicesClient.DashboardCreateAsync(request))?.Dashboard };
             resp.Success = true;
 
@@ -112,15 +116,29 @@ namespace WidgetManagementWebApi.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("Search")]
-        public async Task<ApiMessageResponseBase> Search([FromBody] DashboardSearchRequest request)
+        public async Task<ApiMessageResponseBase> Search([FromQuery] DashboardSearchRequest request)
         {
             var resp = new ApiMessageResponseBase(this?.User);
 
             request.CurrentUserId = resp.UserId;
             resp.Data = new { (await _dashboardServicesClient.DashboardSearchAsync(request))?.Dashboards };
+            resp.Success = true;
+
+            return resp;
+        }
+
+
+        [HttpDelete]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ApiMessageResponseBase> Delete([FromQuery] DashboardDeleteRequest request)
+        {
+            var resp = new ApiMessageResponseBase(this?.User);
+            
+            request.CurrentUserId = resp.UserId;
+            resp.Data = new { (await _dashboardServicesClient.DashboardDeleteAsync(request))?.Dashboard };
             resp.Success = true;
 
             return resp;

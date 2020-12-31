@@ -39,9 +39,6 @@ namespace WidgetManagementGrpcService.Utilities
             // Add repositories
             services.AddTransient(typeof(IDashboardRepository), typeof(DashboardRepository));
             services.AddTransient(typeof(IWidgetRepository), typeof(WidgetRepository));
-
-            // Add grpc services
-            services.AddTransient(typeof(DashboardServices.DashboardServicesBase), typeof(DashboardServiceV1));
         }
 
 
