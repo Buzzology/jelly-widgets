@@ -13,8 +13,22 @@ import { Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/c
 import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/ContactSupportOutlined'
-import { NavLink } from 'react-router-dom';
-import { GetTopicsSearch } from '../../routes/RouteLinkHelpers';
+import { NavLink, useParams } from 'react-router-dom';
+import { GetDashboardLinkByDashboardIdAndName, GetTopicsSearch } from '../../routes/RouteLinkHelpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { UiFormStateIdEnum } from '../../@types/UiFormState';
+import { RootState } from '../../redux';
+import { setFormOpenState } from '../../redux/uiFormState/actions';
+import { WidgetNoResultsPlaceholder } from '../generic/widgets/WidgetNoResultsPlaceholder';
+import { selectorGetDashboardWidgetsByDashboardId } from '../../redux/dashboardWidget/selectors';
+import { selectorGetDashboardById, selectorGetDashboards } from '../../redux/dashboard/selectors';
+import IDashboard from '../../@types/Dashboard';
+import { TreeView } from '@material-ui/lab';
+import IDashboardWidget from '../../@types/DashboardWidget';
+import EditIcon from '@material-ui/icons/Edit';
+import AddSubjectIcon from '@material-ui/icons/Add';
+import DashboardIcon from '../dashboards/DashboardIcon';
+import { selectorGetUiFormStateById } from '../../redux/uiFormState/selectors';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -164,6 +178,10 @@ interface ILayoutSidebarProps {
 const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
 
     const classes = useStyles();
+    const { dashboardId } = useParams() as any;
+    const dashboards = useSelector((store: RootState) => selectorGetDashboards(store));
+    const activeDashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
+    const activeDashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
 
     return (
         <Drawer
@@ -196,6 +214,15 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                             <NewTopicIcon />
                         </IconButton>
                     </div>
+                    {
+                        dashboards.map(x => {
+                            return (
+                                <div className={classes.topicIconWrapper}>
+                                    <DashboardIcon dashboardName={x.name} dashboardId={x.dashboardId} />
+                                </div>
+                            );
+                        })
+                    }
                 </div>
                 <div className={classes.topicTagCategoriesContainer}>
                     <div className={classes.topicTagCategoryWrapper}>
@@ -204,6 +231,7 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                         }}
                             noWrap={true}
                         >
+                            {activeDashboard?.name || "No dashboard selected."}
                         </Typography>
                         <Typography
                             variant="caption"
@@ -212,9 +240,11 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                             }}
                             noWrap={true}
                         >
+                            {activeDashboardWidgets.length} Widgets
                         </Typography>
                     </div>
                     <Divider />
+                    <DashboardWidgets dashboardId={dashboardId} />
                 </div>
             </div>
             <Divider />
@@ -230,6 +260,93 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
             </List>
         </Drawer>
     );
+}
+
+
+function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
+
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const widgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
+    const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
+
+    function setWidgetAddFormOpen() {
+        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, dashboardId));
+    }
+
+    if (!dashboard) return (
+        <>
+            &nbsp;<br />
+            <WidgetNoResultsPlaceholder
+                text="No dashboard selected"
+                fade={true}
+            />
+        </>
+    )
+
+    return (
+        <div className={classes.topicTagCategoryWrapper}>
+            <Typography variant="body2">
+                Widgets
+                    <IconButton aria-label="Add Widget" color="default"
+                    onClick={setWidgetAddFormOpen}
+                    style={{
+                        position: 'absolute',
+                        right: 3,
+                        top: 3,
+                        padding: 3,
+                    }}>
+                    <AddSubjectIcon />
+                </IconButton>
+            </Typography>
+            <WidgetsDisplay widgets={widgets} dashboard={dashboard} />
+        </div>
+    )
+}
+
+
+function WidgetsDisplay({ widgets, dashboard }: { dashboard: IDashboard, widgets: IDashboardWidget[] }) {
+
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const [expanded, setExpanded] = React.useState<string[]>();
+    const [selected, setSelected] = React.useState<string[]>();
+
+    const handleToggle = (event: any, nodeIds: string[]) => {
+        setExpanded(nodeIds);
+    };
+
+    const handleSelect = (event: any, nodeIds: string[]) => {
+        setSelected(nodeIds);
+    };
+
+    function setDashboardAddWidgetFormOpen() {
+        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, { dashboardId: dashboard?.dashboardId }));
+    }
+
+    return (
+        <>
+            {
+                widgets.map((widget: IDashboardWidget) => {
+                    return (
+                        <Typography
+                            component={NavLink}
+                            to={`${GetDashboardLinkByDashboardIdAndName(dashboard?.dashboardId, dashboard?.name)}`}
+                            variant="body2"
+                            className={classes.topicTagCategoryTreeItem}>
+                            {widget.orderNumber}
+                            <IconButton
+                                className={classes.sidebarEditIcon}
+                                onClick={setDashboardAddWidgetFormOpen}
+                                size="small">
+                                <EditIcon className={classes.sidebarEditIcon} />
+                            </IconButton>
+                        </Typography>
+                    )
+                })
+            }
+        </>
+    )
 }
 
 

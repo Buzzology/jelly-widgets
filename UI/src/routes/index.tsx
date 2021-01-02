@@ -31,14 +31,15 @@ const RouteManagerCustom = () => {
             <Route exact={true} path="/login" component={() => { window.location.href = GetLoginUrl(); return null; }} />
             <Route exact={true} path="/signin-oidc" component={CognitoAuthHandler} />
             <Route path={'/redirect/:type?/:id?'}><RouteRedirects /></Route>
+            <Route path={'/dashboards'}>
+                <RouteDashboards />
+            </Route>
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
             <Route render={props => <LayoutDefault routeProps={props}>
                 {/* <DashboardPage {...props} /> */}
                 <LoaderAbsoluteCentred loading={fetchingDashboards} />
             </LayoutDefault>} />
-            <Route path={'/dashboards'}>
-                <RouteDashboards />
-            </Route>
+            
         </Switch>
     )
 }

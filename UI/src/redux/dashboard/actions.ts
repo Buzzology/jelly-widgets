@@ -6,6 +6,7 @@ import { PrepareBody, ShowError } from "../../utilities/Helpers";
 import { IApiResponse } from "../../@types/Api";
 import IDashboard from "../../@types/Dashboard";
 import { receiveDashboardWidgets } from "../dashboardWidget/actions";
+import { selectorGetDashboardById } from "./selectors";
 
 export const receiveDashboards = (dashboards: IDashboard[]) => {
 
@@ -237,4 +238,14 @@ function dispatchAndRemoveChildDashboardEntities(dispatch: any, dashboards: IDas
     dispatch(receiveDashboards(dashboards));
 
     return dashboards;
+}
+
+
+export const fetchDashboardByIdIfNeeded = (dashboardId: string): AppThunk<Promise<void>> => async (dispatch, getState) => {
+
+    if (!selectorGetDashboardById(getState(), dashboardId)) {
+        await dispatch(fetchSearchDashboards({ dashboardId, pageNumber: 1, pageSize: 1 }));
+    }
+
+    return;
 }

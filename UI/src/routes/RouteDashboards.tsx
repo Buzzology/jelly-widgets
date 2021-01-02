@@ -13,7 +13,8 @@ const RouteTopics = () => {
 
     return (
         <Switch>
-            {/* <Route path={`${match.path}/:dashboardId/:dashboardName`}><RouteDashboard /></Route> */}
+            <Route path={`${match.path}/:dashboardId?/:dashboardName`}><RouteDashboard /></Route>
+            <Route><RouteDashboard /></Route>
         </Switch>
     )
 }

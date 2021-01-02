@@ -18,12 +18,11 @@ export const receiveUiFormStates = (uiFormStates: IUiFormState[]) => {
 };
 
 
-export const setFormOpenState = (formId: UiFormStateIdEnum, open: boolean, topicId?: string, params?: any) => async ( dispatch: Dispatch) => {
+export const setFormOpenState = (formId: UiFormStateIdEnum, open: boolean, params?: any) => async ( dispatch: Dispatch) => {
     
     var newFormState: IUiFormState = {
         uiFormStateId: formId,
         open,
-        topicId,
         params,
     }
     

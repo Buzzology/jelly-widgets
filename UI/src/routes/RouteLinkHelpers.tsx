@@ -6,6 +6,9 @@ import { IUserDetail } from "../@types/UserDetail";
 import { Slugify } from "../utilities/Helpers";
 import { Configuration } from "../utilities/Constants";
 
+// Dashboards
+export const GetDashboardLinkByDashboardIdAndName = (dashboardId: string, name: string) => `/dashboards/${dashboardId}/${name}`;
+
 
 // Redirects
 // export const GetRedirectLinkByEntityTypeAndId = (entityType: EntityTypeEnum, entityId: string) => `/redirect/${entityType}/${entityId}`;
