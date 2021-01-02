@@ -1,37 +1,53 @@
-import React, { } from 'react';
+import React, { useState } from 'react';
 import { Container, Grid, Typography, IconButton } from '@material-ui/core';
 import { RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
-import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
+import { selectorGetWidgetById } from '../../../redux/widget/selectors';
 import { CustomColors } from '../../../utilities/Styles';
 import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { UiFormStateIdEnum } from '../../../@types/UiFormState';
 import { setFormOpenState } from '../../../redux/uiFormState/actions';
-import EditDashboardIcon from '@material-ui/icons/EditTwoTone';
+import EditWidgetIcon from '@material-ui/icons/EditTwoTone';
+import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actions';
 
 
-interface IPageDashboardViewProps {
+interface IPageWidgetViewProps {
     routeProps: RouteComponentProps<any>,
     loading: boolean,
+    widgetId: string,
     dashboardId: string,
 }
 
-const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) => {
+const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps) => {
 
-    const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
+    const widget = useSelector((store: RootState) => selectorGetWidgetById(store, widgetId));
     const dispatch = useDispatch();
+    const [addingWidget, setAddingWidget] = useState(false);
 
-    function setPostFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true, dashboardId));
+    const addWidgetToDashboardClick = async (e: any) => {
+
+        setAddingWidget(true);
+
+        debugger;
+
+        try {
+            await dispatch(fetchCreateDashboardWidget({
+                dashboardWidget: {
+                    dashboardWidgetId: '',
+                    widgetId,
+                    orderNumber: 0,
+                    dashboardId,
+                }
+            }))
+        }
+        finally {
+            setAddingWidget(false);
+        }
     }
 
-    function setUpdateDashboardOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardUpdate, true, { dashboard }));
-    }
-
-    if (!dashboard) {
+    if (!widget) {
         return (
             <Grid item xs={12} sm={7} md={3}
                 style={{
@@ -48,10 +64,10 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                     ) : (
                             <>
                                 <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
-                                    Dashboard not found.
+                                    Widget not found.
                                 </Typography>
                                 <Typography variant="subtitle2">
-                                    You may have followed an invalid link or the dashboard has been removed.
+                                    You may have followed an invalid link or the widget has been removed.
                                 </Typography>
                             </>
                         )
@@ -72,35 +88,34 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
         >
             <Grid container>
                 <Grid item xs={10}>
-                    <Typography variant="body1" component="span" style={{
+                    {/* <Typography variant="body1" component="span" style={{
                         color: CustomColors.MetalDarkTextColor,
                         fontWeight: 600,
                     }} >
-                        {dashboardId}
+                        {widgetId}
                     </Typography>
-                    {dashboard ? (
+                    {widget ? (
                         <>
-                            <IconButton size="small" style={{ marginLeft: 8 }} onClick={setUpdateDashboardOpen}>
-                                <EditDashboardIcon style={{ height: 16, width: 16 }} />
+                            <IconButton size="small" style={{ marginLeft: 8 }}>
+                                <EditWidgetIcon style={{ height: 16, width: 16 }} />
                             </IconButton>
                         </>
-                    ) : null}
+                    ) : null} */}
                 </Grid>
 
                 <Grid item xs={2} style={{ textAlign: 'right' }}>
                     <>
                         <ButtonSecondary
                             variant="text"
-                            onClick={setPostFormOpen}
                         >
                             Leave
                         </ButtonSecondary>
                         &nbsp;
                         <ButtonSecondary
                             variant="outlined"
-                            onClick={setPostFormOpen}
+                            onClick={addWidgetToDashboardClick}
                         >
-                            Create Dashboard
+                            {addingWidget ? (<LoaderAbsoluteCentred loading={loading} />) : "Add Widget"}
                         </ButtonSecondary>
                     </>
                 </Grid>
@@ -117,8 +132,14 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                 </Grid>
                 <Grid container>
                     <Grid item xs={12}>
-                        {/* <PostsSearchWidget dashboardId={dashboard?.dashboardId} tags={tags} /> */}
-                        Search Widget
+                        <>
+                            <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
+                                {widget?.name}
+                            </Typography>
+                            <Typography variant="subtitle2">
+                                {widget?.description}
+                            </Typography>
+                        </>
                     </Grid>
                 </Grid>
             </Grid>
@@ -128,4 +149,4 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 }
 
 
-export default PageDashboardView;
+export default PageWidgetView;

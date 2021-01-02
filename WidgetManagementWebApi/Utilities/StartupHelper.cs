@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using static WidgetManagementGrpcService.DashboardServices;
+using static WidgetManagementGrpcService.WidgetServices;
 
 namespace WidgetManagementWebApi.Utilities
 {
@@ -12,6 +13,11 @@ namespace WidgetManagementWebApi.Utilities
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             services.AddGrpcClient<DashboardServicesClient>(c =>
+            {
+                c.Address = new Uri(@"http://localhost:5109");
+            });
+
+            services.AddGrpcClient<WidgetServicesClient>(c =>
             {
                 c.Address = new Uri(@"http://localhost:5109");
             });

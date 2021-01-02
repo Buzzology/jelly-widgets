@@ -78,7 +78,9 @@ namespace WidgetManagementWebApi.Controllers
         {
             var resp = new ApiMessageResponseBase(this?.User);
 
+            request.DashboardWidgetId = Guid.NewGuid().GetUrlFriendlyString();
             request.CurrentUserId = resp.UserId;
+
             resp.Data = new { (await _dashboardServicesClient.DashboardAddWidgetAsync(request))?.Dashboard };
             resp.Success = true;
 

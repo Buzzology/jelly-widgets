@@ -9,6 +9,7 @@ import RouteDashboards from './RouteDashboards';
 import { useDispatch } from 'react-redux';
 import { fetchSearchDashboards } from '../redux/dashboard/actions';
 import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
+import RouteWidgets from './RouteWidgets';
 
 
 const RouteManagerCustom = () => {
@@ -33,6 +34,9 @@ const RouteManagerCustom = () => {
             <Route path={'/redirect/:type?/:id?'}><RouteRedirects /></Route>
             <Route path={'/dashboards'}>
                 <RouteDashboards />
+            </Route>
+            <Route path={'/widgets'}>
+                <RouteWidgets />
             </Route>
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
             <Route render={props => <LayoutDefault routeProps={props}>

@@ -42,16 +42,16 @@ namespace WidgetManagementGrpcService.Services
                         PageNumber = request.PageNumber,
                         PageSize = request.PageSize,
                     });
+
+                var resp = new WidgetSearchResponse();
+                resp.Widgets.AddRange(_mapper.Map<List<WidgetDto>>(widget));
+
+                return resp;
             }
             catch (Exception e)
             {
                 throw LibraryHelpers.GenerateRpcException(e);
             }
-
-            var resp = new WidgetSearchResponse();
-            resp.Widgets.AddRange(_mapper.Map<List<WidgetDto>>(widget));
-
-            return resp;
         }
 
 

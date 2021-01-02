@@ -38,10 +38,10 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboardWidgets/create`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/addWidget`, {
             method: 'POST',
             headers: headers,
-            body: PrepareBody({ dashboardWidget: createRequest?.dashboardWidget }),
+            body: PrepareBody(createRequest?.dashboardWidget),
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
@@ -50,7 +50,7 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
         }
         else {
             if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {
-                ShowError("Error creating dashboardWidget.");
+                ShowError("Error creating dashboard widget.");
                 return null;
             }
         }
@@ -58,7 +58,7 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
     }
     catch (e) {
         ShowExceptionAsMessage(e);
-        console.log("Error creating dashboardWidget.", e.stack);
+        console.log("Error creating dashboard widget.", e.stack);
         return;
     }
 }

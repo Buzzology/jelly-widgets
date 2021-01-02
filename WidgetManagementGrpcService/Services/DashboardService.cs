@@ -124,11 +124,14 @@ namespace WidgetManagementGrpcService.Services
         {
             _logger.LogInformation($"Running {nameof(DashboardAddWidget)} for {nameof(Dashboard)}.");
 
-            Dashboard dashboard;
-
             try
             {
-                await _dashboardRepository.AddWidget(request?.DashboardId, request.DashboardWidgetId, request.WidgetId, request.WidgetOrderNumber, request.CurrentUserId);
+                var dashboard = await _dashboardRepository.AddWidget(request?.DashboardId, request.DashboardWidgetId, request.WidgetId, request.WidgetOrderNumber, request.CurrentUserId);
+
+                return new DashboardAddWidgetResponse
+                {
+                    Dashboard = _mapper.Map<Dashboard, DashboardDto>(dashboard)
+                };
             }
             catch (Exception e)
             {

@@ -23,3 +23,8 @@ export const GetUserLinkByUserId = (userId: string) => `/users/${userId}`;
 export const GetLoginUrl = () => `${Configuration.COGNITO_ENDPOINT}`;
 export const GetSignUpUrl = () => `${Configuration.COGNITO_ENDPOINT}`;
 export const GetUserAccountConfigurationUrl = () => `/account`;
+
+// Widgets
+export const GetWidgetLinkByNameIdAndDashboardId = (widgetId: string, name: string, dashboardId: string) => `/widgets/${widgetId}/${Slugify(name)}/${dashboardId}`;
+// export const GetWidgetsSearch = () => `/widgets/search`;
+export const GetWidgetsSearchWithDashboardId = (dashboardId: string, query: string) => `/widgets/search/${dashboardId}/${query}`;

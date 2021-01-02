@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { IFetchSearchWidgetsProps, fetchSearchWidgets } from "../../redux/widget/actions";
-import { IWidget } from "../../@types/Widget";
+import IWidget from "../../@types/Widget";
 
 
 export interface IUseFetchWidgetsPageHookProps extends IFetchSearchWidgetsProps {

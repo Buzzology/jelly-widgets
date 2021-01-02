@@ -12,7 +12,7 @@ interface IPageWidgetsSearchProps {
 
 const PageWidgetsSearch = ({ loading }: IPageWidgetsSearchProps) => {
 
-    const { query } = useParams() as any;
+    const { query, dashboardId } = useParams() as any;
 
     return (
         <Container style={{
@@ -26,6 +26,7 @@ const PageWidgetsSearch = ({ loading }: IPageWidgetsSearchProps) => {
         >
             <WidgetsSearchWidget
                 query={query}
+                dashboardId={dashboardId}
             />
             <LoaderAbsoluteCentred loading={loading} />
         </Container>

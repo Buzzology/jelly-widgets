@@ -7,6 +7,7 @@ import { uiFormStatesReducer } from "./uiFormState/reducers";
 import { userDetailsReducer } from "./userDetail/reducers";
 import { dashboardsReducer } from "./dashboard/reducers";
 import { dashboardWidgetsReducer } from "./dashboardWidget/reducers";
+import { widgetsReducer } from "./widget/reducers";
 
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     messages: messagesReducer,
     uiFormStates: uiFormStatesReducer,
     userDetails: userDetailsReducer,
+    widgets: widgetsReducer,
 });
 
 

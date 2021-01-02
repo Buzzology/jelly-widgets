@@ -14,7 +14,7 @@ import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/ContactSupportOutlined'
 import { NavLink, useParams } from 'react-router-dom';
-import { GetDashboardLinkByDashboardIdAndName, GetTopicsSearch } from '../../routes/RouteLinkHelpers';
+import { GetDashboardLinkByDashboardIdAndName, GetTopicsSearch, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { UiFormStateIdEnum } from '../../@types/UiFormState';
 import { RootState } from '../../redux';
@@ -289,7 +289,8 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
             <Typography variant="body2">
                 Widgets
                     <IconButton aria-label="Add Widget" color="default"
-                    onClick={setWidgetAddFormOpen}
+                    component={NavLink}
+                    to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
                     style={{
                         position: 'absolute',
                         right: 3,

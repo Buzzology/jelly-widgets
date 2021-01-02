@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { makeStyles, Typography, Grid, Divider, TextField, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LoaderAbsoluteCentred from '../generic/loaders/LoaderAbsoluteCentred';
-import { IUseFetchWidgetsPageHookProps, useFetchWidgetsPageHook } from './Hooks';
 import { CustomColors } from '../../utilities/Styles';
 import WidgetIcon from './WidgetIcon';
 import ButtonSecondary from '../generic/buttons/ButtonSecondary';
 import { useDispatch } from 'react-redux';
-import { setFormOpenState } from '../../redux/uiFormState/actions';
-import { UiFormStateIdEnum } from '../../@types/UiFormState';
 import { Link } from 'react-router-dom';
 import { GetUserId } from '../../utilities/ApiUtils';
+import { IUseFetchWidgetsPageHookProps, useFetchWidgetsPageHook } from './Hook';
+import { WidgetSearchOrderTypeEnum } from '../../redux/widget/types';
+import IWidget from '../../@types/Widget';
+import { GetWidgetLinkByNameIdAndDashboardId } from '../../routes/RouteLinkHelpers';
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,14 +42,14 @@ const useStyles = makeStyles(theme => ({
 
 
 interface IWidgetsSearchWidgetProps {
-    query: string
+    query: string,
+    dashboardId: string,
 }
 
 
-function WidgetsSearchWidget({ query }: IWidgetsSearchWidgetProps) {
+function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
     const [searchText, setSearchTextFilter] = useState<string>(query || '');
     const [orderTypeToSearchWith] = useState<WidgetSearchOrderTypeEnum>();
     const userId = GetUserId();
@@ -58,9 +59,9 @@ function WidgetsSearchWidget({ query }: IWidgetsSearchWidgetProps) {
         minPageNumberToFetch: 1,
     });
 
-    function setWidgetFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.WidgetCreate, true));
-    }
+    // function setWidgetFormOpen() {
+    //     dispatch(setFormOpenState(UiFormStateIdEnum.WidgetCreate, true));
+    // }
 
     function runSearch(e: any) {
         setCurrentSearchValues({
@@ -97,7 +98,7 @@ function WidgetsSearchWidget({ query }: IWidgetsSearchWidgetProps) {
                     <Grid item xs={2} style={{ textAlign: 'right' }}>
                         <ButtonSecondary
                             variant="outlined"
-                            onClick={setWidgetFormOpen}
+                            // onClick={setWidgetFormOpen}
                         >
                             Create Widget
                     </ButtonSecondary>
@@ -134,7 +135,7 @@ function WidgetsSearchWidget({ query }: IWidgetsSearchWidgetProps) {
                         lastResultSet.map(x => {
                             return (
                                 <>
-                                    <WidgetSearchResult widget={x} />
+                                    <WidgetSearchResult widget={x} dashboardId={dashboardId}/>
                                 </>
                             )
                         })
@@ -167,7 +168,7 @@ function WidgetsSearchWidget({ query }: IWidgetsSearchWidgetProps) {
 }
 
 
-const WidgetSearchResult = ({ widget }: { widget: IWidget }) => {
+const WidgetSearchResult = ({ widget, dashboardId }: { widget: IWidget, dashboardId: string }) => {
 
     const classes = useStyles();
 
@@ -178,7 +179,7 @@ const WidgetSearchResult = ({ widget }: { widget: IWidget }) => {
                 xs={12}
                 className={classes.widgetSearchResultWrapper}
                 component={Link}
-                to={GetWidgetLinkByWidgetName(widget?.name)}
+                to={GetWidgetLinkByNameIdAndDashboardId(widget?.widgetId, widget?.name, dashboardId)}
             >
                 <div style={{ display: 'flex' }}>
                     <div style={{ flexShrink: 0, display: 'flex', marginRight: 16 }}>
@@ -193,8 +194,8 @@ const WidgetSearchResult = ({ widget }: { widget: IWidget }) => {
                                 {widget.name}
                             </Typography>
                             <Typography variant="body2" style={{ color: CustomColors.MetalDefaultTextColor }} >
-                                {String(widget.memberCount)} member{widget.memberCount === 1 ? '' : 's'} <b>&middot;</b>&nbsp;
-                                {String(widget.postCount)} post{widget.postCount === 1 ? '' : 's'} <b>&middot;</b>&nbsp;
+                                10 members <b>&middot;</b>&nbsp;
+                                4 posts <b>&middot;</b>&nbsp;
                                 {widget.description}
                             </Typography>
                         </div>

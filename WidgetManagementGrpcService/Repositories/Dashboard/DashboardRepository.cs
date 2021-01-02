@@ -68,14 +68,16 @@ namespace WidgetManagementGrpcService.Repositories.Dashboard
 
         public async Task<Models.Dashboard> AddWidget(string dashboardId, string dashboardWidgetId, string widgetId, int widgetOrderNumber, string currentUserId)
         {
-            var dashboard = await Get(dashboardId, currentUserId) ?? throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+            var dashboard = await Get(dashboardId, currentUserId);
+            if(string.IsNullOrWhiteSpace(dashboard?.DashboardId)) throw new KeyNotFoundException($"{nameof(Models.Dashboard)} was not found: {dashboardId}");
+
             dashboard.DashboardWidgets.Add(
                 new DashboardWidget {
-                DashboardWidgetId = dashboardWidgetId,
-                DashboardId = dashboard?.DashboardId,
-                OrderNumber = widgetOrderNumber,
-                WidgetId = widgetId
-            });
+                    DashboardWidgetId = dashboardWidgetId,
+                    DashboardId = dashboard?.DashboardId,
+                    OrderNumber = widgetOrderNumber,
+                    WidgetId = widgetId
+                });
 
             _dashboards.ReplaceOne(dashboard => dashboard.DashboardId == dashboardId, dashboard);
 

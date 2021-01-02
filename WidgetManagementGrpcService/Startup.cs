@@ -61,6 +61,7 @@ namespace WidgetManagementGrpcService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DashboardServiceV1>();
+                endpoints.MapGrpcService<WidgetServiceV1>();
             });
         }
     }
