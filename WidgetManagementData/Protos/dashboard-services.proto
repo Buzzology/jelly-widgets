@@ -91,7 +91,6 @@ message DashboardSearchRequest {
     string dashboardId = 3;
     int32 pageSize = 4;
     int32 pageNumber = 5;
-    string postId = 6;
 }
 
 message DashboardSearchResponse {

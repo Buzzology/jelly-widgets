@@ -28,8 +28,8 @@
     <Protobuf Include="..\WidgetManagementData\Protos\dashboard-services.proto" GrpcServices="Server">
       <Link>Protos\dashboard-services.proto</Link>
     </Protobuf>
-    <Protobuf Include="..\WidgetManagementData\Protos\greet.proto" GrpcServices="Server">
-      <Link>Protos\greet.proto</Link>
+    <Protobuf Include="..\WidgetManagementData\Protos\widget-services.proto" GrpcServices="Server">
+      <Link>Protos\widget-services.proto</Link>
     </Protobuf>
   </ItemGroup>
 

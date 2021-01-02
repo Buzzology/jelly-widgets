@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+option csharp_namespace = "WidgetManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package WidgetManagementGrpcService.v1;
+
+service WidgetServices {
+  rpc WidgetCreate (WidgetCreateRequest) returns (WidgetCreateResponse);
+  rpc WidgetGet (WidgetGetRequest) returns (WidgetGetResponse);
+  rpc WidgetSearch (WidgetSearchRequest) returns (WidgetSearchResponse);
+  rpc WidgetUpdate (WidgetUpdateRequest) returns (WidgetUpdateResponse);
+  rpc WidgetDelete (WidgetDeleteRequest) returns (WidgetDeleteResponse);
+}
+
+message WidgetCreateRequest {
+  WidgetDto widget = 1;
+  string currentUserId = 2;
+}
+
+message WidgetCreateResponse {
+    WidgetDto widget = 1;
+}
+
+message WidgetUpdateRequest {
+  WidgetDto widget = 1;
+  string currentUserId = 2;
+}
+
+message WidgetUpdateResponse {
+    WidgetDto widget = 1;
+}
+
+message WidgetDeleteRequest {
+  string widgetId = 1;
+  string currentUserId = 2;
+}
+
+message WidgetDeleteResponse {
+    WidgetDto widget = 1;
+}
+
+message WidgetGetRequest {
+    string widgetId = 1;
+    string currentUserId = 2;
+}
+
+message WidgetGetResponse {
+    WidgetDto widget = 1;
+}
+
+message WidgetSearchRequest {
+    string currentUserId = 1;
+    string text = 2;
+    string widgetId = 3;
+    int32 pageSize = 4;
+    int32 pageNumber = 5;
+}
+
+message WidgetSearchResponse {
+    repeated WidgetDto widgets = 1;
+}
+
+message WidgetDto {
+	string widgetId = 1;
+    string name = 2;
+    string description = 3;
+}

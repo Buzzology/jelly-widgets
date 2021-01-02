@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Protos\dashboard-services.proto">
+    <None Update="Protos\widget-services.proto">
       <GrpcServices>Server</GrpcServices>
     </None>
-    <None Update="Protos\greet.proto">
+    <None Update="Protos\dashboard-services.proto">
       <GrpcServices>Server</GrpcServices>
     </None>
   </ItemGroup>

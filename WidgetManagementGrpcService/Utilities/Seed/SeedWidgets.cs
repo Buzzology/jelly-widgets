@@ -10,8 +10,8 @@ namespace WidgetManagementGrpcService.Utilities.Seed
 {
     public static class SeedWidgets
     {
-        public const string TfnGeneratorWidgetId = "12345";
-        public const string TfnValidatorWidgetId = "67890";
+        public const string TfnGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgT";
+        public const string TfnValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgV";
 
         public static async Task Run(IHost host)
         {
