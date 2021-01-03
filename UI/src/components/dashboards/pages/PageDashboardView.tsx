@@ -1,5 +1,5 @@
 import React, { } from 'react';
-import { Container, Grid, Typography, IconButton } from '@material-ui/core';
+import { Container, Grid, Typography, IconButton, makeStyles } from '@material-ui/core';
 import { RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,17 @@ import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { UiFormStateIdEnum } from '../../../@types/UiFormState';
 import { setFormOpenState } from '../../../redux/uiFormState/actions';
 import EditDashboardIcon from '@material-ui/icons/EditTwoTone';
+import { selectorGetDashboardWidgetById, selectorGetDashboardWidgetsByDashboardId } from '../../../redux/dashboardWidget/selectors';
+import { selectorGetWidgetById } from '../../../redux/widget/selectors';
+
+
+const useStyles = makeStyles(theme => ({
+    widgetWrapper: {
+        border: `1px solid ${CustomColors.MetalBorderColor}`,
+        borderRadius: 0,
+        padding: theme.spacing(3),
+    }
+}));
 
 
 interface IPageDashboardViewProps {
@@ -120,11 +131,80 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                         {/* <PostsSearchWidget dashboardId={dashboard?.dashboardId} tags={tags} /> */}
                         Search Widget
                     </Grid>
+                    <Grid item xs={12}>
+                        <DashboardWidgets dashboardId={dashboardId} />
+                    </Grid>
                 </Grid>
             </Grid>
             <LoaderAbsoluteCentred loading={loading} />
         </Container>
     );
+}
+
+
+function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
+
+    var dashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
+
+    if (!dashboardWidgets.length) {
+        return (
+            <>
+                <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
+                    Not Widgets.
+            </Typography>
+                <Typography variant="subtitle2">
+                    You do not have any widgets on this dashboard.
+            </Typography>
+            </>
+        );
+    }
+
+    return (
+        <div>
+            <Grid container spacing={3}>
+                {
+                    dashboardWidgets.map(x => {
+                        return (
+                            <Grid item xs={12} md={6} lg={4} xl={3}>
+                                <DashboardWidgetRenderer dashboardWidgetId={x.dashboardWidgetId} />
+                            </Grid>
+                        )
+                    })
+                }
+                <Grid item xs={12}>
+                    Add Widget
+                </Grid>
+            </Grid>
+        </div>
+    )
+
+}
+
+
+function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: string }) {
+
+    const dashboardWidget = useSelector((store: RootState) => selectorGetDashboardWidgetById(store, dashboardWidgetId));
+    const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''));
+    const classes = useStyles();
+
+    if (!dashboardWidget || !widget) {
+        return (
+            <div>
+                <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
+                    Widget not found.
+                </Typography>
+                <Typography variant="subtitle2">
+                    This widget was not able to be found. It may have been removed.
+                </Typography>
+            </div>
+        )
+    }
+
+    return (
+        <div className={classes.widgetWrapper}>
+            {widget.name}
+        </div>
+    )
 }
 
 

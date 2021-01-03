@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { fetchSearchDashboards } from '../redux/dashboard/actions';
 import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
 import RouteWidgets from './RouteWidgets';
+import { fetchSearchWidgets } from '../redux/widget/actions';
 
 
 const RouteManagerCustom = () => {
@@ -18,6 +19,7 @@ const RouteManagerCustom = () => {
 
     const dispatch = useDispatch();
     const [fetchingDashboards, setFetchingDashboards] = useState(false);
+    const [fetchingWidgets, setFetchingWidgets] = useState(false);
 
     useEffect(() => {
         setFetchingDashboards(true);
@@ -26,6 +28,15 @@ const RouteManagerCustom = () => {
             setFetchingDashboards(false);
         })();
     }, [dispatch]);
+
+    useEffect(() => {
+        setFetchingWidgets(true);
+        (async () => {
+            await dispatch(fetchSearchWidgets({ pageSize: 100, pageNumber: 1 }));
+            setFetchingWidgets(false);
+        })();
+    }, [dispatch]);
+
 
     return (
         <Switch>

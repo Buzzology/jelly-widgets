@@ -45,7 +45,12 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
-        if (parsedResp && parsedResp.success && parsedResp.data && parsedResp.data.dashboardWidgetId) {
+        if (parsedResp?.success && parsedResp?.data?.dashboard) {
+
+            if (parsedResp.data.dashboard.dashboardWidgets?.length) {
+                dispatch(receiveDashboardWidgets(parsedResp.data.dashboard.dashboardWidgets));
+            }
+            
             return parsedResp.data.dashboardWidgetId;
         }
         else {
