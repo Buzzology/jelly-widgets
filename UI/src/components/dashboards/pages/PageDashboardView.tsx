@@ -12,6 +12,7 @@ import { setFormOpenState } from '../../../redux/uiFormState/actions';
 import EditDashboardIcon from '@material-ui/icons/EditTwoTone';
 import { selectorGetDashboardWidgetById, selectorGetDashboardWidgetsByDashboardId } from '../../../redux/dashboardWidget/selectors';
 import { selectorGetWidgetById } from '../../../redux/widget/selectors';
+import WidgetGenerator from '../../generic/widgets/implementations/WidgetGenerator';
 
 
 const useStyles = makeStyles(theme => ({
@@ -202,7 +203,7 @@ function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: str
 
     return (
         <div className={classes.widgetWrapper}>
-            {widget.name}
+            <WidgetGenerator widgetId={dashboardWidget.widgetId} dashboardWidgetId={dashboardWidget.dashboardWidgetId} />
         </div>
     )
 }

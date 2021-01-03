@@ -24,3 +24,9 @@ export const StorageKeys = {
     EXPIRES_AT: 'expires_at',
     USER_ID: 'userId'
 }
+
+
+export const WidgetIds = {
+    TFN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgT',
+    TFN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgV',
+}

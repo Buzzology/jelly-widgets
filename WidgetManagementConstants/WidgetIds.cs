@@ -2,7 +2,7 @@
 {
     public static class WidgetIds
     {
-        public const string TaxFileNumberGeneratorId = "TaxFileNumberGeneratorId";
-        public const string TaxFileNumberValidatorId = "TaxFileNumberValidatorId";
+        public const string TfnGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgT";
+        public const string TfnValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgV";
     }
 }

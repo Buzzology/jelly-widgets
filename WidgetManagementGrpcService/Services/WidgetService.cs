@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MicroservicesProjectLibrary.Utilities;
 using Microsoft.Extensions.Logging;
@@ -140,6 +141,28 @@ namespace WidgetManagementGrpcService.Services
                 {
                     Widget = _mapper.Map<Widget, WidgetDto>(widget)
                 };
+            }
+            catch (Exception e)
+            {
+                throw LibraryHelpers.GenerateRpcException(e);
+            }
+        }
+
+
+        public override async Task<WidgetProcessMessageResponse> WidgetProcessMessage(WidgetProcessMessageRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation($"{nameof(WidgetProcessMessage)} {nameof(Widget)} {request.WidgetId}.");
+
+            try
+            {
+                var resp = new WidgetProcessMessageResponse();
+                var payloadResponses = await _widgetRepository.ProcessMessage(request.WidgetId, request.DashboardWidgetId, request.CurrentUserId);
+
+                resp.PayloadId = Guid.NewGuid().GetUrlFriendlyString();
+                resp.PayloadResponses.Add(payloadResponses);
+                resp.Generated = DateTime.UtcNow.ToTimestamp();
+
+                return resp;
             }
             catch (Exception e)
             {

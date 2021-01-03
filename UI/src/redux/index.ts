@@ -8,12 +8,14 @@ import { userDetailsReducer } from "./userDetail/reducers";
 import { dashboardsReducer } from "./dashboard/reducers";
 import { dashboardWidgetsReducer } from "./dashboardWidget/reducers";
 import { widgetsReducer } from "./widget/reducers";
+import { payloadsReducer } from "./payload/reducers";
 
 
 const rootReducer = combineReducers({
     dashboards: dashboardsReducer,
     dashboardWidgets: dashboardWidgetsReducer,
     messages: messagesReducer,
+    payloads: payloadsReducer,
     uiFormStates: uiFormStatesReducer,
     userDetails: userDetailsReducer,
     widgets: widgetsReducer,

@@ -95,5 +95,31 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
             return query.ToListAsync();
         }
+
+
+        public async Task<Dictionary<string, string>> ProcessMessage(string widgetId, string dashboardWidgetId, string currentUserId)
+        {
+            switch (widgetId)
+            {
+                case WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId:
+                    {
+                        return new Dictionary<string, string>
+                        {
+                            { "tfn", "123" }
+                        };
+                    }
+
+                case WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId:
+                    {
+                        return new Dictionary<string, string>
+                        {
+                            { "valid", "false" }
+                        };
+                    }
+
+                default:
+                    throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
+            }
+        }
     }
 }

@@ -98,5 +98,24 @@ namespace WidgetManagementWebApi.Controllers
 
             return resp;
         }
+
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("ProcessMessage")]
+        public async Task<ApiMessageResponseBase> ProcessMessage([FromBody] WidgetProcessMessageRequest request)
+        {
+            var resp = new ApiMessageResponseBase(this?.User);
+            request.CurrentUserId = resp.UserId;
+
+            var grpcResp = await _widgetServicesClient.WidgetProcessMessageAsync(request);
+            resp.Data = new { 
+                grpcResp?.PayloadId,
+                grpcResp?.PayloadResponses,
+                grpcResp?.Generated,
+            };
+            resp.Success = true;
+
+            return resp;
+        }
     }
 }

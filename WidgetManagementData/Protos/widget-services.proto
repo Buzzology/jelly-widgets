@@ -12,6 +12,7 @@ service WidgetServices {
   rpc WidgetSearch (WidgetSearchRequest) returns (WidgetSearchResponse);
   rpc WidgetUpdate (WidgetUpdateRequest) returns (WidgetUpdateResponse);
   rpc WidgetDelete (WidgetDeleteRequest) returns (WidgetDeleteResponse);
+  rpc WidgetProcessMessage (WidgetProcessMessageRequest) returns (WidgetProcessMessageResponse);
 }
 
 message WidgetCreateRequest {
@@ -60,6 +61,19 @@ message WidgetSearchRequest {
 
 message WidgetSearchResponse {
     repeated WidgetDto widgets = 1;
+}
+
+message WidgetProcessMessageRequest { 
+    string currentUserId = 1;
+    string widgetId = 2;
+    string dashboardWidgetId = 3;
+    map<string, string> payloads = 4;
+}
+
+message WidgetProcessMessageResponse {
+    string payloadId = 1;
+    map<string, string> payloadResponses = 2;
+    google.protobuf.Timestamp generated = 3;
 }
 
 message WidgetDto {

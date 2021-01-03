@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagementIntegrationEvents.UserDetail;
+using WidgetManagementConstants;
 using WidgetManagementGrpcService.Repositories.Dashboard;
 using WidgetManagementGrpcService.Utilities.Seed;
 
@@ -52,7 +53,7 @@ namespace WidgetManagementGrpcService.EventHandling.Dashboard
                                 new WidgetManagementData.Models.DashboardWidget
                                 {
                                     DashboardWidgetId = Guid.NewGuid().GetUrlFriendlyString(),
-                                    WidgetId = SeedWidgets.TfnGeneratorWidgetId,
+                                    WidgetId = WidgetIds.TfnGeneratorWidgetId,
                                     OrderNumber = 1,
                                 }
                             },

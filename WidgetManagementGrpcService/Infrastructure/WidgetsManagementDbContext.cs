@@ -15,7 +15,7 @@ namespace WidgetManagementGrpcService.Infrastructure
         {
             modelBuilder.Entity<Widget>().HasData(
                 new Widget {
-                    WidgetId = WidgetManagementConstants.WidgetIds.TaxFileNumberGeneratorId,
+                    WidgetId = WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId,
                     Name = "Australian Tax File Number Generator",
                     Description = "Generate a random TFN.",
                 });
@@ -23,7 +23,7 @@ namespace WidgetManagementGrpcService.Infrastructure
             modelBuilder.Entity<Widget>().HasData(
                 new Widget
                 {
-                    WidgetId = WidgetManagementConstants.WidgetIds.TaxFileNumberValidatorId,
+                    WidgetId = WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId,
                     Name = "Australian Tax File Number Validator",
                     Description = "Validate a TFN."
                 });
