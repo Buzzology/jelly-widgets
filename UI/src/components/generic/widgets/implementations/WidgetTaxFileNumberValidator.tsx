@@ -6,20 +6,21 @@ import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardW
 import { selectorGetDashboardWidgetById } from "../../../../redux/dashboardWidget/selectors";
 import { selectorGetLatestPayloadByDashboardWidgetId, selectorGetPayloads, selectorGetPayloadsByDashboardWidgetId } from "../../../../redux/payload/selectors";
 import WidgetSimpleGenerator from "./implementationTypes/WidgetSimpleGenerator";
+import WidgetSimpleInputValidator from "./implementationTypes/WidgetSimpleInputValidator";
 
 
-interface IWidgetTaxFileNumberGeneratorProps {
+interface IWidgetTaxFileNumberValidatorProps {
     dashboardWidget: IDashboardWidget,
 }
 
 
-function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberGeneratorProps) {
+function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberValidatorProps) {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const payloadResponses = useSelector((store: RootState) => selectorGetLatestPayloadByDashboardWidgetId(store, dashboardWidget.dashboardWidgetId));
 
-    const onClickHandler = async () => {
+    const onClickHandler = async (e: any, input: string) => {
 
         setLoading(true);
 
@@ -27,7 +28,9 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
             dispatch(fetchDashboardWidgetProcessMessage({
                 widgetId: dashboardWidget.widgetId,
                 dashboardWidgetId: dashboardWidget.dashboardWidgetId,
-                payloads: {},
+                payloads: {
+                    tfn: input,
+                },
             }));
         }
         finally {
@@ -36,12 +39,13 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
     }
 
     return (
-        <WidgetSimpleGenerator
-            label="Tax File Number Generator"
-            description="Generate Australian tax file numbers for testing."
-            buttonLabel="Generate"
+        <WidgetSimpleInputValidator
+            label="Tax File Number Validator"
+            description="Validate Australian tax file numbers for testing."
+            buttonLabel="Validate"
+            inputLabel="TFN to Test"
             outputLabel="Results"
-            outputValue={payloadResponses?.payloadResponses?.tfn}
+            outputValue={payloadResponses?.payloadResponses?.valid}
             dashboardWidget={dashboardWidget}
             onClickCallback={onClickHandler}
             loading={loading}
@@ -50,4 +54,4 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
 }
 
 
-export default WidgetTaxFileNumberGenerator;
+export default WidgetTaxFileNumberValidator;

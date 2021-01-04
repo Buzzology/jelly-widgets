@@ -5,6 +5,7 @@ import { RootState } from "../../../../redux";
 import { selectorGetDashboardWidgetById } from "../../../../redux/dashboardWidget/selectors";
 import { WidgetIds } from "../../../../utilities/Constants";
 import WidgetTaxFileNumberGenerator from "./WidgetTaxFileNumberGenerator";
+import WidgetTaxFileNumberValidator from "./WidgetTaxFileNumberValidator";
 
 interface IWidgetGenerator {
     widgetId: string,
@@ -21,7 +22,7 @@ function WidgetGenerator({ widgetId, dashboardWidgetId }: IWidgetGenerator) {
         case WidgetIds.TFN_GENERATOR:
             return <WidgetTaxFileNumberGenerator dashboardWidget={dashboardWidget} />;
         case WidgetIds.TFN_VALIDATOR:
-            return <WidgetTaxFileNumberGenerator dashboardWidget={dashboardWidget} />;
+            return <WidgetTaxFileNumberValidator dashboardWidget={dashboardWidget} />;
         default:
             return <WidgetNotFound />;
     }

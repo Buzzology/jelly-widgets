@@ -11,6 +11,6 @@ namespace WidgetManagementGrpcService.Repositories.Widget
         public Task<Models.Widget> Create(Models.Widget dashboard, string currentUserId);
         public Task<Models.Widget> Update(Models.Widget dashboardIn, string currentUserId);
         public Task Remove(string dashboardId, string currentUserId);
-        public Task<Dictionary<string, string>> ProcessMessage(string widgetId, string dashboardWidgetId, string currentUserId);
+        public Task<Dictionary<string, string>> ProcessMessage(string widgetId, string dashboardWidgetId, string currentUserId, Dictionary<string, string> payloads);
     }
 }

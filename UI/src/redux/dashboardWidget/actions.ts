@@ -111,7 +111,7 @@ export const fetchUpdateDashboardWidget = (props: IFetchUpdateDashboardWidgetPro
 export interface IFetchDashboardWidgetProcessMessageProps {
     widgetId: string,
     dashboardWidgetId: string,
-    payloads: string[],
+    payloads: { [key: string]: string },
 }
 
 
