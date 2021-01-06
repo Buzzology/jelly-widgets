@@ -156,7 +156,7 @@ namespace WidgetManagementGrpcService.Services
             try
             {
                 var resp = new WidgetProcessMessageResponse();
-                var payloadResponses = await _widgetRepository.ProcessMessage(request.WidgetId, request.DashboardWidgetId, request.CurrentUserId);
+                var payloadResponses = await _widgetRepository.ProcessMessage(request.WidgetId, request.DashboardWidgetId, request.CurrentUserId, new Dictionary<string, string>(request.Payloads));
 
                 resp.PayloadId = Guid.NewGuid().GetUrlFriendlyString();
                 resp.PayloadResponses.Add(payloadResponses);

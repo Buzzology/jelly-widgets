@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService;
+using WidgetManagementWebApi.Controllers.Messages;
 using static WidgetManagementGrpcService.WidgetServices;
 
 namespace WidgetManagementWebApi.Controllers
@@ -102,20 +104,28 @@ namespace WidgetManagementWebApi.Controllers
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("ProcessMessage")]
-        public async Task<ApiMessageResponseBase> ProcessMessage([FromBody] WidgetProcessMessageRequest request)
+        public async Task<ApiMessageResponseBase> ProcessMessage(ProcessMessageWebApiRequest webRequest)
         {
             var resp = new ApiMessageResponseBase(this?.User);
-            request.CurrentUserId = resp.UserId;
+            var request = new WidgetProcessMessageRequest();
 
-            var grpcResp = await _widgetServicesClient.WidgetProcessMessageAsync(request);
-            resp.Data = new { 
-                grpcResp?.PayloadId,
-                grpcResp?.PayloadResponses,
-                grpcResp?.Generated,
-            };
-            resp.Success = true;
+            webRequest.Payloads["tfn"]?.ToString()
+                todo here
+            return null;
 
-            return resp;
+            //request.CurrentUserId = resp.UserId;
+            //request.WidgetId = message.WidgetId;
+            //request.DashboardWidgetId = message.DashboardWidgetId;
+
+            //var grpcResp = await _widgetServicesClient.WidgetProcessMessageAsync(request);
+            //resp.Data = new { 
+            //    grpcResp?.PayloadId,
+            //    grpcResp?.PayloadResponses,
+            //    grpcResp?.Generated,
+            //};
+            //resp.Success = true;
+
+            //return resp;
         }
     }
 }
