@@ -46,6 +46,7 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
             inputLabel="TFN to Test"
             outputLabel="Results"
             outputValue={payloadResponses?.payloadResponses?.valid}
+            outputValueMessage={payloadResponses?.payloadResponses?.message}
             dashboardWidget={dashboardWidget}
             onClickCallback={onClickHandler}
             loading={loading}

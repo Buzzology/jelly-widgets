@@ -11,6 +11,7 @@ interface IWidgetSimpleInputValidatorProps {
     inputLabel: string,
     outputLabel: string,
     outputValue: string | undefined,
+    outputValueMessage: string | undefined,
     dashboardWidget: IDashboardWidget,
     onClickCallback(e: any, inputVal: string): void,
     loading: boolean,
@@ -26,6 +27,7 @@ function WidgetSimpleInputValidator({
     dashboardWidget,
     loading,
     outputValue,
+    outputValueMessage,
 }: IWidgetSimpleInputValidatorProps) {
 
     const [inputValue, setInputValue] = useState('');
@@ -48,6 +50,11 @@ function WidgetSimpleInputValidator({
             <div>
                 {outputLabel}: {outputValue}
             </div>
+            {outputValueMessage ? (
+                <div style={{ fontSize: '85%', opacity: 0.8 }}>
+                    {outputValueMessage}
+                </div>
+            ) : null}
             <LoaderAbsoluteCentred loading={loading} />
         </div>
     )

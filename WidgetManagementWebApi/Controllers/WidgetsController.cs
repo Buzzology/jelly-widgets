@@ -109,23 +109,21 @@ namespace WidgetManagementWebApi.Controllers
             var resp = new ApiMessageResponseBase(this?.User);
             var request = new WidgetProcessMessageRequest();
 
-            webRequest.Payloads["tfn"]?.ToString()
-                todo here
-            return null;
+            request.CurrentUserId = resp.UserId;
+            request.WidgetId = webRequest.WidgetId;
+            request.DashboardWidgetId = webRequest.DashboardWidgetId;
+            request.Payloads.Add(webRequest.Payloads);
 
-            //request.CurrentUserId = resp.UserId;
-            //request.WidgetId = message.WidgetId;
-            //request.DashboardWidgetId = message.DashboardWidgetId;
+            var grpcResp = await _widgetServicesClient.WidgetProcessMessageAsync(request);
+            resp.Data = new
+            {
+                grpcResp?.PayloadId,
+                grpcResp?.PayloadResponses,
+                grpcResp?.Generated,
+            };
+            resp.Success = true;
 
-            //var grpcResp = await _widgetServicesClient.WidgetProcessMessageAsync(request);
-            //resp.Data = new { 
-            //    grpcResp?.PayloadId,
-            //    grpcResp?.PayloadResponses,
-            //    grpcResp?.Generated,
-            //};
-            //resp.Success = true;
-
-            //return resp;
+            return resp;
         }
     }
 }

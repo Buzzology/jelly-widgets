@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WidgetManagementGrpcService.Repositories.Widget.WidgetLogic;
 using WidgetManagementGrpcService.Utilities.Configuration;
 using Models = WidgetManagementData.Models;
 
@@ -111,59 +112,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
                 case WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId:
                     {
-                        if(payloads == null || payloads.Count == 0)
-                        {
-                            throw new ArgumentException($"{nameof(payloads)} must have a value.");
-                        }
-
-                        if (!payloads.ContainsKey("tfn"))
-                        {
-                            throw new ArgumentException($"{nameof(payloads)} tfn has not been provided.");
-                        }
-
-                        var tfn = payloads["tfn"];
-                        if (string.IsNullOrWhiteSpace(tfn))
-                        {
-                            throw new ArgumentException($"{nameof(payloads)} tfn value has not been provided.");
-                        }
-
-                        if (tfn.Length != 11)
-                        {
-                            throw new ArgumentException($"{nameof(payloads)} tfn should be 11 characters.");
-                        }
-
-                        var tfnChars = tfn.Split();
-                        var weightedSum = 0;
-
-                        for(var i = 0; i < tfnChars.Length; i++)
-                        {
-                            if(!int.TryParse(tfnChars[i], out var validNumber))
-                            {
-                                throw new ArgumentException($"{nameof(payloads)} tfn character number {i + 1} should be a valid number.");
-                            }
-
-                            if(validNumber > 9)
-                            {
-                                throw new ArgumentException($"{nameof(payloads)} tfn character number {i + 1} should be less than or equal to 9.");
-                            }
-
-                            if (validNumber < 0)
-                            {
-                                throw new ArgumentException($"{nameof(payloads)} tfn character number {i + 1} should be more than or equal to 0.");
-                            }
-
-                            weightedSum += (i + 1) * validNumber;
-                        }
-
-                        if(weightedSum % 11 != 0)
-                        {
-                            throw new ArgumentException($"Invalid TFN - checksum algorithm does not pass.");
-                        }
-
-                        return new Dictionary<string, string>
-                        {
-                            { "valid", "true" }
-                        };
+                        return await AustralianTFNValidator.Validate(payloads);
                     }
 
                 default:

@@ -38,5 +38,5 @@ export function selectorGetLatestPayloadByDashboardWidgetId(state: RootState, da
 
 
 function sortPayloadsByGeneratedDescending(payloads: IPayload[]) {
-    return payloads.sort((a, b) => new Date(b.generated.seconds * 1000).getTime() - new Date(a.generated.seconds * 1000).getTime());
+    return payloads.sort((b, a) => new Date(b.generated.seconds * 1000).getTime() - new Date(a.generated.seconds * 1000).getTime());
 }
