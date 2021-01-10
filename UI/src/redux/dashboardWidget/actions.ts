@@ -52,7 +52,7 @@ export const fetchCreateDashboardWidget = (createRequest: IFetchCreateDashboardW
                 dispatch(receiveDashboardWidgets(parsedResp.data.dashboard.dashboardWidgets));
             }
 
-            return parsedResp.data.dashboardWidgetId;
+            return parsedResp.data.dashboard.dashboardWidgets;
         }
         else {
             if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {

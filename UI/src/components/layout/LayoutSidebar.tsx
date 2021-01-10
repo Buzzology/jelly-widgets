@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -25,8 +25,10 @@ import { selectorGetDashboardById, selectorGetDashboards } from '../../redux/das
 import IDashboard from '../../@types/Dashboard';
 import IDashboardWidget from '../../@types/DashboardWidget';
 import EditIcon from '@material-ui/icons/Edit';
-import AddSubjectIcon from '@material-ui/icons/Add';
+import WidgetsIcon from '@material-ui/icons/WidgetsTwoTone';
+import AddWidgetIcon from '@material-ui/icons/AddOutlined';
 import DashboardIcon from '../dashboards/DashboardIcon';
+import { selectorGetWidgetById } from '../../redux/widget/selectors';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -127,18 +129,7 @@ const useStyles = makeStyles((theme) => ({
     topicTagCategoryTree: {
         flexGrow: 1,
     },
-    treeItem: {
-        textTransform: 'lowercase',
-        paddingTop: theme.spacing(1),
-        paddingBottom: theme.spacing(1),
-        '&[aria-selected="true"] > div:nth-of-type(1)': {
-            backgroundColor: CustomColors.ActiveItemBlue,
-            color: '#FFF',
-            borderRadius: theme.shape.borderRadius,
-            padding: 4,
-        },
-    },
-    topicTagCategoryTreeItem: {
+    dashboardWidgetSidebarLink: {
         textDecoration: 'none',
         color: 'inherit',
         overflowX: 'hidden',
@@ -146,10 +137,13 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
         paddingRight: theme.spacing(2),
         '&:hover': {
-            '& $sidebarEditIcon': {
-                opacity: 1,
-            }
-        }
+            opacity: 0.75,
+        },
+        display: 'flex',
+        alignItems: 'center'
+    },
+    dashboardWidgetSidebarLinkWrapper: {
+        marginBottom: theme.spacing(1),
     },
     newTopicIcon: {
         fontSize: 32,
@@ -238,7 +232,7 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                             }}
                             noWrap={true}
                         >
-                            {activeDashboardWidgets.length} Widgets
+                            {activeDashboardWidgets.length} Dashboard Widgets
                         </Typography>
                     </div>
                     <Divider />
@@ -266,7 +260,7 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
     const classes = useStyles();
     const widgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
-
+    const theme = useTheme();
 
     if (!dashboard) return (
         <>
@@ -280,57 +274,77 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
 
     return (
         <div className={classes.topicTagCategoryWrapper}>
-            <Typography variant="body2">
-                Widgets
-                    <IconButton aria-label="Add Widget" color="default"
-                    component={NavLink}
-                    to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
+            {/* <Typography variant="overline" style={{
+                display: 'flex',
+                alignItems: 'center',
+                // color: CustomColors.MetalDarkTextColor
+            }}>
+                Active Widgets
+            </Typography> */}
+            <WidgetsDisplay dashboardWidgets={widgets} dashboard={dashboard} />
+            <Divider style={{ marginBottom: theme.spacing(1), marginRight: -theme.spacing(1), marginLeft: -theme.spacing(1) }} />
+            <NavLink
+                to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+                <IconButton aria-label="Add Widget" color="default"
                     style={{
-                        position: 'absolute',
-                        right: 3,
-                        top: 3,
                         padding: 3,
+                        border: `1px solid ${CustomColors.MetalBorderColor}`,
+                        marginRight: theme.spacing(1),
                     }}>
-                    <AddSubjectIcon />
-                </IconButton>
-            </Typography>
-            <WidgetsDisplay widgets={widgets} dashboard={dashboard} />
-        </div>
+                    <AddWidgetIcon />
+                </IconButton> Add Widget
+            </NavLink>
+        </div >
     )
 }
 
 
-function WidgetsDisplay({ widgets, dashboard }: { dashboard: IDashboard, widgets: IDashboardWidget[] }) {
-
-    const classes = useStyles();
-    const dispatch = useDispatch();
-
-    function setDashboardAddWidgetFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, { dashboardId: dashboard?.dashboardId }));
-    }
-
+function WidgetsDisplay({ dashboardWidgets, dashboard }: { dashboard: IDashboard, dashboardWidgets: IDashboardWidget[] }) {
     return (
         <>
             {
-                widgets.map((widget: IDashboardWidget) => {
+                dashboardWidgets.map((widget: IDashboardWidget) => {
                     return (
-                        <Typography
-                            component={NavLink}
-                            to={`${GetDashboardLinkByDashboardIdAndName(dashboard?.dashboardId, dashboard?.name)}`}
-                            variant="body2"
-                            className={classes.topicTagCategoryTreeItem}>
-                            {widget.orderNumber}
-                            <IconButton
-                                className={classes.sidebarEditIcon}
-                                onClick={setDashboardAddWidgetFormOpen}
-                                size="small">
-                                <EditIcon className={classes.sidebarEditIcon} />
-                            </IconButton>
-                        </Typography>
+                        <WidgetDisplay dashboardWidget={widget} />
                     )
                 })
             }
         </>
+    )
+}
+
+
+function WidgetDisplay({ dashboardWidget }: { dashboardWidget: IDashboardWidget }) {
+
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''))
+    const theme = useTheme();
+
+    function setDashboardAddWidgetFormOpen() {
+        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, { dashboardId: dashboardWidget?.dashboardId }));
+    }
+
+    return (
+        <div
+            className={classes.dashboardWidgetSidebarLinkWrapper}
+        >
+            <Typography
+                component={NavLink}
+                to={`${GetDashboardLinkByDashboardIdAndName(dashboardWidget?.dashboardId, widget?.name || 'Unknown')}`}
+                variant="body2"
+                className={classes.dashboardWidgetSidebarLink}>
+                <WidgetsIcon style={{ fontSize: 18, marginRight: theme.spacing(1) }} /> {widget?.name || 'Unknown'}
+                <IconButton
+                    className={classes.sidebarEditIcon}
+                    onClick={setDashboardAddWidgetFormOpen}
+                    size="small">
+                    <EditIcon className={classes.sidebarEditIcon} />
+                </IconButton>
+            </Typography>
+        </div>
     )
 }
 

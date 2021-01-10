@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
 import { selectorGetWidgetById } from '../../../redux/widget/selectors';
 import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actions';
+import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
+import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
 
 
 interface IPageWidgetViewProps {
@@ -21,22 +23,24 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, widgetId));
     const dispatch = useDispatch();
     const [addingWidget, setAddingWidget] = useState(false);
+    let history = useHistory();
+    const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
 
     const addWidgetToDashboardClick = async () => {
 
         setAddingWidget(true);
 
-        debugger;
-
         try {
-            await dispatch(fetchCreateDashboardWidget({
+            var dashboardWidgets = await dispatch(fetchCreateDashboardWidget({
                 dashboardWidget: {
                     dashboardWidgetId: '',
                     widgetId,
                     orderNumber: 0,
                     dashboardId,
                 }
-            }))
+            })) as any;
+
+            if(dashboardWidgets?.length) history.push(GetDashboardLinkByDashboardIdAndName(dashboardId, dashboard?.name || ''));
         }
         finally {
             setAddingWidget(false);
@@ -103,15 +107,16 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                     <>
                         <ButtonSecondary
                             variant="text"
+                            onClick={() => history.goBack()}
                         >
-                            Leave
+                            Back
                         </ButtonSecondary>
                         &nbsp;
                         <ButtonSecondary
                             variant="outlined"
                             onClick={addWidgetToDashboardClick}
                         >
-                            {addingWidget ? (<LoaderAbsoluteCentred loading={loading} />) : "Add Widget"}
+                            Confirm<LoaderAbsoluteCentred loading={addingWidget} />
                         </ButtonSecondary>
                     </>
                 </Grid>

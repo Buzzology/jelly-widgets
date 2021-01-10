@@ -1,6 +1,6 @@
 import React, { } from 'react';
 import { Container, Grid, Typography, IconButton, makeStyles } from '@material-ui/core';
-import { RouteComponentProps } from 'react-router-dom';
+import { NavLink, RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
@@ -13,6 +13,7 @@ import EditDashboardIcon from '@material-ui/icons/EditTwoTone';
 import { selectorGetDashboardWidgetById, selectorGetDashboardWidgetsByDashboardId } from '../../../redux/dashboardWidget/selectors';
 import { selectorGetWidgetById } from '../../../redux/widget/selectors';
 import WidgetGenerator from '../../generic/widgets/implementations/WidgetGenerator';
+import { GetWidgetsSearchWithDashboardId } from '../../../routes/RouteLinkHelpers';
 
 
 const useStyles = makeStyles(theme => ({
@@ -100,21 +101,17 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                 </Grid>
 
                 <Grid item xs={2} style={{ textAlign: 'right' }}>
-                    <>
-                        <ButtonSecondary
-                            variant="text"
-                            onClick={setPostFormOpen}
-                        >
-                            Leave
-                        </ButtonSecondary>
-                        &nbsp;
+                    <NavLink
+                        to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
+                        style={{ textDecoration: 'none' }}
+                    >
                         <ButtonSecondary
                             variant="outlined"
                             onClick={setPostFormOpen}
                         >
-                            Create Dashboard
+                            Add Widget
                         </ButtonSecondary>
-                    </>
+                    </NavLink>
                 </Grid>
                 <Grid
                     container
