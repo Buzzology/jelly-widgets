@@ -14,7 +14,7 @@ import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/ContactSupportOutlined'
 import { NavLink, useParams } from 'react-router-dom';
-import { GetDashboardLinkByDashboardIdAndName, GetTopicsSearch, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
+import { GetDashboardLinkByDashboardIdAndName, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { UiFormStateIdEnum } from '../../@types/UiFormState';
 import { RootState } from '../../redux';
@@ -174,6 +174,11 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
     const dashboards = useSelector((store: RootState) => selectorGetDashboards(store));
     const activeDashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const activeDashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
+    const dispatch = useDispatch();
+
+    function setCreateDashboardFormOpen() {
+        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true ));
+    }
 
     return (
         <Drawer
@@ -199,8 +204,7 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                 <div className={classes.topicIconsContainer}>
                     <div>
                         <IconButton
-                            component={NavLink}
-                            to={GetTopicsSearch()}
+                            onClick={setCreateDashboardFormOpen}
                             className={classes.newTopicIcon}
                         >
                             <NewTopicIcon />
@@ -301,7 +305,7 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
 }
 
 
-function WidgetsDisplay({ dashboardWidgets, dashboard }: { dashboard: IDashboard, dashboardWidgets: IDashboardWidget[] }) {
+function WidgetsDisplay({ dashboardWidgets }: { dashboard: IDashboard, dashboardWidgets: IDashboardWidget[] }) {
     return (
         <>
             {

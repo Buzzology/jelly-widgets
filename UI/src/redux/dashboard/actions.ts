@@ -30,10 +30,7 @@ export const requestDeleteDashboard = (dashboard: IDashboard) => ({
 
 
 export interface IFetchCreateDashboardProps {
-    content: string,
-    postId: string,
-    warning: boolean,
-    parentId: string,
+    name: string,
 }
 
 

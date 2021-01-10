@@ -89,7 +89,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                         color: CustomColors.MetalDarkTextColor,
                         fontWeight: 600,
                     }} >
-                        {dashboardId}
+                        {dashboard.name}
                     </Typography>
                     {dashboard ? (
                         <>
