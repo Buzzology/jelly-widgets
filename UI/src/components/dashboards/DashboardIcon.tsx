@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core';
 import { CustomColors } from "../../utilities/Styles";
 import { Link, useParams } from 'react-router-dom';
 import { GetDashboardLinkByDashboardIdAndName } from '../../routes/RouteLinkHelpers';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux';
 
 
 const useStyles = makeStyles(theme => ({

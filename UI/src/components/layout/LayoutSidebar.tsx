@@ -23,12 +23,10 @@ import { WidgetNoResultsPlaceholder } from '../generic/widgets/WidgetNoResultsPl
 import { selectorGetDashboardWidgetsByDashboardId } from '../../redux/dashboardWidget/selectors';
 import { selectorGetDashboardById, selectorGetDashboards } from '../../redux/dashboard/selectors';
 import IDashboard from '../../@types/Dashboard';
-import { TreeView } from '@material-ui/lab';
 import IDashboardWidget from '../../@types/DashboardWidget';
 import EditIcon from '@material-ui/icons/Edit';
 import AddSubjectIcon from '@material-ui/icons/Add';
 import DashboardIcon from '../dashboards/DashboardIcon';
-import { selectorGetUiFormStateById } from '../../redux/uiFormState/selectors';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -266,13 +264,9 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
 function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
     const widgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
 
-    function setWidgetAddFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, dashboardId));
-    }
 
     if (!dashboard) return (
         <>
@@ -310,16 +304,6 @@ function WidgetsDisplay({ widgets, dashboard }: { dashboard: IDashboard, widgets
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [expanded, setExpanded] = React.useState<string[]>();
-    const [selected, setSelected] = React.useState<string[]>();
-
-    const handleToggle = (event: any, nodeIds: string[]) => {
-        setExpanded(nodeIds);
-    };
-
-    const handleSelect = (event: any, nodeIds: string[]) => {
-        setSelected(nodeIds);
-    };
 
     function setDashboardAddWidgetFormOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, { dashboardId: dashboard?.dashboardId }));

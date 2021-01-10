@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import IDashboardWidget from "../../../../@types/DashboardWidget";
 import { RootState } from "../../../../redux";
 import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardWidget/actions";
-import { selectorGetLatestPayloadByDashboardWidgetId, selectorGetPayloads, selectorGetPayloadsByDashboardWidgetId } from "../../../../redux/payload/selectors";
+import { selectorGetLatestPayloadByDashboardWidgetId } from "../../../../redux/payload/selectors";
 import WidgetSimpleGenerator from "./implementationTypes/WidgetSimpleGenerator";
 
 

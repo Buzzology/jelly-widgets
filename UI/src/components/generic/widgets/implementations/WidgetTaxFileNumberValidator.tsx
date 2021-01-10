@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import IDashboardWidget from "../../../../@types/DashboardWidget";
 import { RootState } from "../../../../redux";
 import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardWidget/actions";
-import { selectorGetDashboardWidgetById } from "../../../../redux/dashboardWidget/selectors";
-import { selectorGetLatestPayloadByDashboardWidgetId, selectorGetPayloads, selectorGetPayloadsByDashboardWidgetId } from "../../../../redux/payload/selectors";
-import WidgetSimpleGenerator from "./implementationTypes/WidgetSimpleGenerator";
+import { selectorGetLatestPayloadByDashboardWidgetId } from "../../../../redux/payload/selectors";
 import WidgetSimpleInputValidator from "./implementationTypes/WidgetSimpleInputValidator";
 
 

@@ -7,7 +7,10 @@ import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { CustomColors } from "../../utilities/Styles";
 import ButtonPrimary from "../generic/buttons/ButtonPrimary";
-import { GetUserId, Logout } from "../../utilities/ApiUtils";
+import { Logout } from "../../utilities/ApiUtils";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import LoaderAbsoluteCentred from "../generic/loaders/LoaderAbsoluteCentred";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -82,6 +85,21 @@ interface ILayoutDefaultAppBarProps {
 const LayoutDefaultAppBar = ({ open, setDrawerOpen }: ILayoutDefaultAppBarProps) => {
 
     const classes = useStyles();
+    const isAuthenticated = useIsAuthenticated();
+    const { instance, inProgress } = useMsal();
+
+    console.log(inProgress)
+
+    const internalLogout = () => {
+        instance.logout();
+        Logout();
+    }
+
+    const internalLogin = () => {
+        instance.acquireTokenRedirect({
+            scopes: ["openid"],
+        });
+    }
 
     return (
         <div className={classes.root}>
@@ -103,28 +121,23 @@ const LayoutDefaultAppBar = ({ open, setDrawerOpen }: ILayoutDefaultAppBarProps)
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        
-                </Typography>
+
+                    </Typography>
                     {
-                        GetUserId() ? (
+                        isAuthenticated ? (
                             <RouterLink
                                 to="/login"
                                 className={classes.menuLink}
                             >
-                                <ButtonPrimary variant="outlined" onClick={Logout}>
-                                    Logout
+                                <ButtonPrimary variant="outlined" onClick={internalLogout}>
+                                    Logout <LoaderAbsoluteCentred loading={inProgress !== 'none'} />
                                 </ButtonPrimary>
                             </RouterLink>
                         ) : (
-                                <RouterLink
-                                    to="/login"
-                                    className={classes.menuLink}
-                                >
-                                    <ButtonPrimary variant="contained">
-                                        Login
-                        </ButtonPrimary>
-                                </RouterLink>
-                            )
+                            <ButtonPrimary variant="contained" onClick={internalLogin}>
+                                Login <LoaderAbsoluteCentred loading={inProgress !== 'none'} />
+                            </ButtonPrimary>
+                        )
                     }
 
                 </Toolbar>

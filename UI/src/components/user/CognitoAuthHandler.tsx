@@ -4,7 +4,6 @@ import LoaderPlaceholder from '../generic/loaders/LoaderPlaceholder';
 import { useLocation } from 'react-router-dom';
 import { Configuration } from '../../utilities/Constants';
 import { ParseHashArgs } from '../../utilities/Helpers';
-import { SetAccessToken, SetAuthExpiresAt } from '../../utilities/ApiUtils';
 import { RouteProps } from 'react-router'
 import { fetchValidateUser } from '../../redux/userDetail/actions';
 import { useDispatch } from 'react-redux';
@@ -12,11 +11,11 @@ import { useDispatch } from 'react-redux';
 
 const CognitoAuthHandler = () => {
 
-    let location = useLocation();
+    const location = useLocation();
+    const dispatch = useDispatch();
 
     const { redirect_url } = GetRedirectUrl({ location });
     const urlToUse = redirect_url && containsProtocol(redirect_url) ? redirect_url : "/";
-    const dispatch = useDispatch();
     
     console.log(redirect_url);
     console.log(urlToUse);
@@ -60,25 +59,12 @@ const containsProtocol = (url: string) => {
 
 const GetRedirectUrl = ({ location }: GetRedirectUrlProps) => {
 
-    var id_token = "";
-    var expires_at: number = 0;
-    var now = new Date();
     var redirect_url = Configuration.BASE_HOST;
 
     if (location && location.hash) {
 
         // Retrieve args from url and set props
         var args: { [k: string]: any } = ParseHashArgs(location.hash);
-
-        if (args["id_token"]) {
-            id_token = args["id_token"];
-            SetAccessToken(id_token);
-        }
-
-        if (args["expires_in"]) {
-            expires_at = new Date().setSeconds(now.getSeconds() + args["expires_in"] - 60);
-            SetAuthExpiresAt(expires_at);
-        }
 
         if (args["referrer"]) {
             if (decodeURIComponent(args["referrer"])) {
@@ -88,8 +74,6 @@ const GetRedirectUrl = ({ location }: GetRedirectUrlProps) => {
     }
 
     return {
-        id_token,
-        expires_at,
         redirect_url,
     };
 }

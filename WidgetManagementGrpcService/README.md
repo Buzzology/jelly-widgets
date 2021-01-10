@@ -34,3 +34,9 @@ Widgets:
 - Random address generator
 - Random australian postcode
 - Random email address generator
+- Url encoder
+- Url decoder
+- Base64 encoder
+- Base64 decoder
+- json formatter
+- json to single line

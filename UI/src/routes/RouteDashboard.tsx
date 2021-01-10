@@ -3,12 +3,10 @@ import {
     Switch,
     useParams,
     Route,
-    useLocation,
 } from "react-router-dom";
 import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
 import LayoutDefault from '../components/layout/LayoutDefault';
 import { useDispatch } from 'react-redux';
-import queryString from 'query-string';
 import { fetchDashboardByIdIfNeeded } from '../redux/dashboard/actions';
 import PageDashboardView from '../components/dashboards/pages/PageDashboardView';
 
@@ -16,8 +14,6 @@ import PageDashboardView from '../components/dashboards/pages/PageDashboardView'
 const RouteDashboard = () => {
 
     const { dashboardId } = useParams() as any; 
-    const location = useLocation();
-    const { tags } = queryString.parse(location.search);
     const [fetchingDashboard, setFetchingDashboard] = useState(false);
     const dispatch = useDispatch();
 

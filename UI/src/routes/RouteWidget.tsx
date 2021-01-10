@@ -3,12 +3,10 @@ import {
     Switch,
     useParams,
     Route,
-    useLocation,
 } from "react-router-dom";
 import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
 import LayoutDefault from '../components/layout/LayoutDefault';
 import { useDispatch } from 'react-redux';
-import queryString from 'query-string';
 import { fetchWidgetByIdIfNeeded } from '../redux/widget/actions';
 import PageWidgetView from '../components/widgets/pages/PageWidgetView';
 
@@ -16,8 +14,6 @@ import PageWidgetView from '../components/widgets/pages/PageWidgetView';
 const RouteWidget = () => {
 
     const { widgetId, dashboardId } = useParams() as any; 
-    const location = useLocation();
-    const { tags } = queryString.parse(location.search);
     const [fetchingWidget, setFetchingWidget] = useState(false);
     const dispatch = useDispatch();
 

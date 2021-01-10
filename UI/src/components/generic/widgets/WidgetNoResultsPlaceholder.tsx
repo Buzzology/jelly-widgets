@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-interface WidgetNoResultsPlaceholder {
+interface IWidgetNoResultsPlaceholderProps {
     icon?: any,
     text?: string,
     description?: string,
@@ -84,7 +84,7 @@ interface WidgetNoResultsPlaceholder {
 }
 
 
-export function WidgetNoResultsPlaceholder({ icon = Message, text = "No results", description, spin = false, flip = false, fade = false }: WidgetNoResultsPlaceholder) {
+export function WidgetNoResultsPlaceholder({ icon = Message, text = "No results", description, spin = false, flip = false, fade = false }: IWidgetNoResultsPlaceholderProps) {
 
     const classes = useStyles();
     const Icon = icon;

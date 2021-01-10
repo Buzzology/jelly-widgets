@@ -5,7 +5,6 @@ import LoaderAbsoluteCentred from '../generic/loaders/LoaderAbsoluteCentred';
 import { CustomColors } from '../../utilities/Styles';
 import WidgetIcon from './WidgetIcon';
 import ButtonSecondary from '../generic/buttons/ButtonSecondary';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { GetUserId } from '../../utilities/ApiUtils';
 import { IUseFetchWidgetsPageHookProps, useFetchWidgetsPageHook } from './Hook';

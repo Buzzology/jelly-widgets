@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, IconButton } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
 import { selectorGetWidgetById } from '../../../redux/widget/selectors';
-import { CustomColors } from '../../../utilities/Styles';
 import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
-import { UiFormStateIdEnum } from '../../../@types/UiFormState';
-import { setFormOpenState } from '../../../redux/uiFormState/actions';
-import EditWidgetIcon from '@material-ui/icons/EditTwoTone';
 import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actions';
 
 
@@ -26,7 +22,7 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
     const dispatch = useDispatch();
     const [addingWidget, setAddingWidget] = useState(false);
 
-    const addWidgetToDashboardClick = async (e: any) => {
+    const addWidgetToDashboardClick = async () => {
 
         setAddingWidget(true);
 

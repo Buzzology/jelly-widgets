@@ -52,6 +52,7 @@ export const Logout = () => {
     DeleteLocalStorageItem(StorageKeys.USER_ID);
     DeleteLocalStorageItem(StorageKeys.ACCESS_TOKEN);
     localStorage.clear();
+    sessionStorage.clear();
 }
 
 

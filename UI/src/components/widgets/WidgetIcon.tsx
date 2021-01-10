@@ -1,9 +1,6 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { CustomColors } from "../../utilities/Styles";
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux';
+import { useParams } from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({
