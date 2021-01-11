@@ -25,6 +25,12 @@ const FormDashboardCreate = ({ formValues, onCancelCallback }: FormProps) => {
     const dispatch = useDispatch();
     const [submitting, setSubmitting] = useState(false);
 
+    const internalOnSubmit = async (values: FormValues) => {
+        setSubmitting(true);
+        await dispatch(fetchCreateDashboard({ ...values }));
+        setSubmitting(false);
+    }
+
     return (
         <Formik
             initialValues={formValues}
@@ -37,11 +43,7 @@ const FormDashboardCreate = ({ formValues, onCancelCallback }: FormProps) => {
                         .required('Please provide a name value'),
                 })
             }
-            onSubmit={async (values) => {
-                setSubmitting(true);
-                await dispatch(fetchCreateDashboard({ ...values }));
-                setSubmitting(false);
-            }}
+            onSubmit={internalOnSubmit}
         >
             {props => {
                 return (

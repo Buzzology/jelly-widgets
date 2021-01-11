@@ -79,24 +79,22 @@ export const fetchUpdateDashboard = (props: IFetchUpdateDashboardProps): AppThun
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards`, {
-            method: 'PUT',
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_WIDGET_MANAGEMENT_API_URL}/dashboards/update`, {
+            method: 'POST',
             headers: headers,
             body: PrepareBody(props),
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
-        if (parsedResp && parsedResp.success && parsedResp.data && parsedResp.data.dashboards && parsedResp.data.dashboards.length) {
-            dispatch(receiveDashboards(parsedResp.data.dashboards));
-            return parsedResp.data.dashboards[0];
+        if (parsedResp?.success && parsedResp?.data?.dashboard) {
+            dispatch(receiveDashboards([parsedResp.data.dashboard]));
+            return parsedResp.data.dashboard;
         }
-        else {
-            if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {
-                ShowError("Error updating dashboard.");
-                return null;
-            }
+        
+        if (!parsedResp?.messages?.length) {
+            ShowError("Error updating dashboard.");
+            return null;
         }
-
     }
     catch (e) {
         ShowExceptionAsMessage(e);
