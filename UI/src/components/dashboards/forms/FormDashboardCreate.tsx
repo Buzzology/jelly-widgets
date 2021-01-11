@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { fetchCreateDashboard } from '../../../redux/dashboard/actions';
 import { useDispatch } from 'react-redux';
+import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
+import { useHistory } from 'react-router-dom';
 
 
 interface FormValues {
@@ -20,15 +22,21 @@ interface FormProps {
 }
 
 
-const FormDashboardCreate = ({ formValues, onCancelCallback }: FormProps) => {
+const FormDashboardCreate = ({ formValues, onCancelCallback, onCompleteCallback }: FormProps) => {
 
     const dispatch = useDispatch();
     const [submitting, setSubmitting] = useState(false);
+    const history = useHistory();
 
     const internalOnSubmit = async (values: FormValues) => {
         setSubmitting(true);
-        await dispatch(fetchCreateDashboard({ ...values }));
+        var dashboardCreateResp = await dispatch(fetchCreateDashboard({ ...values })) as any;
         setSubmitting(false);
+
+        if(dashboardCreateResp?.dashboardId) {
+            onCompleteCallback();
+            history.push(GetDashboardLinkByDashboardIdAndName(dashboardCreateResp.dashboardId, dashboardCreateResp.name));
+        }
     }
 
     return (

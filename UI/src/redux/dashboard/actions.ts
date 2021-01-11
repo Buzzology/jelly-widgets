@@ -90,7 +90,7 @@ export const fetchUpdateDashboard = (props: IFetchUpdateDashboardProps): AppThun
             dispatch(receiveDashboards([parsedResp.data.dashboard]));
             return parsedResp.data.dashboard;
         }
-        
+
         if (!parsedResp?.messages?.length) {
             ShowError("Error updating dashboard.");
             return null;
@@ -197,21 +197,18 @@ export const fetchDeleteDashboard = (props: IFetchDeleteDashboardProps): AppThun
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
-        if (parsedResp && parsedResp.success && parsedResp.data && parsedResp.data.dashboards && parsedResp.data.dashboards.length) {
-            dispatch(requestDeleteDashboard(parsedResp.data.dashboards[0]));
-            return parsedResp.data.dashboards[0];
+        if (parsedResp?.success && parsedResp?.data?.dashboard) {
+            dispatch(requestDeleteDashboard(parsedResp.data.dashboard));
+            return parsedResp.data.dashboard;
         }
-        else {
-            if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {
-                ShowError("Error deleting dashboard.");
-                return null;
-            }
+        if (!parsedResp?.messages?.length) {
+            ShowError("Error deleting dashboard.");
+            return null;
         }
-
     }
     catch (e) {
         ShowExceptionAsMessage(e);
-        console.log("Error deleting dashboard.", e.stack);
+        console.error("Error deleting dashboard.", e.stack);
         return;
     }
 }
@@ -226,7 +223,7 @@ function dispatchAndRemoveChildDashboardEntities(dispatch: any, dashboards: IDas
             dispatch(receiveDashboardWidgets(dashboard.dashboardWidgets));
         }
 
-        delete dashboard.dashboardWidgets;                
+        delete dashboard.dashboardWidgets;
     }
 
     // Add dashboards to store
