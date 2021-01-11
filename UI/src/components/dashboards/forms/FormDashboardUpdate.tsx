@@ -8,6 +8,7 @@ import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConf
 import { useDispatch } from 'react-redux';
 import IDashboard from '../../../@types/Dashboard';
 import { fetchDeleteDashboard, fetchUpdateDashboard } from '../../../redux/dashboard/actions';
+import { useHistory } from 'react-router-dom';
 
 
 interface FormProps {
@@ -23,6 +24,7 @@ const FormDashboardUpdate = ({ dashboard, onCancelCallback, onCompleteCallback }
     const [submitting, setSubmitting] = useState(false);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const toggleDeleteConfirmation = () => setShowDeleteConfirmation(!showDeleteConfirmation);
+    const history = useHistory();
 
     const onSubmit = async (updatedValues: IDashboard) => {
 
@@ -43,7 +45,10 @@ const FormDashboardUpdate = ({ dashboard, onCancelCallback, onCompleteCallback }
         setSubmitting(true);
         var dashboardUpdateResp = await dispatch(fetchDeleteDashboard({ dashboardId: dashboard?.dashboardId })) as any;
         setSubmitting(false);
-        if (dashboardUpdateResp) onCompleteCallback();
+        if (dashboardUpdateResp) {
+            onCompleteCallback();
+            history.push('/');
+        }
     }
 
     return (
@@ -78,39 +83,52 @@ const FormDashboardUpdate = ({ dashboard, onCancelCallback, onCompleteCallback }
                             </Grid>
 
                             <Grid item xs={12} style={{ textAlign: 'right' }}>
-                                <Button
-                                    disabled={submitting}
-                                    variant="text"
-                                    color="default"
-                                    onClick={onCancelCallback}
-                                >
-                                    Cancel
-                            </Button>&nbsp;&nbsp;&nbsp;
-                            <Button
-                                    type="submit"
-                                    disabled={submitting}
-                                    variant="outlined"
-                                    color="primary"
-                                >
-                                    Update
-                                </Button>
-                                <LoaderAbsoluteCentred loading={submitting} />
-                                <WidgetModalConfirmationDialog
-                                    open={showDeleteConfirmation}
-                                    title={`Delete ${dashboard?.name}?`}
-                                    subtitle="Confirm delete"
-                                    description="Are you sure that you'd like to remove this dashboard?"
-                                    onCancelCallback={toggleDeleteConfirmation}
-                                    onConfirmCallback={internalOnDelete}
-                                    confirmButtonText="Delete"
-                                />
-                            </Grid>
+                                <div style={{ flexBasis: '100%', display: 'flex' }}>
+                                    <Button
+                                        color="secondary"
+                                        variant="contained"
+                                        style={{ flexBasis: '33%' }}
+                                        onClick={toggleDeleteConfirmation}
+                                        disabled={submitting}
+                                    >
+                                        Delete
+                                    </Button>
+                                    <div style={{ flexBasis: '66%', justifyContent: 'flex-end', display: 'flex' }}>
+                                        <Button
+                                            disabled={submitting}
+                                            variant="text"
+                                            color="default"
+                                            onClick={onCancelCallback}
+                                        >
+                                            Cancel
+                                        </Button>&nbsp;&nbsp;&nbsp;
+                                        <Button
+                                            type="submit"
+                                            disabled={submitting}
+                                            variant="outlined"
+                                            color="primary"
+                                        >
+                                            Update
+                                        </Button>
+                                    </div>
+                                </div>
+                            <LoaderAbsoluteCentred loading={submitting} />
+                            <WidgetModalConfirmationDialog
+                                open={showDeleteConfirmation}
+                                title={`Delete ${dashboard?.name}?`}
+                                subtitle="Confirm delete"
+                                description="Are you sure that you'd like to remove this dashboard?"
+                                onCancelCallback={toggleDeleteConfirmation}
+                                onConfirmCallback={internalOnDelete}
+                                confirmButtonText="Delete"
+                            />
                         </Grid>
+                            </Grid>
                     </form>
-                )
-            }}
-        </Formik>
     )
-}
+}}
+        </Formik >
+                )
+            }
 
 export default FormDashboardUpdate;

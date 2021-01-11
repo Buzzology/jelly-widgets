@@ -18,7 +18,7 @@ function ModalDashboardCreate({ onCancelCallback, open, onCompleteCallback }: IM
         <WidgetModalBase
             handleCancel={onCancelCallback}
             open={open}
-            title={"Create a new topic"}
+            title={"Create a new dashboard"}
             subtitle={"Fill in the form to complete."}
             headerIcon={<BuildIcon />}
             headerColor={deepOrange[500]}
