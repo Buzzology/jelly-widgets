@@ -25,6 +25,8 @@ Widgets:
 - TFN Validator
 - NZ TFN Generator
 - NZ TFN Validator
+- Australian driver's license generator
+- Australian driver's license validator
 - Social security number generator
 - Social security number validator
 - GUID Generator

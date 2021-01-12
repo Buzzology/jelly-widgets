@@ -177,7 +177,7 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
     const dispatch = useDispatch();
 
     function setCreateDashboardFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true ));
+        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true));
     }
 
     return (
@@ -267,26 +267,24 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
     const theme = useTheme();
 
     if (!dashboard) return (
-        <>
+        <div style={{ marginRight: theme.spacing(3), marginLeft: theme.spacing(2) }}>
             &nbsp;<br />
             <WidgetNoResultsPlaceholder
-                text="No dashboard selected"
+                text="Click an Icon"
+                description="No dashboard selected."
                 fade={true}
             />
-        </>
+        </div>
     )
 
     return (
         <div className={classes.topicTagCategoryWrapper}>
-            {/* <Typography variant="overline" style={{
-                display: 'flex',
-                alignItems: 'center',
-                // color: CustomColors.MetalDarkTextColor
-            }}>
-                Active Widgets
-            </Typography> */}
-            <WidgetsDisplay dashboardWidgets={widgets} dashboard={dashboard} />
-            <Divider style={{ marginBottom: theme.spacing(1), marginRight: -theme.spacing(1), marginLeft: -theme.spacing(1) }} />
+            {widgets.length ? (
+                <>
+                    <WidgetsDisplay dashboardWidgets={widgets} dashboard={dashboard} />
+                    <Divider style={{ marginBottom: theme.spacing(1), marginRight: -theme.spacing(1), marginLeft: -theme.spacing(1) }} />
+                </>
+            ) : null}
             <NavLink
                 to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
                 style={{ textDecoration: 'none', color: 'inherit' }}

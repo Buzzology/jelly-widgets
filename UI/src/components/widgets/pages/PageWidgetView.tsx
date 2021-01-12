@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actions';
 import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
 import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
+import { CustomColors } from '../../../utilities/Styles';
 
 
 interface IPageWidgetViewProps {
@@ -88,7 +89,7 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
         >
             <Grid container>
                 <Grid item xs={10}>
-                    {/* <Typography variant="body1" component="span" style={{
+                    <Typography variant="body1" component="span" style={{
                         color: CustomColors.MetalDarkTextColor,
                         fontWeight: 600,
                     }} >
@@ -97,13 +98,12 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                     {widget ? (
                         <>
                             <IconButton size="small" style={{ marginLeft: 8 }}>
-                                <EditWidgetIcon style={{ height: 16, width: 16 }} />
                             </IconButton>
                         </>
-                    ) : null} */}
+                    ) : null}
                 </Grid>
 
-                <Grid item xs={2} style={{ textAlign: 'right' }}>
+                <Grid item xs={12} style={{ textAlign: 'right' }}>
                     <>
                         <ButtonSecondary
                             variant="text"

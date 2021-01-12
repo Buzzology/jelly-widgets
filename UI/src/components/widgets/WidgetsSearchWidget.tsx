@@ -5,7 +5,7 @@ import LoaderAbsoluteCentred from '../generic/loaders/LoaderAbsoluteCentred';
 import { CustomColors } from '../../utilities/Styles';
 import WidgetIcon from './WidgetIcon';
 import ButtonSecondary from '../generic/buttons/ButtonSecondary';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { GetUserId } from '../../utilities/ApiUtils';
 import { IUseFetchWidgetsPageHookProps, useFetchWidgetsPageHook } from './Hook';
 import { WidgetSearchOrderTypeEnum } from '../../redux/widget/types';
@@ -52,6 +52,7 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
     const [searchText, setSearchTextFilter] = useState<string>(query || '');
     const [orderTypeToSearchWith] = useState<WidgetSearchOrderTypeEnum>();
     const userId = GetUserId();
+    const history = useHistory();
     const [currentSearchValues, setCurrentSearchValues] = useState<IUseFetchWidgetsPageHookProps>({
         pageNumber: 1,
         pageSize: 30,
@@ -97,9 +98,9 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
                     <Grid item xs={2} style={{ textAlign: 'right' }}>
                         <ButtonSecondary
                             variant="outlined"
-                            // onClick={setWidgetFormOpen}
+                            onClick={() => history.goBack()}
                         >
-                            Create Widget
+                            Back
                     </ButtonSecondary>
                     </Grid>
                 ) : null}

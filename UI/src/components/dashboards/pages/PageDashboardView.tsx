@@ -107,7 +107,6 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                     >
                         <ButtonSecondary
                             variant="outlined"
-                            onClick={setPostFormOpen}
                         >
                             Add Widget
                         </ButtonSecondary>
@@ -161,7 +160,7 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
         <div>
             <Grid container spacing={3}>
                 {
-                    dashboardWidgets.map(x => {
+                    dashboardWidgets.length && dashboardWidgets.map(x => {
                         return (
                             <Grid item xs={12} md={6} lg={4} xl={3}>
                                 <DashboardWidgetRenderer dashboardWidgetId={x.dashboardWidgetId} />
@@ -169,9 +168,6 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
                         )
                     })
                 }
-                <Grid item xs={12}>
-                    Add Widget
-                </Grid>
             </Grid>
         </div>
     )
