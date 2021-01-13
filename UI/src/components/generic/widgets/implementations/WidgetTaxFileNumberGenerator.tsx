@@ -4,6 +4,7 @@ import IDashboardWidget from "../../../../@types/DashboardWidget";
 import { RootState } from "../../../../redux";
 import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardWidget/actions";
 import { selectorGetLatestPayloadByDashboardWidgetId } from "../../../../redux/payload/selectors";
+import { selectorGetWidgetById } from "../../../../redux/widget/selectors";
 import WidgetSimpleGenerator from "./implementationTypes/WidgetSimpleGenerator";
 
 
@@ -17,6 +18,7 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const payloadResponses = useSelector((store: RootState) => selectorGetLatestPayloadByDashboardWidgetId(store, dashboardWidget.dashboardWidgetId));
+    const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''));
 
     const onClickHandler = async () => {
 
@@ -36,8 +38,8 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
 
     return (
         <WidgetSimpleGenerator
-            label="Tax File Number Generator"
-            description="Generate Australian tax file numbers for testing."
+            label={widget?.name}
+            description={widget?.description}
             buttonLabel="Generate"
             outputLabel="Results"
             outputValue={payloadResponses?.payloadResponses?.tfn}

@@ -1,5 +1,5 @@
-import React, { } from 'react';
-import { Container, Grid, Typography, IconButton, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow } from '@material-ui/core';
 import { NavLink, RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,9 +11,11 @@ import { UiFormStateIdEnum } from '../../../@types/UiFormState';
 import { setFormOpenState } from '../../../redux/uiFormState/actions';
 import EditDashboardIcon from '@material-ui/icons/EditTwoTone';
 import { selectorGetDashboardWidgetById, selectorGetDashboardWidgetsByDashboardId } from '../../../redux/dashboardWidget/selectors';
-import { selectorGetWidgetById } from '../../../redux/widget/selectors';
+import { selectorFilterWidgetsBySearchString, selectorGetWidgetById } from '../../../redux/widget/selectors';
 import WidgetGenerator from '../../generic/widgets/implementations/WidgetGenerator';
 import { GetWidgetsSearchWithDashboardId } from '../../../routes/RouteLinkHelpers';
+import { WidgetNoResultsPlaceholder } from '../../generic/widgets/WidgetNoResultsPlaceholder';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +23,53 @@ const useStyles = makeStyles(theme => ({
         border: `1px solid ${CustomColors.MetalBorderColor}`,
         borderRadius: 0,
         padding: theme.spacing(3),
+    },
+    searchRoot: {
+        display: 'flex',
+        alignItems: 'center',
+        margin: 0,
+        marginBottom: theme.spacing(3),
+    },
+    input: {
+        flex: 1,
+    },
+    postSearchResultWrapper: {
+        transition: 'background 200ms ease-out',
+        textDecoration: 'none',
+        padding: theme.spacing(2),
+        borderBottom: `1px solid ${CustomColors.MetalBorderColor}`,
+        overflowX: 'hidden',
+        position: 'relative',
+    },
+    linkedPostSearchResultWrapper: {
+        animation: '$highlight 5000ms 1'
+    },
+    postSearchResultDivider: {
+    },
+    nextPageOfImagesWrapper: {
+    },
+    "@keyframes highlight": {
+        "0%": {
+            backgroundColor: "rgba(255, 254, 0, 0.5)"
+        },
+        "100%": {
+            backgroundColor: "inherit"
+        }
+    },
+    morePagesWrapper: {
+        marginTop: theme.spacing(3),
+        backgroundColor: CustomColors.ActiveItemBlue,
+        color: '#FFF',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        padding: theme.spacing(1),
+        borderRadius: theme.shape.borderRadius,
+        cursor: 'pointer',
+        transition: 'opacity 300ms ease-in-out',
+        position: 'relative',
+        '&:hover': {
+            opacity: 0.6,
+        }
     }
 }));
 
@@ -35,10 +84,6 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const dispatch = useDispatch();
-
-    function setPostFormOpen() {
-        dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true, dashboardId));
-    }
 
     function setUpdateDashboardOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardUpdate, true, { dashboard }));
@@ -123,11 +168,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                         <ButtonSecondary />
                     </Grid>
                 </Grid>
-                <Grid container>
-                    <Grid item xs={12}>
-                        {/* <PostsSearchWidget dashboardId={dashboard?.dashboardId} tags={tags} /> */}
-                        Search Widget
-                    </Grid>
+                <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <DashboardWidgets dashboardId={dashboardId} />
                     </Grid>
@@ -142,32 +183,81 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
 
     var dashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
+    const classes = useStyles();
+    const [dashboardSearchFilter, setDashboardSearchFilter] = useState('');
+    const filteredWidgets = useSelector((store: RootState) => selectorFilterWidgetsBySearchString(store, dashboardSearchFilter));
 
     if (!dashboardWidgets.length) {
         return (
-            <>
-                <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
-                    Not Widgets.
-            </Typography>
-                <Typography variant="subtitle2">
-                    You do not have any widgets on this dashboard.
-            </Typography>
-            </>
+            <WidgetNoResultsPlaceholder
+                text="No widgets"
+                description="You haven't added any widgets to this dashboard."
+                flip={true}
+            />
         );
     }
 
     return (
         <div>
             <Grid container spacing={3}>
-                {
-                    dashboardWidgets.length && dashboardWidgets.map(x => {
-                        return (
-                            <Grid item xs={12} md={6} lg={4} xl={3}>
-                                <DashboardWidgetRenderer dashboardWidgetId={x.dashboardWidgetId} />
+                <Grid item xs={12}>
+                    <Container style={{
+                        paddingTop: 0,
+                        paddingBottom: 24,
+                        paddingLeft: 0,
+                        paddingRight: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                    }}
+                        maxWidth={false}
+                    >
+                        <TextField
+                            margin="none"
+                            variant="outlined"
+                            className={classes.input}
+                            placeholder="Search dashboard"
+                            defaultValue={dashboardSearchFilter}
+                            onChange={(e: any) => setDashboardSearchFilter(e.target.value?.toLowerCase())}
+                            type="text"
+                            size="small"
+                            fullWidth={true}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Container>
+                </Grid>
+
+                <>
+                    {
+                        !filteredWidgets.length ? (
+                            <Grid item xs={12}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <WidgetNoResultsPlaceholder
+                                        text="No results"
+                                        description="No matching results on this dashboard"
+                                        fade={true}
+                                    />
+                                </div>
                             </Grid>
+                        ) : null
+                    }
+
+                    {dashboardWidgets.map(dw => {
+                        return (
+                            <Grow in={filteredWidgets.some(w => w.widgetId === dw.widgetId)} unmountOnExit={true}>
+                                <Grid item xs={12} md={6} lg={4} xl={3}>
+                                    <DashboardWidgetRenderer dashboardWidgetId={dw.dashboardWidgetId} />
+                                </Grid>
+                            </Grow>
                         )
-                    })
-                }
+                    })}
+
+                </>
             </Grid>
         </div>
     )

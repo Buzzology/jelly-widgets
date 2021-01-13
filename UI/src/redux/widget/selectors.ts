@@ -20,3 +20,11 @@ export function selectorGetWidgetById(state: RootState, widgetId: string) : IWid
 function sortWidgetsByNameAscending(widgets: IWidget[]) {
     return widgets.sort();
 }
+
+
+export function selectorFilterWidgetsBySearchString(store: RootState, searchString: string){
+    
+    if(!store.widgets?.byId) return [];
+    
+    return Object.values(store.widgets.byId).filter(x => x.name.toLowerCase().indexOf(searchString) >= 0 || x.description.toLowerCase().indexOf(searchString) >= 0);
+}

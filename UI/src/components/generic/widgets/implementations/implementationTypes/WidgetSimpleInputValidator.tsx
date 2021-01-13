@@ -5,8 +5,8 @@ import ButtonSecondary from "../../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../../loaders/LoaderAbsoluteCentred";
 
 interface IWidgetSimpleInputValidatorProps {
-    label: string,
-    description: string,
+    label: string | undefined,
+    description: string | undefined,
     buttonLabel: string,
     inputLabel: string,
     outputLabel: string,

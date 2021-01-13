@@ -3,8 +3,8 @@ import ButtonSecondary from "../../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../../loaders/LoaderAbsoluteCentred";
 
 interface IWidgetSimpleGenerator {
-    label: string,
-    description: string,
+    label: string | undefined,
+    description: string | undefined,
     buttonLabel: string,
     outputLabel: string,
     outputValue: string | undefined,

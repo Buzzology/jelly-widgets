@@ -4,6 +4,7 @@ import IDashboardWidget from "../../../../@types/DashboardWidget";
 import { RootState } from "../../../../redux";
 import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardWidget/actions";
 import { selectorGetLatestPayloadByDashboardWidgetId } from "../../../../redux/payload/selectors";
+import { selectorGetWidgetById } from "../../../../redux/widget/selectors";
 import WidgetSimpleInputValidator from "./implementationTypes/WidgetSimpleInputValidator";
 
 
@@ -17,6 +18,7 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const payloadResponses = useSelector((store: RootState) => selectorGetLatestPayloadByDashboardWidgetId(store, dashboardWidget.dashboardWidgetId));
+    const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''));
 
     const onClickHandler = async (e: any, input: string) => {
 
@@ -38,8 +40,8 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
 
     return (
         <WidgetSimpleInputValidator
-            label="Tax File Number Validator"
-            description="Validate Australian tax file numbers for testing."
+            label={widget?.name}
+            description={widget?.description}
             buttonLabel="Validate"
             inputLabel="TFN to Test"
             outputLabel="Results"
