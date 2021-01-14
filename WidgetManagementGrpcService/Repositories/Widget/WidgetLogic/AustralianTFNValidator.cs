@@ -7,12 +7,13 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
 {
     public static class AustralianTFNValidator
     {
-        public static Dictionary<string, string> ReturnErrorResponse(string error)
+        public static Dictionary<string, string> ReturnErrorResponse(string error, string requestValue)
         {
             return new Dictionary<string, string>
             {
                 { "valid", "false" },
                 { "message", error },
+                { "requestValue", requestValue },
             };
         }
 
@@ -21,23 +22,23 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
         {
             if (payloads == null || payloads.Count == 0)
             {
-                return ReturnErrorResponse($"{nameof(payloads)} must have a value.");
+                return ReturnErrorResponse($"{nameof(payloads)} must have a value.", "");
             }
 
             if (!payloads.ContainsKey("tfn"))
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn has not been provided.");
+                return ReturnErrorResponse($"{nameof(payloads)} tfn has not been provided.", "");
             }
 
             var tfn = payloads["tfn"];
             if (string.IsNullOrWhiteSpace(tfn))
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn value has not been provided.");
+                return ReturnErrorResponse($"{nameof(payloads)} tfn value has not been provided.", tfn);
             }
 
             if (tfn.Length != 9)
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn should be 9 characters.");
+                return ReturnErrorResponse($"{nameof(payloads)} tfn should be 9 characters.", tfn);
             }
 
             var tfnChars = tfn.ToArray();
@@ -47,17 +48,17 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
             {
                 if (!int.TryParse(tfnChars[i].ToString(), out var validNumber))
                 {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be a valid number.");
+                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be a valid number.", tfn);
                 }
 
                 if (validNumber > 9)
                 {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be less than or equal to 9.");
+                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be less than or equal to 9.", tfn); ;
                 }
 
                 if (validNumber < 0)
                 {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be more than or equal to 0.");
+                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be more than or equal to 0.", tfn);
                 }
 
                 // All but the last digit are multiplied by their index + 1
@@ -74,12 +75,14 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
 
             if (weightedSum % 11 != 0)
             {
-                return ReturnErrorResponse($"Invalid TFN - checksum algorithm does not pass.");
+                return ReturnErrorResponse($"Invalid TFN - checksum algorithm does not pass.", tfn);
             }
 
             return new Dictionary<string, string>
             {
-                { "valid", "true" }
+                { "valid", "true" },
+                { "requestValue", tfn },
+                { "message", "Valid Australian TFN" }
             };
         }
     }

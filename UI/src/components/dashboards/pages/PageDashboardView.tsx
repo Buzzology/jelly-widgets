@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
         border: `1px solid ${CustomColors.MetalBorderColor}`,
         borderRadius: 0,
         padding: theme.spacing(3),
+        height: '100%',
     },
     searchRoot: {
         display: 'flex',

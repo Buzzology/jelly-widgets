@@ -1,5 +1,5 @@
-import { TextField } from "@material-ui/core";
-import { useState } from "react";
+import { TextField, Typography } from "@material-ui/core";
+import React, { useState } from "react";
 import IDashboardWidget from "../../../../../@types/DashboardWidget";
 import ButtonSecondary from "../../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../../loaders/LoaderAbsoluteCentred";
@@ -33,8 +33,14 @@ function WidgetSimpleInputValidator({
     const [inputValue, setInputValue] = useState('');
 
     return (
-        <div>
-            {label}
+        <div style={{ height: '100%' }}>
+            <Typography noWrap={true}>
+                {label}
+            </Typography>
+            <Typography noWrap={true}>
+                {label}
+            </Typography>
+            {description}
             <div>
                 <TextField
                     onChange={(e: any) => setInputValue(e?.target.value)}
