@@ -20,10 +20,11 @@ import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
     widgetWrapper: {
-        border: `1px solid ${CustomColors.MetalBorderColor}`,
-        borderRadius: 0,
+        border: `none`,
         padding: theme.spacing(3),
         height: '100%',
+        backgroundColor: '#FFFFFF75',
+        borderRadius: theme.shape.borderRadius,
     },
     searchRoot: {
         display: 'flex',
@@ -158,18 +159,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                         </ButtonSecondary>
                     </NavLink>
                 </Grid>
-                <Grid
-                    container
-                    xs={12}
-                    direction="column"
-                    justify="space-between"
-                    style={{ marginTop: 24 }}
-                >
-                    <Grid item xs={12}>
-                        <ButtonSecondary />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} style={{ marginTop: 24 }}>
                     <Grid item xs={12}>
                         <DashboardWidgets dashboardId={dashboardId} />
                     </Grid>
@@ -228,6 +218,9 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),
+                                style: {
+                                    backgroundColor: '#FFF'
+                                }
                             }}
                         />
                     </Container>
