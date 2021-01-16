@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         border: `none`,
         padding: theme.spacing(3),
         height: '100%',
-        backgroundColor: '#FFFFFF75',
+        backgroundColor: '#FFF',
         borderRadius: theme.shape.borderRadius,
     },
     searchRoot: {
