@@ -27,6 +27,11 @@ export const requestDeleteDashboardWidget = (dashboardWidget: IDashboardWidget) 
     byId: { [dashboardWidget.dashboardWidgetId]: dashboardWidget }
 });
 
+export const requestDeletDashboardWidgetById = (dashboardWidgetId: string) => ({
+    type: ACTIONS_DASHBOARD_WIDGET.DELETE,
+    byId: { [dashboardWidgetId]: { dashboardWidgetId } }
+})
+
 
 export interface IFetchCreateDashboardWidgetProps {
     dashboardWidget: IDashboardWidget,
@@ -166,10 +171,11 @@ export interface IFetchSearchDashboardWidgetsProps {
 
 export interface IFetchRemoveDashboardWidgetProps {
     dashboardWidgetId: string,
+    dashboardId: string,
 }
 
 
-export const fetchRemoveDashboardWidget = (props: IFetchRemoveDashboardWidgetProps): AppThunk<Promise<IDashboardWidget>> => async dispatch => {
+export const fetchRemoveDashboardWidget = (props: IFetchRemoveDashboardWidgetProps): AppThunk<Promise<string | null>> => async dispatch => {
 
     var headers = GetDefaultHeaders(true, true);
 
@@ -181,21 +187,22 @@ export const fetchRemoveDashboardWidget = (props: IFetchRemoveDashboardWidgetPro
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
-        if (parsedResp && parsedResp.success && parsedResp.data && parsedResp.data.dashboardWidgets && parsedResp.data.dashboardWidgets.length) {
-            dispatch(requestDeleteDashboardWidget(parsedResp.data.dashboardWidgets[0]));
-            return parsedResp.data.dashboardWidgets[0];
+        if (parsedResp?.success) {
+            dispatch(requestDeletDashboardWidgetById(props?.dashboardWidgetId));
+            return props?.dashboardWidgetId;
         }
         else {
             if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {
-                ShowError("Error deleting dashboardWidget.");
-                return null;
+                ShowError("Error deleting dashboard widget.");
             }
         }
+
+        return null;
 
     }
     catch (e) {
         ShowExceptionAsMessage(e);
         console.log("Error deleting dashboard widget.", e.stack);
-        return;
+        return null;
     }
 }

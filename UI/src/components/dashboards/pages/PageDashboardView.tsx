@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow } from '@material-ui/core';
+import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow, Button } from '@material-ui/core';
 import { NavLink, RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,6 +16,13 @@ import WidgetGenerator from '../../generic/widgets/implementations/WidgetGenerat
 import { GetWidgetsSearchWithDashboardId } from '../../../routes/RouteLinkHelpers';
 import { WidgetNoResultsPlaceholder } from '../../generic/widgets/WidgetNoResultsPlaceholder';
 import SearchIcon from '@material-ui/icons/Search';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConfirmationDialog';
+import { fetchRemoveDashboardWidget } from '../../../redux/dashboardWidget/actions';
+import { fetchAccountManagementPortalUrl, fetchCheckoutPortalSessionId } from '../../../redux/paymentSessions/actions';
+import { useStripe } from '@stripe/react-stripe-js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -25,6 +32,7 @@ const useStyles = makeStyles(theme => ({
         height: '100%',
         backgroundColor: '#FFF',
         borderRadius: theme.shape.borderRadius,
+        position: 'relative',
     },
     searchRoot: {
         display: 'flex',
@@ -72,7 +80,12 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             opacity: 0.6,
         }
-    }
+    },
+    widgetMenuIcon: {
+        position: 'absolute',
+        top: theme.spacing(1),
+        right: theme.spacing(1),
+    },
 }));
 
 
@@ -86,9 +99,16 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const dispatch = useDispatch();
+    const stripe = useStripe();
 
     function setUpdateDashboardOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardUpdate, true, { dashboard }));
+    }
+
+    async function redirectToCheckout() {
+        // TODO: (CJO) LOADER FOR THIS ETC
+        var sessionId = await fetchCheckoutPortalSessionId({ priceId: "price_1IARejB2aL3Fzkly4cVdakx8" });
+        if (sessionId) stripe?.redirectToCheckout({ sessionId });
     }
 
     if (!dashboard) {
@@ -166,6 +186,10 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                 </Grid>
             </Grid>
             <LoaderAbsoluteCentred loading={loading} />
+            <div style={{ backgroundColor: '#FFF', padding: 24, margin: 24 }}>
+                <Button onClick={redirectToCheckout}>Pay</Button>
+                <Button onClick={() => fetchAccountManagementPortalUrl()}>Manage</Button>
+            </div>
         </Container>
     );
 }
@@ -264,6 +288,36 @@ function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: str
     const dashboardWidget = useSelector((store: RootState) => selectorGetDashboardWidgetById(store, dashboardWidgetId));
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''));
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+    const dispatch = useDispatch();
+
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const toggleDeleteConfirmation = () => setShowDeleteConfirmation(!showDeleteConfirmation);
+
+    const onDelete = async () => {
+
+        handleMenuClose();
+
+        if (!dashboardWidget) return;
+
+        setDeleting(true);
+
+        await dispatch(fetchRemoveDashboardWidget({
+            dashboardWidgetId: dashboardWidget.dashboardWidgetId,
+            dashboardId: dashboardWidget.dashboardId,
+        })) as any;
+
+        setDeleting(false);
+    }
+
+    const handleMenuClick = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    }
 
     if (!dashboardWidget || !widget) {
         return (
@@ -280,7 +334,37 @@ function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: str
 
     return (
         <div className={classes.widgetWrapper}>
+            <IconButton
+                className={classes.widgetMenuIcon}
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={handleMenuClick}
+            >
+                <MoreVertIcon />
+            </IconButton>
+            <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={anchorEl !== null}
+                onClose={handleMenuClose}
+            >
+                <MenuItem key="option-remove-widget" onClick={onDelete}>
+                    Remove
+                </MenuItem>
+            </Menu>
             <WidgetGenerator widgetId={dashboardWidget.widgetId} dashboardWidgetId={dashboardWidget.dashboardWidgetId} />
+            <WidgetModalConfirmationDialog
+                open={showDeleteConfirmation}
+                title={`Delete ${widget?.name || 'widget'}?`}
+                subtitle="Confirm delete"
+                description="Are you sure that you'd like to remove this widget?"
+                onCancelCallback={toggleDeleteConfirmation}
+                onConfirmCallback={onDelete}
+                confirmButtonText="Delete"
+            />
+            <LoaderAbsoluteCentred loading={deleting} />
         </div>
     )
 }

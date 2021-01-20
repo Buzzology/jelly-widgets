@@ -27,6 +27,7 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
     const [inputValue, setInputValue] = useState('');
     const theme = useTheme();
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget.widgetId));
+    
 
     const onClickHandler = async () => {
 
@@ -45,6 +46,8 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
             setLoading(false);
         }
     }
+
+
 
     if (!widget) return <WidgetNoResultsPlaceholder text="Widget not found." />;
 
@@ -115,7 +118,7 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
                 </div>
             ) : null
             }
-            <LoaderAbsoluteCentred loading={loading} />
+            <LoaderAbsoluteCentred loading={loading} />            
         </div >
     );
 }
