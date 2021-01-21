@@ -10,6 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Stripe.net" Version="39.32.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj" />
+    <ProjectReference Include="..\SubscriptionManagementData\SubscriptionManagementData.csproj" />
   </ItemGroup>
 
 </Project>
