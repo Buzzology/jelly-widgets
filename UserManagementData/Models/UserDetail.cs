@@ -26,6 +26,5 @@ namespace UserManagementData.Models
 
         [Required]
         public DateTime Updated { get; set; }
-
     }
 }
