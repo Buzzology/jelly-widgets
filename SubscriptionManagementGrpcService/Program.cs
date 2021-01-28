@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using MicroservicesProjectLibrary.Utilities.Startup;
 
 namespace SubscriptionManagementGrpcService
 {
     public class Program
     {
+        public static readonly string Namespace = typeof(Program).Namespace;
+        public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.') >= 0 ? Namespace.LastIndexOf('.') - 1 : 0);
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

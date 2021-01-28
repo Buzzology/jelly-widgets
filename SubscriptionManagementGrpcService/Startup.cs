@@ -2,17 +2,14 @@
 using MicroservicesProjectLibrary.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stripe;
 using SubscriptionManagementGrpcService.Infrastructure;
+using SubscriptionManagementGrpcService.Services;
 using SubscriptionManagementGrpcService.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SubscriptionManagementGrpcService
 {
@@ -60,18 +57,26 @@ namespace SubscriptionManagementGrpcService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SubscriptionManagementDbContext subscriptionManagementDbContext, IntegrationEventLogDbContext eventLogDbContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            // Run migrations
+            subscriptionManagementDbContext.Database.Migrate();
+            eventLogDbContext.Database.Migrate();
 
+            StartupHelper.ConfigureEventBus(app);
+
+            // Initialise stripe configuration
+            StripeConfiguration.ApiKey = "sk_test_51IARDTB2aL3Fzklyc2zgidxLLf6altYutf5JEQPJh8Hsg7Mj3k1GE1ca1VLinqHTVDFB626bmRuxxr01kZYCLPMg00ME9noJO7";
+
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<SiteCustomerServiceV1>();
             });
         }
     }

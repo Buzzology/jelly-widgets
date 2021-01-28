@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\SiteCustomer.proto" GrpcServices="Server">
+      <Link>Protos\SiteCustomer.proto</Link>
+    </Protobuf>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
     <PackageReference Include="Stripe.net" Version="39.32.0" />
   </ItemGroup>
@@ -16,6 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\MicroservicesProjectLibrary\MicroservicesProjectLibrary.csproj" />
     <ProjectReference Include="..\SubscriptionManagementData\SubscriptionManagementData.csproj" />
+    <ProjectReference Include="..\SubscriptionManagementIntegrationEvents\SubscriptionManagementIntegrationEvents.csproj" />
+    <ProjectReference Include="..\UserManagementIntegrationEvents\UserManagementIntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>
