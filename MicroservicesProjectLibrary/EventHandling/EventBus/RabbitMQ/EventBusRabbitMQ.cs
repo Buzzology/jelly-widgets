@@ -1,6 +1,7 @@
 ﻿using MicroservicesProjectLibrary.EventHandling.Events;
 using MicroservicesProjectLibrary.EventHandling.Services;
 using MicroservicesProjectLibrary.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,6 +28,7 @@ namespace MicroservicesProjectLibrary.EventHandling.EventBus.RabbitMQ
         private string _queueName;
         IEventBusSubscriptionsManager _subsManager;
         IServiceProvider _serviceProvider;
+        IServiceScopeFactory _scopeFactory { get; init; }
 
         public EventBusRabbitMQ(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQ> logger, int retryCount, IEventBusSubscriptionsManager subsManager, IServiceProvider serviceProvider, string queueName = "")
         {
@@ -38,6 +40,7 @@ namespace MicroservicesProjectLibrary.EventHandling.EventBus.RabbitMQ
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
             _serviceProvider = serviceProvider;
+            _scopeFactory = serviceProvider.GetService<IServiceScopeFactory>();
         }
 
 
@@ -234,15 +237,23 @@ namespace MicroservicesProjectLibrary.EventHandling.EventBus.RabbitMQ
                     } 
                     else
                     {
-                        var handler = _serviceProvider.GetService(subscription.HandlerType);
-                        if (handler == null) continue;
+                        // Added this because I was unable to resolve scoped services in the singleton (this class): https://stackoverflow.com/a/55381457/522859
+                        using (var scope = _scopeFactory.CreateScope())
+                        {
+                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
+                            if (handler == null)
+                            {
+                                _logger.LogWarning($"No handler for RabbitMQ event: {eventName}. {nameof(subscription.HandlerType)}: {subscription.HandlerType}");
+                                continue;
+                            }
 
-                        var eventType = _subsManager.GetEventTypeByName(eventName);
-                        var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                            var eventType = _subsManager.GetEventTypeByName(eventName);
+                            var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
 
-                        await Task.Yield();
-                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                            await Task.Yield();
+                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                        }
                     }
                 }
             }
