@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserManagementIntegrationEvents.UserDetail;
 using WidgetManagementGrpcService.EventHandling.Dashboard;
 using WidgetManagementGrpcService.Repositories.Dashboard;
 using WidgetManagementGrpcService.Repositories.Widget;
@@ -24,13 +25,16 @@ namespace WidgetManagementGrpcService.Utilities
             services.SetRabbitMqServiceAndConfiguration(configuration);
 
             // Add custom handlers etc
-            services.AddTransient<IIntegrationEventHandler, UserDetailCreatedIntegrationEventHandler>();
+            services.AddTransient<UserDetailCreatedIntegrationEventHandler>();
         }
 
 
         public static void ConfigureEventBus(IApplicationBuilder app)
         {
-           app.ApplicationServices.GetRequiredService<IEventBus>();
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            // Subscribe handlers to events
+            eventBus.Subscribe<UserDetailCreatedIntegrationEvent, UserDetailCreatedIntegrationEventHandler>();
         }
 
 

@@ -17,12 +17,9 @@
 #- Dashboard get user dashboards (including nested dashboard widgets) so that they can be displayed
 #- On user created event generate sample dashboard for the user
 
-AT THIS POINT NOW 
-Once we reach this point we should probably start on the ui and see if we can get at least the two sample widgets going.
-
 Widgets:
 - TFN Generator
-- TFN Validator
+#- TFN Validator
 - NZ TFN Generator
 - NZ TFN Validator
 - Australian driver's license generator
@@ -42,3 +39,4 @@ Widgets:
 - Base64 decoder
 - json formatter
 - json to single line
+- Qr code generator

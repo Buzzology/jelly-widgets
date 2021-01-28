@@ -56,8 +56,9 @@ namespace WidgetManagementGrpcService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            StartupHelper.ConfigureEventBus(app);
 
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DashboardServiceV1>();
