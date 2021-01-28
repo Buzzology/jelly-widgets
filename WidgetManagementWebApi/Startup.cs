@@ -24,7 +24,7 @@ namespace WidgetManagementWebApi
         {
             // Load authentication via shared library
             services.LoadAuthentication(Configuration);
-
+            
             // Add cors
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
