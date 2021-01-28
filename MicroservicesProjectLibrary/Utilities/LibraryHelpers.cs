@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace MicroservicesProjectLibrary.Utilities
 {
@@ -17,8 +19,7 @@ namespace MicroservicesProjectLibrary.Utilities
     {
         public static RpcException GenerateRpcException(Exception ex)
         {
-            var statusCode = StatusCode.Unknown;
-
+            StatusCode statusCode;
             if (ex is ArgumentException)
             {
                 statusCode = StatusCode.InvalidArgument;
@@ -36,6 +37,8 @@ namespace MicroservicesProjectLibrary.Utilities
                 statusCode = StatusCode.InvalidArgument;
             }
             else {
+
+                Log.Error(ex, $"An unexpected exception has occurred in a grpc call: ${ex.Message}");
 
                 // Default should not provide any internal information
                 return new RpcException(new Status(StatusCode.Internal, "Unexpected error."));
