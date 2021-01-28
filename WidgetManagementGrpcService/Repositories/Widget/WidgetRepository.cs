@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService.Repositories.Widget.WidgetLogic;
 using WidgetManagementGrpcService.Utilities.Configuration;
+using static SubscriptionManagementGrpcService.SubscriptionServices;
 using Models = WidgetManagementData.Models;
 
 namespace WidgetManagementGrpcService.Repositories.Widget
@@ -15,21 +16,26 @@ namespace WidgetManagementGrpcService.Repositories.Widget
     /* https://morioh.com/p/fe249dd19cc1 */
     public class WidgetRepository : IWidgetRepository
     {
-        private readonly ILogger<WidgetRepository> _logger;
-        private IMongoCollection<Models.Widget> _widgets;
-        private readonly IMapper _mapper;
+        private ILogger<WidgetRepository> _logger { get; init; }
+        private IMongoCollection<Models.Widget> _widgets { get; init; }
+        private IMongoCollection<Models.WidgetUserExecutionTracker> _widgetUserExecutionTrackers { get; init; }
+        private IMapper _mapper { get; init; }
+        SubscriptionServicesClient _subscriptionServicesClient { get; init; }
 
         public WidgetRepository(
             WidgetManagementMongoDbConfiguration config,
             IMapper mapper,
-            ILogger<WidgetRepository> logger
+            ILogger<WidgetRepository> logger,
+            SubscriptionServicesClient subscriptionServicesClient
             )
         {
             var client = new MongoClient(config.ConnectionString);
             var database = client.GetDatabase(config.DatabaseName);
 
             _widgets = database.GetCollection<Models.Widget>(config.WidgetsCollectionName);
+            _widgetUserExecutionTrackers = database.GetCollection<Models.WidgetUserExecutionTracker>(config.WidgetUserExecutionTrackersCollectionName);
             _mapper = mapper;
+            _subscriptionServicesClient = subscriptionServicesClient;
         }
 
 
@@ -100,6 +106,23 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
         public async Task<Dictionary<string, string>> ProcessMessage(string widgetId, string dashboardWidgetId, string currentUserId, Dictionary<string, string> payloads)
         {
+            // Check if they have an active subscription
+            var userHasActiveSubscription = (await _subscriptionServicesClient.SubscriptionGetHasActiveStatusAsync(
+                new SubscriptionManagementGrpcService.SubscriptionGetHasActiveStatusRequest
+                {
+                    UserDetailId = currentUserId,
+                })).Active;
+
+            // If they don't have an active subscription we need to check they haven't exceeded the free tier
+            if (!userHasActiveSubscription)
+            {
+                var widgetTracker = _widgetUserExecutionTrackers.Find(x => x.UserDetailId == currentUserId && x.Archived == false).FirstOrDefault();
+                if(widgetTracker?.TotalExecutions >= 100) // TODO: (CJO) We need to make this free quota configurable
+                {
+                    throw new ArgumentException($"Free monthly quota exceeded.");
+                }
+            }
+
             switch (widgetId)
             {
                 case WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId:

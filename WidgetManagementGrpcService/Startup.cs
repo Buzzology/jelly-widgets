@@ -45,6 +45,7 @@ namespace WidgetManagementGrpcService
             // Add custom services etc
             StartupHelper.AddConfiguration(services, Configuration);
             StartupHelper.AddServices(services, Configuration);
+            StartupHelper.AddGrpcServices(services, Configuration);
             StartupHelper.AddEventBus(services, Configuration);
         }
 

@@ -19,15 +19,12 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
     {
         private readonly SubscriptionManagementDbContext _subscriptionManagementDbContext;
         private readonly ISubscriptionManagementIntegrationEventService _subscriptionManagementIntegrationEventService;
-        private readonly IEventBus _eventBus;
         private readonly CustomerService _stripeCustomerService;
         private readonly SessionService _stripeCheckoutSessionService;
-
 
         public SiteCustomerRepository(
                 ILogger<SiteCustomerRepository> logger,
                 ISubscriptionManagementIntegrationEventService subscriptionManagementIntegrationEventService,
-                IEventBus eventBus,
                 CustomerService stripeCustomerService,
                 SessionService stripeCheckoutSessionService,
                 SubscriptionManagementDbContext subscriptionManagementDbContext
@@ -35,7 +32,6 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
         {
             _subscriptionManagementDbContext = subscriptionManagementDbContext;
             _subscriptionManagementIntegrationEventService = subscriptionManagementIntegrationEventService;
-            _eventBus = eventBus;
             _stripeCustomerService = stripeCustomerService;
             _stripeCheckoutSessionService = stripeCheckoutSessionService;
         }

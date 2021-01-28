@@ -8,6 +8,9 @@
     <Protobuf Include="..\SubscriptionManagementData\Protos\SiteCustomer.proto" GrpcServices="Server">
       <Link>Protos\SiteCustomer.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\Subscription.proto" GrpcServices="Server">
+      <Link>Protos\Subscription.proto</Link>
+    </Protobuf>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 
@@ -22,6 +25,10 @@
     <ProjectReference Include="..\SubscriptionManagementData\SubscriptionManagementData.csproj" />
     <ProjectReference Include="..\SubscriptionManagementIntegrationEvents\SubscriptionManagementIntegrationEvents.csproj" />
     <ProjectReference Include="..\UserManagementIntegrationEvents\UserManagementIntegrationEvents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Subscription\Messages\" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using UserManagementIntegrationEvents.UserDetail;
 using WidgetManagementConstants;
 using WidgetManagementGrpcService.Repositories.Dashboard;
-using WidgetManagementGrpcService.Utilities.Seed;
 
 namespace WidgetManagementGrpcService.EventHandling.Dashboard
 {

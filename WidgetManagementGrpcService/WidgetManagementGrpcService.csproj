@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\Subscription.proto" GrpcServices="Client">
+      <Link>Protos\Subscription.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\WidgetManagementData\Protos\dashboard-services.proto" GrpcServices="Server">
       <Link>Protos\dashboard-services.proto</Link>
     </Protobuf>

@@ -14,6 +14,7 @@ using WidgetManagementGrpcService.Repositories.Dashboard;
 using WidgetManagementGrpcService.Repositories.Widget;
 using WidgetManagementGrpcService.Services;
 using WidgetManagementGrpcService.Utilities.Configuration;
+using static SubscriptionManagementGrpcService.SubscriptionServices;
 
 namespace WidgetManagementGrpcService.Utilities
 {
@@ -35,6 +36,17 @@ namespace WidgetManagementGrpcService.Utilities
 
             // Subscribe handlers to events
             eventBus.Subscribe<UserDetailCreatedIntegrationEvent, UserDetailCreatedIntegrationEventHandler>();
+        }
+
+
+        public static void AddGrpcServices(IServiceCollection services, IConfiguration configuration)
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            services.AddGrpcClient<SubscriptionServicesClient>(c =>
+            {
+                c.Address = new Uri(@"http://localhost:5025");
+            });
         }
 
 

@@ -6,5 +6,6 @@
         public string DatabaseName { get; set; }
         public string DashboardsCollectionName { get; set; }
         public string WidgetsCollectionName { get; set; }
+        public string WidgetUserExecutionTrackersCollectionName { get; set; }
     }
 }

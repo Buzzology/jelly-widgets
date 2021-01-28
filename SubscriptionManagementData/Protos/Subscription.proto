@@ -1,0 +1,62 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "SubscriptionManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package SubscriptionManagementGrpcService.v1;
+
+service SubscriptionServices {
+  rpc SubscriptionCreate (SubscriptionCreateRequest) returns (SubscriptionCreateResponse);
+  rpc SubscriptionGet (SubscriptionGetRequest) returns (SubscriptionGetResponse);
+  rpc SubscriptionSearch (SubscriptionSearchRequest) returns (SubscriptionSearchResponse);
+  rpc SubscriptionUpdate (SubscriptionUpdateRequest) returns (SubscriptionUpdateResponse);
+  rpc SubscriptionGetHasActiveStatus (SubscriptionGetHasActiveStatusRequest) returns (SubscriptionGetHasActiveStatusResponse);
+}
+
+message SubscriptionCreateRequest {
+  SubscriptionDto subscription = 1;
+}
+
+message SubscriptionCreateResponse {
+    SubscriptionDto subscription = 1;
+}
+
+message SubscriptionUpdateRequest {
+  SubscriptionDto subscription = 1;
+}
+
+message SubscriptionUpdateResponse {
+    SubscriptionDto subscription = 1;
+}
+
+message SubscriptionGetRequest {
+  string subscriptionId = 1;
+}
+
+message SubscriptionGetResponse {
+    SubscriptionDto subscription = 1;
+}
+
+message SubscriptionSearchRequest {
+    repeated string userDetailIds = 1;
+}
+
+message SubscriptionSearchResponse {
+    repeated SubscriptionDto subscriptions = 1;
+}
+
+message SubscriptionGetHasActiveStatusRequest {
+    string userDetailId = 1;
+}
+
+message SubscriptionGetHasActiveStatusResponse {
+    string userDetailId = 1;
+    bool active = 2;
+}
+
+message SubscriptionDto {
+	string subscriptionId = 1;
+	string userDetailId = 2;
+    google.protobuf.Timestamp expires = 3;
+}

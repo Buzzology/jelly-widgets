@@ -77,6 +77,7 @@ namespace SubscriptionManagementGrpcService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<SiteCustomerServiceV1>();
+                endpoints.MapGrpcService<SubscriptionServiceV1>();
             });
         }
     }
