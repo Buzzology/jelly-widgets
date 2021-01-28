@@ -25,7 +25,9 @@ namespace UserManagementGrpcService
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    SetConfiguration(config);
+                    // Loaded via library extensions
+                    config.SetDefaultConfiguration();
+                    config.SetAzureKeyVaultConfiguration();
                 })                
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
@@ -39,13 +41,5 @@ namespace UserManagementGrpcService
                         });
                     });
                 });
-
-
-        private static void SetConfiguration(IConfigurationBuilder builder)
-        {
-            // Loaded via library extensions
-            builder.SetDefaultConfiguration();
-            builder.SetAzureKeyVaultConfiguration();
-        }
     }
 }

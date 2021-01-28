@@ -31,7 +31,7 @@ namespace UserManagementGrpcService
                 options => {
                     options.UseNpgsql(
                         Configuration.GetValue("user-management-service-dbcontext-connection-string", ""),
-                        b => b.MigrationsAssembly("UserManagementGrpcService")
+                        b => b.MigrationsAssembly(nameof(UserManagementGrpcService))
                     );
                 });
             services.AddDbContext<IntegrationEventLogDbContext>(
@@ -66,8 +66,9 @@ namespace UserManagementGrpcService
 
             //app.UseHttpsRedirection();
 
-            app.UseRouting();
+            StartupHelper.ConfigureEventBus(app);
 
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<UserDetailServiceV1>();
