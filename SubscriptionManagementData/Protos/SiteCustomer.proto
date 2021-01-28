@@ -1,0 +1,76 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "SubscriptionManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package SubscriptionManagementGrpcService.v1;
+
+// The user detail service definition.
+service SiteCustomerServices {
+  rpc SiteCustomerCreate (SiteCustomerCreateRequest) returns (SiteCustomerCreateResponse);
+  rpc SiteCustomerGet (SiteCustomerGetRequest) returns (SiteCustomerGetResponse);
+  rpc SiteCustomerSearch (SiteCustomerSearchRequest) returns (SiteCustomerSearchResponse);
+  rpc SiteCustomerUpdate (SiteCustomerUpdateRequest) returns (SiteCustomerUpdateResponse);
+  rpc SiteCustomerGetCheckoutSession (SiteCustomerGetCheckoutSessionRequest) returns (SiteCustomerGetCheckoutSessionResponse);
+}
+
+message SiteCustomerCreateRequest {
+  SiteCustomerDto siteCustomer = 1;
+}
+
+message SiteCustomerCreateResponse {
+    SiteCustomerDto siteCustomer = 1;
+}
+
+message SiteCustomerUpdateRequest {
+  SiteCustomerDto siteCustomer = 1;
+}
+
+message SiteCustomerUpdateResponse {
+    SiteCustomerDto siteCustomer = 1;
+}
+
+message SiteCustomerGetRequest {
+  string siteCustomerId = 1;
+}
+
+message SiteCustomerGetResponse {
+    SiteCustomerDto siteCustomer = 1;
+}
+
+message SiteCustomerSearchRequest {
+    repeated string userDetailIds = 1;
+}
+
+message SiteCustomerSearchResponse {
+    repeated SiteCustomerDto siteCustomers = 1;
+}
+
+message SiteCustomerGetCheckoutSessionRequest {
+    string cancelUrl = 1;
+    string successUrl = 2;
+    string paymentMethodType = 3;
+    string mode = 4;
+    repeated LineItemDto lineItems = 5;
+    string userDetailId = 6;
+}
+
+message SiteCustomerGetCheckoutSessionResponse {
+    string sessionId = 1;
+}
+
+message SiteCustomerDto {
+	string siteCustomerId = 1;
+	string displayName = 2;
+    string userDetailId = 3;
+    string emailAddress = 4;
+    string externalCustomerId = 5;
+    google.protobuf.Timestamp created = 7;
+    google.protobuf.Timestamp updated = 8;
+}
+
+message LineItemDto {
+    string priceId = 1;
+    int32 quantity = 2;
+}
