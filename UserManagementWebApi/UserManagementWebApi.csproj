@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\UserManagementGrpcService\Protos\user-detail-services.proto" GrpcServices="Client">
+    <Protobuf Include="..\UserManagementData\Protos\user-detail-services.proto" GrpcServices="Client">
       <Link>Protos\user-detail-services.proto</Link>
     </Protobuf>
   </ItemGroup>
