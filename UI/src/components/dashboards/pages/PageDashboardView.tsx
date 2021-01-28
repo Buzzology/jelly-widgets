@@ -107,7 +107,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 
     async function redirectToCheckout() {
         // TODO: (CJO) LOADER FOR THIS ETC
-        var sessionId = await fetchCheckoutPortalSessionId({ priceId: "price_1IARejB2aL3Fzkly4cVdakx8" });
+        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3Fzkly4cVdakx8", quantity: 1 }] });
         if (sessionId) stripe?.redirectToCheckout({ sessionId });
     }
 
