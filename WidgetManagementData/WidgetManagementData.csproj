@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Protos\widget-user-execution-tracker.proto">
+      <GrpcServices>Server</GrpcServices>
+    </None>
     <None Update="Protos\widget-services.proto">
       <GrpcServices>Server</GrpcServices>
     </None>

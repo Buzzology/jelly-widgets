@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WidgetManagementGrpcService.EventHandling;
 using WidgetManagementGrpcService.Repositories.Widget.WidgetLogic;
 using WidgetManagementGrpcService.Utilities.Configuration;
+using WidgetManagementIntegrationEvents.Widget;
 using static SubscriptionManagementGrpcService.SubscriptionServices;
 using Models = WidgetManagementData.Models;
 
@@ -21,21 +23,25 @@ namespace WidgetManagementGrpcService.Repositories.Widget
         private IMongoCollection<Models.WidgetUserExecutionTracker> _widgetUserExecutionTrackers { get; init; }
         private IMapper _mapper { get; init; }
         SubscriptionServicesClient _subscriptionServicesClient { get; init; }
+        private WidgetManagementIntegrationEventService _widgetManagementIntegrationEventService { get; init; }
 
         public WidgetRepository(
             WidgetManagementMongoDbConfiguration config,
             IMapper mapper,
             ILogger<WidgetRepository> logger,
-            SubscriptionServicesClient subscriptionServicesClient
+            SubscriptionServicesClient subscriptionServicesClient,
+            WidgetManagementIntegrationEventService widgetManagementIntegrationEventService
             )
         {
             var client = new MongoClient(config.ConnectionString);
             var database = client.GetDatabase(config.DatabaseName);
 
+            _logger = logger;
             _widgets = database.GetCollection<Models.Widget>(config.WidgetsCollectionName);
             _widgetUserExecutionTrackers = database.GetCollection<Models.WidgetUserExecutionTracker>(config.WidgetUserExecutionTrackersCollectionName);
             _mapper = mapper;
             _subscriptionServicesClient = subscriptionServicesClient;
+            _widgetManagementIntegrationEventService = widgetManagementIntegrationEventService;
         }
 
 
@@ -123,24 +129,33 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                 }
             }
 
+            Dictionary<string, string> resp;
             switch (widgetId)
             {
                 case WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId:
                     {
-                        return new Dictionary<string, string>
+                        resp = new Dictionary<string, string>
                         {
                             { "tfn", "123" }
                         };
+                        break;
                     }
 
                 case WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId:
                     {
-                        return await AustralianTFNValidator.Validate(payloads);
+                        resp = await AustralianTFNValidator.Validate(payloads);
+                        break;
                     }
 
                 default:
                     throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
             }
+
+            // TODO: (CJO) Event does not appear to be created in integrationeventlogdbcontext first
+            var @event = new WidgetExecutedIntegrationEvent(widgetId, currentUserId);
+            await _widgetManagementIntegrationEventService.PublishThroughEventBusAsync(@event);
+
+            return resp;
         }
     }
 }

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "WidgetManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package WidgetManagementGrpcService.v1;
+
+service WidgetUserExecutionTrackerServices {
+  rpc WidgetUserExecutionTrackerGet (WidgetUserExecutionTrackerGetRequest) returns (WidgetUserExecutionTrackerGetResponse);
+}
+
+message WidgetUserExecutionTrackerGetRequest {
+    string widgetUserExecutionTrackerId = 1;
+    string currentUserId = 2;
+}
+
+message WidgetUserExecutionTrackerGetResponse {
+    WidgetUserExecutionTrackerDto widgetUserExecutionTracker = 1;
+}
+
+message WidgetUserExecutionTrackerWidgetDto {
+    string widgetUserExecutionTrackerId = 1;
+    string userDetailId = 2;
+    google.protobuf.Timestamp created = 3;
+    string archived = 4;
+    int32 totalExecutions = 5;
+    map<string, string> widgetIdExecutions = 6;
+}

@@ -32,7 +32,7 @@ namespace WidgetManagementGrpcService.EventHandling
             _integrationEventLogDbContext = integrationEventLogDbContext;
         }
 
-
+        
         public async Task PublishThroughEventBusAsync(IntegrationEvent evt)
         {
             try

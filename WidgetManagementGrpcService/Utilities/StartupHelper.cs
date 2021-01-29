@@ -3,17 +3,16 @@ using MicroservicesProjectLibrary.Utilities.Startup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UserManagementIntegrationEvents.UserDetail;
 using WidgetManagementGrpcService.EventHandling.Dashboard;
+using WidgetManagementGrpcService.EventHandling.WidgetExecutionTracker;
 using WidgetManagementGrpcService.Repositories.Dashboard;
 using WidgetManagementGrpcService.Repositories.Widget;
+using WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker;
 using WidgetManagementGrpcService.Services;
 using WidgetManagementGrpcService.Utilities.Configuration;
+using WidgetManagementIntegrationEvents.Widget;
 using static SubscriptionManagementGrpcService.SubscriptionServices;
 
 namespace WidgetManagementGrpcService.Utilities
@@ -36,6 +35,7 @@ namespace WidgetManagementGrpcService.Utilities
 
             // Subscribe handlers to events
             eventBus.Subscribe<UserDetailCreatedIntegrationEvent, UserDetailCreatedIntegrationEventHandler>();
+            eventBus.Subscribe<WidgetExecutedIntegrationEvent, WidgetExecutedIntegrationEventHandler>();
         }
 
 
@@ -55,6 +55,7 @@ namespace WidgetManagementGrpcService.Utilities
             // Add repositories
             services.AddTransient(typeof(IDashboardRepository), typeof(DashboardRepository));
             services.AddTransient(typeof(IWidgetRepository), typeof(WidgetRepository));
+            services.AddTransient(typeof(IWidgetUserExecutionTrackerRepository), typeof(WidgetUserExecutionTrackerRepository));
         }
 
 
