@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService.Repositories.Widget;
 
@@ -13,10 +9,8 @@ namespace WidgetManagementGrpcService.Utilities.Seed
         private const string TfnGeneratorWidgetId = WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId;
         private const string TfnValidatorWidgetId = WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId;
 
-        public static async Task Run(IHost host)
+        public static async Task Run(IWidgetRepository widgetsRepository)
         {
-            var widgetsRepository = host.Services.GetRequiredService<IWidgetRepository>();
-
             // Tfn generator widget
             if(await widgetsRepository.Get(TfnGeneratorWidgetId, string.Empty) == null)
             {

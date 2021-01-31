@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using UserManagementIntegrationEvents.UserDetail;
+using WidgetManagementGrpcService.EventHandling;
 using WidgetManagementGrpcService.EventHandling.Dashboard;
 using WidgetManagementGrpcService.EventHandling.WidgetExecutionTracker;
 using WidgetManagementGrpcService.Repositories.Dashboard;
@@ -52,6 +53,9 @@ namespace WidgetManagementGrpcService.Utilities
 
         public static void AddServices(IServiceCollection services, IConfiguration configuration)
         {
+            // Add services
+            services.AddTransient(typeof(IWidgetManagementIntegrationEventService), typeof(WidgetManagementIntegrationEventService));
+
             // Add repositories
             services.AddTransient(typeof(IDashboardRepository), typeof(DashboardRepository));
             services.AddTransient(typeof(IWidgetRepository), typeof(WidgetRepository));

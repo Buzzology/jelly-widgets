@@ -18,8 +18,13 @@ namespace WidgetManagementGrpcService
         {
             var host = CreateHostBuilder(args).Build();
 
-            // Seed data
-            await SeedWidgets.Run(host);
+            using (var scope = host.Services.CreateScope())
+            {
+                var widgetsRepository = scope.ServiceProvider.GetRequiredService<IWidgetRepository>();
+
+                // Seed data
+                await SeedWidgets.Run(widgetsRepository);
+            }
             
             host.Run();
         }
