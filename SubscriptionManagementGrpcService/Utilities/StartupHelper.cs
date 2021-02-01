@@ -8,13 +8,13 @@ using Stripe.Checkout;
 using SubscriptionManagementGrpcService.EventHandling;
 using SubscriptionManagementGrpcService.EventHandling.SiteCustomer;
 using SubscriptionManagementGrpcService.Repositories.SiteCustomer;
+using SubscriptionManagementGrpcService.Repositories.Subscription;
 using UserManagementIntegrationEvents.UserDetail;
 
 namespace SubscriptionManagementGrpcService.Utilities
 {
     public class StartupHelper
-    {
-        
+    {        
         public static void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             // Stripe services
@@ -23,6 +23,7 @@ namespace SubscriptionManagementGrpcService.Utilities
 
             // Add repositories
             services.AddTransient(typeof(ISiteCustomerRepository), typeof(SiteCustomerRepository));
+            services.AddTransient(typeof(ISubscriptionRepository), typeof(SubscriptionRepository));
         }
 
 
