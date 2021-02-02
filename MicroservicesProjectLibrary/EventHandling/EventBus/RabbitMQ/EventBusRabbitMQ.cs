@@ -243,7 +243,7 @@ namespace MicroservicesProjectLibrary.EventHandling.EventBus.RabbitMQ
                             var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
                             if (handler == null)
                             {
-                                _logger.LogWarning($"No handler for RabbitMQ event: {eventName}. {nameof(subscription.HandlerType)}: {subscription.HandlerType}");
+                                _logger.LogError($"No handler for RabbitMQ event: {eventName}. {nameof(subscription.HandlerType)}: {subscription.HandlerType}");
                                 continue;
                             }
 

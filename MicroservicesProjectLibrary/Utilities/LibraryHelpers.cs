@@ -39,6 +39,7 @@ namespace MicroservicesProjectLibrary.Utilities
             else {
 
                 Log.Error(ex, $"An unexpected exception has occurred in a grpc call: ${ex.Message}");
+                Console.WriteLine($"An unexpected exception has occurred in a grpc call: {ex.Message}. {ex.StackTrace}");
 
                 // Default should not provide any internal information
                 return new RpcException(new Status(StatusCode.Internal, "Unexpected error."));

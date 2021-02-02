@@ -27,6 +27,7 @@ namespace WidgetManagementGrpcService.Utilities
 
             // Add custom handlers etc
             services.AddTransient<UserDetailCreatedIntegrationEventHandler>();
+            services.AddTransient<WidgetExecutedIntegrationEventHandler>();
         }
 
 
@@ -47,7 +48,7 @@ namespace WidgetManagementGrpcService.Utilities
             services.AddGrpcClient<SubscriptionServicesClient>(c =>
             {
                 c.Address = new Uri(@"http://localhost:5025");
-            });
+            });            
         }
 
 

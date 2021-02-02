@@ -6,5 +6,6 @@ namespace WidgetManagementGrpcService.EventHandling
     public interface IWidgetManagementIntegrationEventService
     {
         Task PublishThroughEventBusAsync(IntegrationEvent evt);
+        Task SaveEventAndContentManagementContextChangesAsync(IntegrationEvent evt);
     }
 }

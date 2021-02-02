@@ -8,6 +8,15 @@ package WidgetManagementGrpcService.v1;
 
 service WidgetUserExecutionTrackerServices {
   rpc WidgetUserExecutionTrackerGet (WidgetUserExecutionTrackerGetRequest) returns (WidgetUserExecutionTrackerGetResponse);
+  rpc WidgetUserExecutionTrackerGetCurrentOrCreate(WidgetUserExecutionTrackerGetCurrentOrCreateRequest) returns (WidgetUserExecutionTrackerGetCurrentOrCreateResponse);
+}
+
+message WidgetUserExecutionTrackerGetCurrentOrCreateRequest {
+    string userDetailId = 1;
+}
+
+message WidgetUserExecutionTrackerGetCurrentOrCreateResponse {
+    WidgetUserExecutionTrackerDto widgetUserExecutionTracker = 1;
 }
 
 message WidgetUserExecutionTrackerGetRequest {
@@ -19,7 +28,7 @@ message WidgetUserExecutionTrackerGetResponse {
     WidgetUserExecutionTrackerDto widgetUserExecutionTracker = 1;
 }
 
-message WidgetUserExecutionTrackerWidgetDto {
+message WidgetUserExecutionTrackerDto {
     string widgetUserExecutionTrackerId = 1;
     string userDetailId = 2;
     google.protobuf.Timestamp created = 3;
