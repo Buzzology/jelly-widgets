@@ -34,6 +34,9 @@
     <Protobuf Include="..\WidgetManagementData\Protos\widget-services.proto" GrpcServices="Server">
       <Link>Protos\widget-services.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\WidgetManagementData\Protos\widget-user-execution-tracker.proto" GrpcServices="Server">
+      <Link>Protos\widget-user-execution-tracker.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

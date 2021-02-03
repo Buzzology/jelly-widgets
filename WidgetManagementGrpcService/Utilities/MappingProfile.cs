@@ -13,6 +13,8 @@ namespace WidgetManagementGrpcService.Utilities
             CreateMap<DashboardWidgetDto, DashboardWidget>();
             CreateMap<Widget, WidgetDto>();
             CreateMap<WidgetDto, Widget>();
+            CreateMap<WidgetUserExecutionTracker, WidgetUserExecutionTrackerDto>();
+            CreateMap<WidgetUserExecutionTrackerDto, WidgetUserExecutionTracker>();
         }
     }
 }

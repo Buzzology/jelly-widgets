@@ -50,12 +50,15 @@ namespace WidgetManagementGrpcService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IntegrationEventLogDbContext eventLogDbContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Run migrations
+            eventLogDbContext.Database.Migrate();
 
             StartupHelper.ConfigureEventBus(app);
 
@@ -64,6 +67,7 @@ namespace WidgetManagementGrpcService
             {
                 endpoints.MapGrpcService<DashboardServiceV1>();
                 endpoints.MapGrpcService<WidgetServiceV1>();
+                endpoints.MapGrpcService<WidgetUserExecutionTrackerServiceV1>();
             });
         }
     }

@@ -56,7 +56,10 @@ namespace WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker
             {
                 widgetUserExecutionTracker = await Create(new Models.WidgetUserExecutionTracker
                 {
-                    WidgetUserExecutionTrackerId = Guid.NewGuid().GetUrlFriendlyString()
+                    WidgetUserExecutionTrackerId = Guid.NewGuid().GetUrlFriendlyString(),
+                    UserDetailId = userDetailId,
+                    Created = DateTime.UtcNow,
+                    WidgetIdExecutions = new Dictionary<string, long>(),
                 }, userDetailId);
             }
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService.EventHandling;
 using WidgetManagementGrpcService.Repositories.Widget.WidgetLogic;
+using WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker;
 using WidgetManagementGrpcService.Utilities.Configuration;
 using WidgetManagementIntegrationEvents.Widget;
 using static SubscriptionManagementGrpcService.SubscriptionServices;
@@ -23,14 +24,14 @@ namespace WidgetManagementGrpcService.Repositories.Widget
         private IMongoCollection<Models.WidgetUserExecutionTracker> _widgetUserExecutionTrackers { get; init; }
         private IMapper _mapper { get; init; }
         SubscriptionServicesClient _subscriptionServicesClient { get; init; }
-        private WidgetManagementIntegrationEventService _widgetManagementIntegrationEventService { get; init; }
+        private IWidgetManagementIntegrationEventService _widgetManagementIntegrationEventService { get; init; }
 
         public WidgetRepository(
             WidgetManagementMongoDbConfiguration config,
             IMapper mapper,
             ILogger<WidgetRepository> logger,
             SubscriptionServicesClient subscriptionServicesClient,
-            WidgetManagementIntegrationEventService widgetManagementIntegrationEventService
+            IWidgetManagementIntegrationEventService widgetManagementIntegrationEventService
             )
         {
             var client = new MongoClient(config.ConnectionString);
@@ -153,7 +154,9 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
             // TODO: (CJO) Event does not appear to be created in integrationeventlogdbcontext first
             var @event = new WidgetExecutedIntegrationEvent(widgetId, currentUserId);
+            await _widgetManagementIntegrationEventService.SaveEventAndContentManagementContextChangesAsync(@event);
             await _widgetManagementIntegrationEventService.PublishThroughEventBusAsync(@event);
+
 
             return resp;
         }

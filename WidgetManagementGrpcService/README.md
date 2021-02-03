@@ -1,5 +1,15 @@
 ﻿# WidgetManagmentGrpcService
 
+## Entity framework
+If getting an error add the -v (verbose) flag.
+If using a new project and getting "doesn't reference EntityFrameworkCore" add a reference to the data project.
+
+### Integration event log db context
+dotnet ef migrations add new-migration --project WidgetManagementGrpcService --context IntegrationEventLogDbContext
+dotnet ef database update --project WidgetManagementGrpcService --context IntegrationEventLogDbContext
+
+
+
 ## TODO  
 #- Dashboard repository
 #--- Get
