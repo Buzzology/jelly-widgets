@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WidgetManagementGrpcService.Utilities.Configuration;
 using Models = WidgetManagementData.Models;
@@ -48,13 +49,15 @@ namespace WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker
 
         public async Task<Models.WidgetUserExecutionTracker> GetCurrentOrCreate(string userDetailId)
         {
-            var widgetUserExecutionTracker = _widgetUserExecutionTrackers
+            var trackers = _widgetUserExecutionTrackers
                 .Find(x => x.UserDetailId == userDetailId && x.Archived == false)
-                .FirstOrDefault();
+                .ToList()
+                .OrderByDescending(x => x.Created)
+                .ToList();
 
-            if(widgetUserExecutionTracker == null)
+            if (!trackers.Any())
             {
-                widgetUserExecutionTracker = await Create(new Models.WidgetUserExecutionTracker
+                return await Create(new Models.WidgetUserExecutionTracker
                 {
                     WidgetUserExecutionTrackerId = Guid.NewGuid().GetUrlFriendlyString(),
                     UserDetailId = userDetailId,
@@ -63,7 +66,13 @@ namespace WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker
                 }, userDetailId);
             }
 
-            return widgetUserExecutionTracker;
+            // If we have multiple trackers we need to make any of the old ones inactive (should not normally happen but if we recieve too many "create" requests at once we might)
+            for (var i = trackers.Count - 1; i > 0; i--)
+            {
+                await Archive(trackers[i].WidgetUserExecutionTrackerId, trackers[i].UserDetailId);
+            }
+
+            return trackers[0];
         }
 
 
@@ -89,9 +98,3 @@ namespace WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker
         }
     }
 }
-
-// TODO: Implement this logic so that we can expose this via a controller
-// TODO: Implement scaffold for this entity in ui
-// TODO: Implement a controller
-// TODO: Load this on page load
-// TODO: any subsequent triggers in ui should decrement ui count

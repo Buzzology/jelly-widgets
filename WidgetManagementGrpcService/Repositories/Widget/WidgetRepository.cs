@@ -152,11 +152,9 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                     throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
             }
 
-            // TODO: (CJO) Event does not appear to be created in integrationeventlogdbcontext first
-            var @event = new WidgetExecutedIntegrationEvent(widgetId, currentUserId);
+            var @event = new WidgetExecutedIntegrationEvent(currentUserId, widgetId);
             await _widgetManagementIntegrationEventService.SaveEventAndContentManagementContextChangesAsync(@event);
             await _widgetManagementIntegrationEventService.PublishThroughEventBusAsync(@event);
-
 
             return resp;
         }
