@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\Subscription\Messages\" />
+    <Folder Include="Repositories\StripeEventLog\Messages\" />
   </ItemGroup>
 
 </Project>

@@ -7,8 +7,8 @@ namespace SubscriptionManagementIntegrationEvents.SiteCustomer
 {
     public class SiteCustomerCreatedIntegrationEvent : IntegrationEvent
     {
-        public SubscriptionManagementData.Models.SiteCustomer User { get; set; }
+        public SubscriptionManagementData.Models.SiteCustomer SiteCustomer { get; set; }
 
-        public SiteCustomerCreatedIntegrationEvent(SubscriptionManagementData.Models.SiteCustomer user) => User = user;
+        public SiteCustomerCreatedIntegrationEvent(SubscriptionManagementData.Models.SiteCustomer user) => SiteCustomer = user;
     }
 }
