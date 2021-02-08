@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "StripeEventLogManagementGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package SubscriptionManagementGrpcService.v1;
+
+service StripeEventLogServices {
+  rpc StripeEventLogProcess (StripeEventLogProcessRequest) returns (StripeEventLogProcessResponse);
+}
+
+message StripeEventLogProcessRequest {
+  string payload = 1;
+  string stripeSignature = 2;
+}
+
+message StripeEventLogProcessResponse { }
+
+message StripeEventLogDto {
+	string stripeEventLogId = 1;
+	string data = 2;
+	string type = 3;
+    google.protobuf.Timestamp created = 4;
+}

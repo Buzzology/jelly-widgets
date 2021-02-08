@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using static WidgetManagementGrpcService.DashboardServices;
 using static WidgetManagementGrpcService.WidgetServices;
+using static WidgetManagementGrpcService.WidgetUserExecutionTrackerServices;
 
 namespace WidgetManagementWebApi.Utilities
 {
@@ -18,6 +19,11 @@ namespace WidgetManagementWebApi.Utilities
             });
 
             services.AddGrpcClient<WidgetServicesClient>(c =>
+            {
+                c.Address = new Uri(@"http://localhost:5109");
+            });
+
+            services.AddGrpcClient<WidgetUserExecutionTrackerServicesClient>(c =>
             {
                 c.Address = new Uri(@"http://localhost:5109");
             });

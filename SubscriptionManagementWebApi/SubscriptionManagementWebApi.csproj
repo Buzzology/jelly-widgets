@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
@@ -19,6 +23,12 @@
   <ItemGroup>
     <Protobuf Include="..\SubscriptionManagementData\Protos\SiteCustomer.proto" GrpcServices="Client">
       <Link>Protos\SiteCustomer.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\StripeEventLog.proto" GrpcServices="Client">
+      <Link>Protos\StripeEventLog.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\Subscription.proto" GrpcServices="Client">
+      <Link>Protos\Subscription.proto</Link>
     </Protobuf>
   </ItemGroup>
 

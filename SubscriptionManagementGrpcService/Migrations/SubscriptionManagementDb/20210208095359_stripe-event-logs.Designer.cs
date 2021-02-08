@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SubscriptionManagementGrpcService.Infrastructure;
@@ -9,9 +10,10 @@ using SubscriptionManagementGrpcService.Infrastructure;
 namespace SubscriptionManagementGrpcService.Migrations.SubscriptionManagementDb
 {
     [DbContext(typeof(SubscriptionManagementDbContext))]
-    partial class SubscriptionManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210208095359_stripe-event-logs")]
+    partial class stripeeventlogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

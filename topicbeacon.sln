@@ -30,12 +30,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionManagementGrpcService", "SubscriptionManagementGrpcService\SubscriptionManagementGrpcService.csproj", "{EFF07AB6-CAAC-4C4F-BE7A-BA3154BBE27C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubscriptionManagement", "SubscriptionManagement", "{DEED1D5E-CD5C-4990-8318-3C9D58CC20D0}"
+	ProjectSection(SolutionItems) = preProject
+		SubscriptionManagementGrpcService\README.md = SubscriptionManagementGrpcService\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionManagementData", "SubscriptionManagementData\SubscriptionManagementData.csproj", "{2A7CD131-6A35-49E4-8BF7-6E3E11D52479}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionManagementWebApi", "SubscriptionManagementWebApi\SubscriptionManagementWebApi.csproj", "{D586E3C0-6A49-4F32-B65A-12FB882DDCD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionManagementIntegrationEvents", "SubscriptionManagementIntegrationEvents\SubscriptionManagementIntegrationEvents.csproj", "{BB1FD5B8-DF6F-4A48-BE3C-2FF640C02391}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriptionManagementIntegrationEvents", "SubscriptionManagementIntegrationEvents\SubscriptionManagementIntegrationEvents.csproj", "{BB1FD5B8-DF6F-4A48-BE3C-2FF640C02391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

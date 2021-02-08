@@ -28,6 +28,7 @@ namespace WidgetManagementWebApi.Controllers
 
         [HttpGet]
         [Route("Get")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ApiMessageResponseBase> Get(WidgetGetRequest request)
         {
             var resp = new ApiMessageResponseBase(this?.User);

@@ -8,10 +8,12 @@
     <Protobuf Include="..\SubscriptionManagementData\Protos\SiteCustomer.proto" GrpcServices="Server">
       <Link>Protos\SiteCustomer.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\SubscriptionManagementData\Protos\StripeEventLog.proto" GrpcServices="Server">
+      <Link>Protos\StripeEventLog.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\SubscriptionManagementData\Protos\Subscription.proto" GrpcServices="Server">
       <Link>Protos\Subscription.proto</Link>
     </Protobuf>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>

@@ -61,6 +61,7 @@ namespace SubscriptionManagementGrpcService.Repositories.Subscription
             var subscription = new SubscriptionManagementData.Models.Subscription();
             subscription.SubscriptionId = subscriptionInput.SubscriptionId;
             subscription.ExternalCustomerId = subscriptionInput.ExternalCustomerId;
+            subscription.SiteCustomerId = siteCustomer.SiteCustomerId;
             subscription.UserDetailId = siteCustomer.UserDetailId;
             subscription.CurrentPeriodEnd = subscriptionInput.CurrentPeriodEnd;
             subscription.CurrentPeriodStart = subscriptionInput.CurrentPeriodStart;

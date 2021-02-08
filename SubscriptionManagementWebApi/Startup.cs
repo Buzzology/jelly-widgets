@@ -68,7 +68,7 @@ namespace SubscriptionManagementWebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{nameof(UserManagementWebApi)} v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMiddleware(typeof(ApiErrorHandlingMiddleware));
             app.UseRouting();
             app.UseAuthentication();
