@@ -35,4 +35,6 @@ message WidgetUserExecutionTrackerDto {
     string archived = 4;
     int32 totalExecutions = 5;
     map<string, string> widgetIdExecutions = 6;
+    int32 dailyExecutions = 7;
+    google.protobuf.Timestamp dailyExecutionsReset = 8;
 }

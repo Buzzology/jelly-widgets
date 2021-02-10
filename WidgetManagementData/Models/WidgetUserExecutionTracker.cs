@@ -23,6 +23,10 @@ namespace WidgetManagementData.Models
 
         public long TotalExecutions { get; set; }
 
+        public long DailyExecutions { get; set; }
+
+        public DateTime DailyExecutionsReset { get; set; }
+
         public Dictionary<string, long> WidgetIdExecutions { get; set; }
     }
 }
