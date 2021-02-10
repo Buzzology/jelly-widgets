@@ -103,13 +103,14 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
             if (siteCustomer == null) throw new ArgumentException($"{nameof(siteCustomer)} not found for {request?.UserDetailId}.");
 
             // Create the checkout session
-            var checkoutCreateOptions = new Stripe.Checkout.SessionCreateOptions
+            var checkoutCreateOptions = new SessionCreateOptions
             {
                 // See https://stripe.com/docs/api/checkout/sessions/create
                 // for additional parameters to pass.
                 // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
                 // the actual Session ID is returned in the query parameter when your customer
                 // is redirected to the success page.
+                Customer = siteCustomer.ExternalCustomerId,
                 SuccessUrl = "https://localhost:3000/payments/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = "https://localhost:3000/payments/cancelled",
                 PaymentMethodTypes = new List<string>
@@ -131,6 +132,38 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
                 var session = await _stripeCheckoutSessionService.CreateAsync(checkoutCreateOptions);
 
                 return session?.Id ?? throw new ArgumentException("Failed to create stripe session.");
+            }
+            catch (StripeException e)
+            {
+                Console.WriteLine(e.StripeError.Message);
+                throw;
+            }
+        }
+
+
+        public async Task<string> GetAccountManagementUrl(string returnUrl, string userDetailId)
+        {
+            var siteCustomer = (await Search(new SiteCustomerRepositorySearchProperties
+            {
+                UserIds = new List<string> { userDetailId },
+                UserId = userDetailId,
+            }))?.FirstOrDefault();
+
+            if (siteCustomer == null) throw new ArgumentException($"{nameof(siteCustomer)} not found for {userDetailId}.");
+
+            // Create the checkout session
+            var options = new Stripe.BillingPortal.SessionCreateOptions
+            {
+                Customer = siteCustomer.ExternalCustomerId,
+                ReturnUrl = returnUrl,
+            };
+
+            try
+            {
+                var sessionService = new Stripe.BillingPortal.SessionService();
+                var session = sessionService.Create(options);
+
+                return session?.Url ?? throw new ArgumentException("Failed to create stripe URL.");
             }
             catch (StripeException e)
             {

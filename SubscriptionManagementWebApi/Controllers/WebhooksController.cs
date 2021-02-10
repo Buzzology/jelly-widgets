@@ -30,8 +30,7 @@ namespace SubscriptionManagementWebApi.Controllers
         public async Task<IActionResult> Stripe()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-
-           await _stripeEventLogServicesClient.StripeEventLogProcessAsync(
+            await _stripeEventLogServicesClient.StripeEventLogProcessAsync(
                 new StripeEventLogManagementGrpcService.StripeEventLogProcessRequest
                 {
                     Payload = json,

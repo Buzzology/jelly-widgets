@@ -13,6 +13,7 @@ service SiteCustomerServices {
   rpc SiteCustomerSearch (SiteCustomerSearchRequest) returns (SiteCustomerSearchResponse);
   rpc SiteCustomerUpdate (SiteCustomerUpdateRequest) returns (SiteCustomerUpdateResponse);
   rpc SiteCustomerGetCheckoutSession (SiteCustomerGetCheckoutSessionRequest) returns (SiteCustomerGetCheckoutSessionResponse);
+  rpc SiteCustomerGetAccountManagementUrl (SiteCustomerGetAccountManagementUrlRequest) returns (SiteCustomerGetAccountManagementUrlResponse);
 }
 
 message SiteCustomerCreateRequest {
@@ -58,6 +59,15 @@ message SiteCustomerGetCheckoutSessionRequest {
 
 message SiteCustomerGetCheckoutSessionResponse {
     string sessionId = 1;
+}
+
+message SiteCustomerGetAccountManagementUrlRequest {
+    string returnUrl = 1;
+    string userDetailId = 2;
+}
+
+message SiteCustomerGetAccountManagementUrlResponse {
+    string redirectUrl = 1;
 }
 
 message SiteCustomerDto {

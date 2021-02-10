@@ -11,5 +11,6 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
         Task<List<SubscriptionManagementData.Models.SiteCustomer>> Search(SiteCustomerRepositorySearchProperties searchProperties);
         Task<SubscriptionManagementData.Models.SiteCustomer> Update(SubscriptionManagementData.Models.SiteCustomer userInput, string userId);
         Task<string> GetStripeCheckoutSessionId(GetStripeCheckoutSessionIdRequest req);
+        Task<string> GetAccountManagementUrl(string returnUrl, string userDetailId);
     }
 }
