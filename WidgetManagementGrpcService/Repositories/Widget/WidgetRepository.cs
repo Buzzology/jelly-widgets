@@ -124,9 +124,9 @@ namespace WidgetManagementGrpcService.Repositories.Widget
             if (!userHasActiveSubscription)
             {
                 var widgetTracker = _widgetUserExecutionTrackers.Find(x => x.UserDetailId == currentUserId && x.Archived == false).FirstOrDefault();
-                if(widgetTracker?.TotalExecutions >= 100) // TODO: (CJO) We need to make this free quota configurable
+                if(widgetTracker?.DailyExecutions >= 25) // TODO: (CJO) We need to make this free quota configurable
                 {
-                    throw new ArgumentException($"Free monthly quota exceeded.");
+                    throw new ArgumentException($"Free tier resets in {widgetTracker.DailyExecutionsReset.Subtract(DateTime.UtcNow).Hours}");
                 }
             }
 
