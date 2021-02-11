@@ -126,9 +126,14 @@ namespace SubscriptionManagementGrpcService.Repositories.Subscription
 
             if (searchProperties != null)
             {
-                if (searchProperties.UserIds != null && searchProperties.UserIds.Any())
+                //if (searchProperties.UserIds != null && searchProperties.UserIds.Any())
+                //{
+                //    query = query.Where(x => searchProperties.UserIds.Contains(x.UserDetailId));
+                //}
+
+                if(searchProperties.UserId != null)
                 {
-                    query = query.Where(x => searchProperties.UserIds.Contains(x.UserDetailId));
+                    query = query.Where(x => x.UserDetailId == searchProperties.UserId);
                 }
 
                 if (!string.IsNullOrWhiteSpace(searchProperties.SiteCustomerId))

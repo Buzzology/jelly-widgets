@@ -39,7 +39,8 @@ message SubscriptionGetResponse {
 }
 
 message SubscriptionSearchRequest {
-    repeated string userDetailIds = 1;
+    string userDetailId = 1;
+    bool active = 2;
 }
 
 message SubscriptionSearchResponse {
