@@ -12,7 +12,7 @@ import { DrawerWidth } from './LayoutConstants';
 import { Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
-import AboutIcon from '@material-ui/icons/ContactSupportOutlined'
+import AboutIcon from '@material-ui/icons/ContactSupportTwoTone'
 import { NavLink, useParams } from 'react-router-dom';
 import { GetDashboardLinkByDashboardIdAndName, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +28,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import WidgetsIcon from '@material-ui/icons/WidgetsTwoTone';
 import AddWidgetIcon from '@material-ui/icons/AddOutlined';
 import DashboardIcon from '../dashboards/DashboardIcon';
+import PaymentsIcon from '@material-ui/icons/PaymentTwoTone';
+import PremiumIcon from '@material-ui/icons/PresentToAllTwoTone';
 import { selectorGetWidgetById } from '../../redux/widget/selectors';
+import { fetchAccountManagementPortalUrl, fetchCheckoutPortalSessionId } from '../../redux/paymentSessions/actions';
+import { useStripe } from '@stripe/react-stripe-js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -175,9 +179,16 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
     const activeDashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const activeDashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
     const dispatch = useDispatch();
+    const stripe = useStripe();
 
     function setCreateDashboardFormOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true));
+    }
+
+    async function redirectToCheckout() {
+        // TODO: (CJO) LOADER FOR THIS ETC
+        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3Fzkly4cVdakx8", quantity: 1 }] });
+        if (sessionId) stripe?.redirectToCheckout({ sessionId });
     }
 
     return (
@@ -248,6 +259,14 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                 <ListItem button>
                     <ListItemIcon><HomeIcon style={{ marginLeft: 8 }} /></ListItemIcon>
                     <ListItemText primary={"Home"} />
+                </ListItem>
+                <ListItem button onClick={fetchAccountManagementPortalUrl}>
+                    <ListItemIcon><PaymentsIcon style={{ marginLeft: 8 }} /></ListItemIcon>
+                    <ListItemText primary={"Payments"} />
+                </ListItem>
+                <ListItem button onClick={redirectToCheckout}>
+                    <ListItemIcon><PremiumIcon style={{ marginLeft: 8 }} /></ListItemIcon>
+                    <ListItemText primary={"Support Me"} />
                 </ListItem>
                 <ListItem button>
                     <ListItemIcon><AboutIcon style={{ marginLeft: 8 }} /></ListItemIcon>

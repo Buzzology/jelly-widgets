@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow, Button } from '@material-ui/core';
+import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow } from '@material-ui/core';
 import { NavLink, RouteComponentProps } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,8 +21,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConfirmationDialog';
 import { fetchRemoveDashboardWidget } from '../../../redux/dashboardWidget/actions';
-import { fetchAccountManagementPortalUrl, fetchCheckoutPortalSessionId } from '../../../redux/paymentSessions/actions';
-import { useStripe } from '@stripe/react-stripe-js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -99,17 +97,10 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const dispatch = useDispatch();
-    const stripe = useStripe();
 
     function setUpdateDashboardOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardUpdate, true, { dashboard }));
-    }
-
-    async function redirectToCheckout() {
-        // TODO: (CJO) LOADER FOR THIS ETC
-        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3Fzkly4cVdakx8", quantity: 1 }] });
-        if (sessionId) stripe?.redirectToCheckout({ sessionId });
-    }
+    }    
 
     if (!dashboard) {
         return (
@@ -186,10 +177,6 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                 </Grid>
             </Grid>
             <LoaderAbsoluteCentred loading={loading} />
-            <div style={{ backgroundColor: '#FFF', padding: 24, margin: 24 }}>
-                <Button onClick={redirectToCheckout}>Pay</Button>
-                <Button onClick={() => fetchAccountManagementPortalUrl()}>Manage</Button>
-            </div>
         </Container>
     );
 }

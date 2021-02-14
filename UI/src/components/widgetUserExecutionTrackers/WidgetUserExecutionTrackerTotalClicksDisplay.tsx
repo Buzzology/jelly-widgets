@@ -9,7 +9,7 @@ import ISubscription from '../../@types/Subscription';
 import IWidgetUserExecutionTracker from '../../@types/WidgetUserExecutionTracker';
 import { Generic } from '../../utilities/Constants'
 import React, { useEffect, useState } from 'react';
-import { red } from '@material-ui/core/colors'
+import { red } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
         padding: `7px 8px`,
         position: 'relative',
         overflow: 'hidden',
-        opacity: 0.8,
-        border: '1px solid rgba(0,0,0,0.1)'
+        opacity: 1,
+        // border: '1px solid rgba(0,0,0,0.1)'
     }
 }));
 
@@ -82,8 +82,7 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
     const { dailyExecutions } = executionTracker;
     const [internailDailyExecutions, setInternalDailyExecutions] = useState(executionTracker?.dailyExecutions || Generic.DAILY_FREE_EXECUTIONS);
     const [visible, setVisible] = useState(true);
-    const remainingRuns = Generic.DAILY_FREE_EXECUTIONS - internailDailyExecutions + 20;
-    debugger;
+    const remainingRuns = Generic.DAILY_FREE_EXECUTIONS - internailDailyExecutions;
     const hoursUntilReset = Math.ceil(((executionTracker.dailyExecutionsReset.seconds * 1000) - new Date().getTime()) / 1000 / 3600);
 
     useEffect(() => {
@@ -99,13 +98,13 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
             <div
                 className={classes.countContainer}
                 style={{
-                    backgroundColor: remainingRuns < 10 ? red[800] : CustomColors.DarkBrownSecondaryColor
+                    color: remainingRuns < 10 ? red[700] : CustomColors.DarkBrownSecondaryColor
                 }}
             >
                 {remainingRuns > 0 ? (
                     <>
-                        <Slide in={visible} direction="up">
-                            <div style={{display: 'inline-block'}}>
+                        <Slide in={visible} direction="down">
+                            <div style={{ display: 'inline-block' }}>
                                 {remainingRuns}&nbsp;
 
                             </div>
@@ -114,17 +113,22 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
                             fontSize: '75%',
                             fontWeight: 'normal'
                         }}>
-                            left
+                            left today
                     </span>
                     </>
                 ) : (
-                        <div>
-                            {hoursUntilReset}<span style={{
-                                fontSize: '75%',
-                                fontWeight: 'normal'
+                        <div style={{
+                            fontSize: '75%',
+                            fontWeight: 'normal',
+                        }}>
+                            Resets in&nbsp;
+                            <span style={{
+                                fontSize: 16,
+                                fontWeight: 'bold',
                             }}>
-                                &nbsp;{hoursUntilReset > 1 ? 'hrs' : 'hr'}
-                            </span>
+                                {hoursUntilReset}
+                            </span>&nbsp;
+                            {hoursUntilReset > 1 ? 'hrs' : 'hr'}
                         </div>
                     )}
             </div>

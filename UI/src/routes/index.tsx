@@ -19,7 +19,7 @@ import { fetchSearchSubscriptions } from '../redux/subscription/actions';
 
 const RouteManagerCustom = () => {
 
-    usePrepareAccessTokenIfRequiredHook();
+    const { loading: loadingAuthentication } = usePrepareAccessTokenIfRequiredHook();
     usePageTracking();
 
     const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const RouteManagerCustom = () => {
     const isAuthenticated = useIsAuthenticated();
     const [fetchingWidgetUserExecutionTracker, setFetchingWidgetUserExecutionTracker] = useState(false);
     const [fetchingSubscriptions, setFetchingSubscriptions] = useState(false);
-    
+
     useEffect(() => {
 
-        if (!isAuthenticated) return;
+        if (!isAuthenticated || loadingAuthentication) return;
 
         // Fetch dashboards
         setFetchingDashboards(true);
@@ -61,7 +61,15 @@ const RouteManagerCustom = () => {
             setFetchingSubscriptions(false);
         })();
 
-    }, [dispatch, isAuthenticated]);
+    }, [dispatch, isAuthenticated, loadingAuthentication]);
+
+    if(!isAuthenticated || loadingAuthentication){
+        return (
+            <div>
+                Login or Register TODO: This should show if we're not logging in instead of just errors. Should use this to redirect to login pgae.
+            </div>
+        )
+    }
 
     return (
         <Switch>

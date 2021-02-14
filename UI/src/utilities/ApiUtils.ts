@@ -32,7 +32,7 @@ export const ShowExceptionAsMessage = (e: ExceptionInformation) => {
         console.error(e);
     }
 
-    return  ShowMessage("An error has occurred.", MessageTypes.ERROR);
+    return ShowMessage("An error has occurred.", MessageTypes.ERROR);
 }
 
 
@@ -106,14 +106,14 @@ export const CheckStatus = async (response: any) => {
     var data: IApiResponse = await response.json();
 
     // Hydrate files if provided
-    if(data && data.data && data.data.files && data.data.files.length)        {
+    if (data && data.data && data.data.files && data.data.files.length) {
         // store.dispatch(receiveFiles(data.data.files as IFile[]));
     }
 
     // Hydrate user details if provided
-    if(data && data.data && data.data.userDetails && data.data.userDetails.length)        {
+    if (data && data.data && data.data.userDetails && data.data.userDetails.length) {
         store.dispatch(receiveUserDetails(data.data.userDetails));
-    }    
+    }
 
     // Handle messages if provided
     if (data && data.messages && data.messages.length && data.messages.length > 0) {

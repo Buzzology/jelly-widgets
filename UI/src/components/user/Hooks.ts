@@ -1,5 +1,5 @@
 import { useMsal, useAccount } from "@azure/msal-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SetAccessToken } from "../../utilities/ApiUtils";
 
 
@@ -8,18 +8,30 @@ export const usePrepareAccessTokenIfRequiredHook = () => {
 
     const { instance, accounts } = useMsal();
     const account = useAccount(accounts[0] || {});
-    
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (account) {
-
-            instance.acquireTokenSilent({
-                scopes: ["openid"],
-                account: account
-            }).then((response) => {
-                if (response) {
-                    SetAccessToken(response.idToken);
+            setLoading(true);
+            (async () => {
+                try {
+                    await instance.acquireTokenSilent({
+                        scopes: ["openid"],
+                        account: account
+                    }).then((response) => {
+                        if (response) {
+                            SetAccessToken(response.idToken);
+                        }
+                    });
                 }
-            });
+                finally {
+                    setLoading(false);
+                }
+            })();
         }
     }, [account, instance]);
+
+    return {
+        loading,
+    }
 }
