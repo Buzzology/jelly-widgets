@@ -146,7 +146,8 @@ export const CheckStatus = async (response: any) => {
     }
 
     // Set user details if provided
-    if (data && data.userId) SetUserId(data.userId);
+    if (data.userId) SetUserId(data.userId);
+    if (data && data.nickname) SetUsername(data.username);
     if (data && data.username) SetUsername(data.username);
 
     // Resolve and return data

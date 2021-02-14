@@ -6,4 +6,5 @@ export interface IApiResponse {
     success: boolean,
     userId: string,
     username: string,
+    nickname: string,
 }

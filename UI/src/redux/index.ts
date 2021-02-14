@@ -9,6 +9,8 @@ import { dashboardsReducer } from "./dashboard/reducers";
 import { dashboardWidgetsReducer } from "./dashboardWidget/reducers";
 import { widgetsReducer } from "./widget/reducers";
 import { payloadsReducer } from "./payload/reducers";
+import { widgetUserExecutionTrackersReducer } from "./widgetUserExecutionTracker/reducers";
+import { subscriptionsReducer } from "./subscription/reducers"
 
 
 const rootReducer = combineReducers({
@@ -16,9 +18,11 @@ const rootReducer = combineReducers({
     dashboardWidgets: dashboardWidgetsReducer,
     messages: messagesReducer,
     payloads: payloadsReducer,
+    subscriptions: subscriptionsReducer,
     uiFormStates: uiFormStatesReducer,
     userDetails: userDetailsReducer,
     widgets: widgetsReducer,
+    widgetUserExecutionTrackers: widgetUserExecutionTrackersReducer,
 });
 
 

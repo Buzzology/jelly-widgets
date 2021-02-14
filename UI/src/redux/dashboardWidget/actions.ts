@@ -6,6 +6,7 @@ import { PrepareBody, ShowError } from "../../utilities/Helpers";
 import { IApiResponse } from "../../@types/Api";
 import IDashboardWidget from "../../@types/DashboardWidget";
 import { receivePayloads } from "../payload/actions";
+import { incrementDailyExecutions } from "../widgetUserExecutionTracker/actions";
 
 export const receiveDashboardWidgets = (dashboardWidgets: IDashboardWidget[]) => {
 
@@ -133,8 +134,9 @@ export const fetchDashboardWidgetProcessMessage = (props: IFetchDashboardWidgetP
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);
-        if (parsedResp && parsedResp.success && parsedResp.data && parsedResp.data.payloadResponses) {
+        if (parsedResp?.success && parsedResp?.data?.payloadResponses) {
             dispatch(receivePayloads([{ ...parsedResp.data, dashboardWidgetId: props.dashboardWidgetId }]));
+            dispatch(incrementDailyExecutions());
             return parsedResp.data;
         }
         else {

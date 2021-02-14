@@ -6,11 +6,11 @@ import { CustomColors } from '../../utilities/Styles';
 import WidgetIcon from './WidgetIcon';
 import ButtonSecondary from '../generic/buttons/ButtonSecondary';
 import { Link, useHistory } from 'react-router-dom';
-import { GetUserId } from '../../utilities/ApiUtils';
 import { IUseFetchWidgetsPageHookProps, useFetchWidgetsPageHook } from './Hook';
 import { WidgetSearchOrderTypeEnum } from '../../redux/widget/types';
 import IWidget from '../../@types/Widget';
 import { GetWidgetLinkByNameIdAndDashboardId } from '../../routes/RouteLinkHelpers';
+import { GetUserId } from '../../utilities/ApiUtils';
 
 
 const useStyles = makeStyles(theme => ({

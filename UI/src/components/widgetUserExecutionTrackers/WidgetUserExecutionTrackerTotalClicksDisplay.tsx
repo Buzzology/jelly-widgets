@@ -1,14 +1,15 @@
-import { Fab, Grow, makeStyles, Slide, Typography, Zoom } from '@material-ui/core';
+import { makeStyles, Slide } from '@material-ui/core';
 import { CustomColors } from '../../utilities/Styles';
 import { GetUserId } from '../../utilities/ApiUtils';
 import { useSelector } from 'react-redux';
-import { selectorGetWidgetUserExecutionTrackerById, selectorGetWidgetUserExecutionTrackerByUserDetailId } from '../../redux/widgetUserExecutionTracker/selectors';
+import { selectorGetWidgetUserExecutionTrackerByUserDetailId } from '../../redux/widgetUserExecutionTracker/selectors';
 import { RootState } from '../../redux';
 import { selectorGetFirstActiveSubscription } from '../../redux/subscription/selectors';
 import ISubscription from '../../@types/Subscription';
 import IWidgetUserExecutionTracker from '../../@types/WidgetUserExecutionTracker';
 import { Generic } from '../../utilities/Constants'
 import React, { useEffect, useState } from 'react';
+import { red } from '@material-ui/core/colors'
 
 
 const useStyles = makeStyles(theme => ({
@@ -68,7 +69,7 @@ function WidgetUserExecutionTrackerTotalClicksDisplay() {
 }
 
 
-function SubscriberContent({ subscription, executionTracker }: { subscription: ISubscription, executionTracker: IWidgetUserExecutionTracker }) {
+function SubscriberContent({ subscription }: { subscription: ISubscription, executionTracker: IWidgetUserExecutionTracker }) {
     return (
         <div>{subscription?.expires?.seconds}</div>
     )
@@ -81,8 +82,9 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
     const { dailyExecutions } = executionTracker;
     const [internailDailyExecutions, setInternalDailyExecutions] = useState(executionTracker?.dailyExecutions || Generic.DAILY_FREE_EXECUTIONS);
     const [visible, setVisible] = useState(true);
-    const remainingRuns = Generic.DAILY_FREE_EXECUTIONS - internailDailyExecutions + 280;
-    const hoursUntilReset = Math.ceil((new Date().getMilliseconds() - new Date(executionTracker.dailyExecutionsReset.seconds * 1000).getMilliseconds()) / 1000 / 3600);
+    const remainingRuns = Generic.DAILY_FREE_EXECUTIONS - internailDailyExecutions + 20;
+    debugger;
+    const hoursUntilReset = Math.ceil(((executionTracker.dailyExecutionsReset.seconds * 1000) - new Date().getTime()) / 1000 / 3600);
 
     useEffect(() => {
         setVisible(false);
@@ -97,7 +99,7 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
             <div
                 className={classes.countContainer}
                 style={{
-                    backgroundColor: remainingRuns < 10 ? 'red' : CustomColors.DarkBrownSecondaryColor
+                    backgroundColor: remainingRuns < 10 ? red[800] : CustomColors.DarkBrownSecondaryColor
                 }}
             >
                 {remainingRuns > 0 ? (

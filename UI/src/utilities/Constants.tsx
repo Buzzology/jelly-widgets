@@ -31,3 +31,8 @@ export const WidgetIds = {
     TFN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgT',
     TFN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgV',
 }
+
+
+export const Generic = {
+    DAILY_FREE_EXECUTIONS: 25,
+}

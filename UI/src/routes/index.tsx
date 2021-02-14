@@ -13,6 +13,8 @@ import RouteWidgets from './RouteWidgets';
 import { fetchSearchWidgets } from '../redux/widget/actions';
 import { usePrepareAccessTokenIfRequiredHook } from '../components/user/Hooks';
 import { useIsAuthenticated } from '@azure/msal-react';
+import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecutionTracker/actions';
+import { fetchSearchSubscriptions } from '../redux/subscription/actions';
 
 
 const RouteManagerCustom = () => {
@@ -22,26 +24,43 @@ const RouteManagerCustom = () => {
 
     const dispatch = useDispatch();
     const [fetchingDashboards, setFetchingDashboards] = useState(false);
-    const [, setFetchingWidgets] = useState(false);
+    const [fetchingWidgets, setFetchingWidgets] = useState(false);
     const isAuthenticated = useIsAuthenticated();
-
+    const [fetchingWidgetUserExecutionTracker, setFetchingWidgetUserExecutionTracker] = useState(false);
+    const [fetchingSubscriptions, setFetchingSubscriptions] = useState(false);
+    
     useEffect(() => {
 
-        if (isAuthenticated) return;
+        if (!isAuthenticated) return;
+
+        // Fetch dashboards
         setFetchingDashboards(true);
         (async () => {
             await dispatch(fetchSearchDashboards({ pageSize: 20, pageNumber: 1 }));
             setFetchingDashboards(false);
         })();
-    }, [dispatch, isAuthenticated]);
 
-    useEffect(() => {
-        if (isAuthenticated) return;
+        // Fetch widgets
         setFetchingWidgets(true);
         (async () => {
             await dispatch(fetchSearchWidgets({ pageSize: 100, pageNumber: 1 }));
             setFetchingWidgets(false);
         })();
+
+        // Fetch execution tracker
+        setFetchingWidgetUserExecutionTracker(true);
+        (async () => {
+            await dispatch(fetchGetWidgetUserExecutionTracker());
+            setFetchingWidgetUserExecutionTracker(false);
+        })();
+
+        // Fetch subscriptions
+        setFetchingSubscriptions(true);
+        (async () => {
+            await dispatch(fetchSearchSubscriptions({ active: true, pageNumber: 1, pageSize: 100 }));
+            setFetchingSubscriptions(false);
+        })();
+
     }, [dispatch, isAuthenticated]);
 
     return (
@@ -59,7 +78,7 @@ const RouteManagerCustom = () => {
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
             <Route render={props => <LayoutDefault routeProps={props}>
                 {/* <DashboardPage {...props} /> */}
-                <LoaderAbsoluteCentred loading={fetchingDashboards} />
+                <LoaderAbsoluteCentred loading={fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions} />
             </LayoutDefault>} />
         </Switch>
     )

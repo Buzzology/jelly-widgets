@@ -10,6 +10,7 @@ import ButtonPrimary from "../generic/buttons/ButtonPrimary";
 import { Logout } from "../../utilities/ApiUtils";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import LoaderAbsoluteCentred from "../generic/loaders/LoaderAbsoluteCentred";
+import WidgetUserExecutionTrackerTotalClicksDisplay from "../widgetUserExecutionTrackers/WidgetUserExecutionTrackerTotalClicksDisplay";
 
 
 const useStyles = makeStyles(theme => ({
@@ -121,8 +122,9 @@ const LayoutDefaultAppBar = ({ open, setDrawerOpen }: ILayoutDefaultAppBarProps)
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-
+                        My Application
                     </Typography>
+                    <WidgetUserExecutionTrackerTotalClicksDisplay />
                     {
                         isAuthenticated ? (
                             <RouterLink
@@ -134,12 +136,11 @@ const LayoutDefaultAppBar = ({ open, setDrawerOpen }: ILayoutDefaultAppBarProps)
                                 </ButtonPrimary>
                             </RouterLink>
                         ) : (
-                            <ButtonPrimary variant="contained" onClick={internalLogin}>
-                                Login <LoaderAbsoluteCentred loading={inProgress !== 'none'} />
-                            </ButtonPrimary>
-                        )
+                                <ButtonPrimary variant="contained" onClick={internalLogin}>
+                                    Login <LoaderAbsoluteCentred loading={inProgress !== 'none'} />
+                                </ButtonPrimary>
+                            )
                     }
-
                 </Toolbar>
             </AppBar>
         </div >
