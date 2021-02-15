@@ -1,3 +1,4 @@
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useEffect, useState } from "react";
 import { SetAccessToken } from "../../utilities/ApiUtils";
@@ -17,12 +18,19 @@ export const usePrepareAccessTokenIfRequiredHook = () => {
                 try {
                     await instance.acquireTokenSilent({
                         scopes: ["openid"],
-                        account: account
+                        account: account,
                     }).then((response) => {
                         if (response) {
                             SetAccessToken(response.idToken);
                         }
                     });
+                }
+                catch (error) {
+                    if (error instanceof InteractionRequiredAuthError) {
+                        await instance.acquireTokenRedirect({
+                            scopes: ["openid"]
+                        });
+                    }
                 }
                 finally {
                     setLoading(false);
