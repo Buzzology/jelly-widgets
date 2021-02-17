@@ -72,6 +72,15 @@ namespace WidgetManagementGrpcService.Repositories.WidgetUserExecutionTracker
                 await Archive(trackers[i].WidgetUserExecutionTrackerId, trackers[i].UserDetailId);
             }
 
+            // If the current tracker free requests needs to be reset do it here
+            if(trackers[0].DailyExecutionsReset < DateTime.UtcNow)
+            {
+                trackers[0].DailyExecutions = 0;
+                trackers[0].DailyExecutionsReset = DateTime.UtcNow;
+
+                await Update(trackers[0], trackers[0].UserDetailId);
+            }
+
             return trackers[0];
         }
 
