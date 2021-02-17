@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route } from "react-router-dom";
-import { GetLoginUrl } from './RouteLinkHelpers';
 import CognitoAuthHandler from '../components/user/CognitoAuthHandler';
 import LayoutDefault from '../components/layout/LayoutDefault';
 import RouteRedirects from './RouteRedirects';
@@ -15,11 +14,12 @@ import { usePrepareAccessTokenIfRequiredHook } from '../components/user/Hooks';
 import { useIsAuthenticated } from '@azure/msal-react';
 import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecutionTracker/actions';
 import { fetchSearchSubscriptions } from '../redux/subscription/actions';
+import { Button } from '@material-ui/core';
 
 
 const RouteManagerCustom = () => {
 
-    const { loading: loadingAuthentication } = usePrepareAccessTokenIfRequiredHook();
+    const { loading: loadingAuthentication, account, instance } = usePrepareAccessTokenIfRequiredHook();
     usePageTracking();
 
     const dispatch = useDispatch();
@@ -63,7 +63,7 @@ const RouteManagerCustom = () => {
 
     }, [dispatch, isAuthenticated, loadingAuthentication]);
 
-    if(!isAuthenticated || loadingAuthentication){
+    if (loadingAuthentication) {
         return (
             <div>
                 Login or Register TODO: This should show if we're not logging in instead of just errors. Should use this to redirect to login pgae.
@@ -71,9 +71,20 @@ const RouteManagerCustom = () => {
         )
     }
 
+    if (!account) {
+        return (
+            <div>
+                This is where any unauthenticated routes should go.
+                <Button onClick={() => instance.loginRedirect()}>
+                    Login
+                </Button>
+            </div>
+        )
+    }
+
     return (
         <Switch>
-            <Route exact={true} path="/login" component={() => { window.location.href = GetLoginUrl(); return null; }} />
+            <Route exact={true} path="/login" component={() => { instance.loginRedirect(); return null; }} />
             <Route exact={true} path="/signin-oidc" component={CognitoAuthHandler} />
             <Route path={'/redirect/:type?/:id?'}><RouteRedirects /></Route>
             <Route path={'/dashboards'}>

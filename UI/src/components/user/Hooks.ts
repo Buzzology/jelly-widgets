@@ -41,5 +41,7 @@ export const usePrepareAccessTokenIfRequiredHook = () => {
 
     return {
         loading,
+        account,
+        instance,
     }
 }
