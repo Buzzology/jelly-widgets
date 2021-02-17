@@ -1,4 +1,4 @@
-import { makeStyles, Slide } from '@material-ui/core';
+import { makeStyles, Slide, Tooltip, Typography } from '@material-ui/core';
 import { CustomColors } from '../../utilities/Styles';
 import { GetUserId } from '../../utilities/ApiUtils';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import IWidgetUserExecutionTracker from '../../@types/WidgetUserExecutionTracker
 import { Generic } from '../../utilities/Constants'
 import React, { useEffect, useState } from 'react';
 import { red } from '@material-ui/core/colors';
+import moment from 'moment';
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +54,7 @@ function WidgetUserExecutionTrackerTotalClicksDisplay() {
     return (
         <div className={classes.wrapper}>
             <div className={classes.innerContentWrapper}>
-                {!activeSubscription ? (
+                {activeSubscription ? (
                     <SubscriberContent
                         subscription={activeSubscription}
                         executionTracker={widgetUserExecutionTracker}
@@ -71,7 +72,14 @@ function WidgetUserExecutionTrackerTotalClicksDisplay() {
 
 function SubscriberContent({ subscription }: { subscription: ISubscription, executionTracker: IWidgetUserExecutionTracker }) {
     return (
-        <div>{subscription?.expires?.seconds}</div>
+        <Tooltip title={`Subscribed until ${moment(subscription.expires.seconds * 1000).format('MMMM Do, YYYY h:mm A')}`}>
+            <Typography
+                variant="caption"
+                color="textPrimary"
+            >
+                Thanks for Subscribing!
+            </Typography>
+        </Tooltip>
     )
 }
 
