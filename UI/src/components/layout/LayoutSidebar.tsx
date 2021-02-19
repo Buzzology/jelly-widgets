@@ -13,8 +13,8 @@ import { Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/c
 import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/ContactSupportTwoTone'
-import { NavLink, useParams } from 'react-router-dom';
-import { GetDashboardLinkByDashboardIdAndName, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
+import { GetDashboardLinkByDashboardIdAndName, GetProductsLink, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { UiFormStateIdEnum } from '../../@types/UiFormState';
 import { RootState } from '../../redux';
@@ -179,16 +179,14 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
     const activeDashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
     const activeDashboardWidgets = useSelector((store: RootState) => selectorGetDashboardWidgetsByDashboardId(store, dashboardId));
     const dispatch = useDispatch();
-    const stripe = useStripe();
+    const history = useHistory();
 
     function setCreateDashboardFormOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardCreate, true));
     }
 
-    async function redirectToCheckout() {
-        // TODO: (CJO) LOADER FOR THIS ETC
-        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3Fzkly4cVdakx8", quantity: 1 }] });
-        if (sessionId) stripe?.redirectToCheckout({ sessionId });
+    function redirectToProducts() {
+        history.push(GetProductsLink());
     }
 
     return (
@@ -264,7 +262,7 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
                     <ListItemIcon><PaymentsIcon style={{ marginLeft: 8 }} /></ListItemIcon>
                     <ListItemText primary={"Payments"} />
                 </ListItem>
-                <ListItem button onClick={redirectToCheckout}>
+                <ListItem button onClick={redirectToProducts}>
                     <ListItemIcon><PremiumIcon style={{ marginLeft: 8 }} /></ListItemIcon>
                     <ListItemText primary={"Support Me"} />
                 </ListItem>
