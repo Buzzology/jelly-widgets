@@ -16,6 +16,7 @@ import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecution
 import { fetchSearchSubscriptions } from '../redux/subscription/actions';
 import { Button } from '@material-ui/core';
 import RouteProducts from './RouteProducts';
+import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
 
 
 const RouteManagerCustom = () => {
@@ -66,9 +67,7 @@ const RouteManagerCustom = () => {
 
     if (loadingAuthentication) {
         return (
-            <div>
-                Login or Register TODO: This should show if we're not logging in instead of just errors. Should use this to redirect to login pgae.
-            </div>
+            <LoaderInitialPage loading={true} />
         )
     }
 
