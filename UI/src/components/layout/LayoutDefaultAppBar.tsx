@@ -89,8 +89,6 @@ const LayoutDefaultAppBar = ({ open, setDrawerOpen }: ILayoutDefaultAppBarProps)
     const isAuthenticated = useIsAuthenticated();
     const { instance, inProgress } = useMsal();
 
-    console.log(inProgress)
-
     const internalLogout = () => {
         instance.logout();
         Logout();

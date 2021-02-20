@@ -17,11 +17,12 @@ import { fetchSearchSubscriptions } from '../redux/subscription/actions';
 import { Button } from '@material-ui/core';
 import RouteProducts from './RouteProducts';
 import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
+import UserLoginWidget from '../components/user/UserLoginWidget';
 
 
 const RouteManagerCustom = () => {
 
-    const { loading: loadingAuthentication, account, instance } = usePrepareAccessTokenIfRequiredHook();
+    const { loading: loadingAuthentication, account } = usePrepareAccessTokenIfRequiredHook();
     usePageTracking();
 
     const dispatch = useDispatch();
@@ -72,19 +73,11 @@ const RouteManagerCustom = () => {
     }
 
     if (!account) {
-        return (
-            <div>
-                This is where any unauthenticated routes should go.
-                <Button onClick={() => instance.loginRedirect()}>
-                    Login
-                </Button>
-            </div>
-        )
+        return <UserLoginWidget />;
     }
 
     return (
         <Switch>
-            <Route exact={true} path="/login" component={() => { instance.loginRedirect(); return null; }} />
             <Route exact={true} path="/signin-oidc" component={CognitoAuthHandler} />
             <Route path={'/redirect/:type?/:id?'}><RouteRedirects /></Route>
             <Route path={'/dashboards'}>

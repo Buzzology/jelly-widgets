@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles, Typography, useTheme } from "@material-ui/core"
 import LoaderIcon from '@material-ui/icons/ToysRounded'
+import { CustomColors } from '../../../utilities/Styles';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     icon: {
         fontSize: 125,
         animation: '$loader 5000ms infinite',
-        backgroundColor: '#d8d9db',
+        backgroundColor: CustomColors.DarkGreenPrimaryColor,
         borderRadius: '50%',
         color: '#fefefb',
         padding: 8
