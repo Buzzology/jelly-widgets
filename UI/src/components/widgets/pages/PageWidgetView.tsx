@@ -120,17 +120,6 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                         </ButtonSecondary>
                     </>
                 </Grid>
-                <Grid
-                    container
-                    xs={12}
-                    direction="column"
-                    justify="space-between"
-                    style={{ marginTop: 24 }}
-                >
-                    <Grid item xs={12}>
-                        <ButtonSecondary />
-                    </Grid>
-                </Grid>
                 <Grid container>
                     <Grid item xs={12}>
                         <>

@@ -96,7 +96,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
             if (!string.IsNullOrWhiteSpace(request.Text))
             {
-                query = query.Where(x => x.Name.Contains(request.Text) || x.Description.Contains(request.Text));
+                query = query.Where(x => x.Name.ToLower().Contains(request.Text.ToLower()) || x.Description.ToLower().Contains(request.Text.ToLower()));
             }
 
             // Apply ordering

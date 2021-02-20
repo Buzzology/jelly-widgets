@@ -59,14 +59,10 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
         minPageNumberToFetch: 1,
     });
 
-    // function setWidgetFormOpen() {
-    //     dispatch(setFormOpenState(UiFormStateIdEnum.WidgetCreate, true));
-    // }
-
     function runSearch(e: any) {
         setCurrentSearchValues({
             ...currentSearchValues,
-            name: searchText,
+            text: searchText,
             orderType: orderTypeToSearchWith,
         });
 
@@ -76,7 +72,6 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
     function onSearchTextChangeHandler(event: any) {
         setSearchTextFilter(event.target.value);
     }
-
 
     // Fetch first page of widgets
     const { fetching: fetchingWidgets, lastResultSet } = useFetchWidgetsPageHook({

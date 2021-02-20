@@ -9,7 +9,7 @@ export interface IUseFetchWidgetsPageHookProps extends IFetchSearchWidgetsProps 
 }
 
 
-export const useFetchWidgetsPageHook = ({ pageNumber, minPageNumberToFetch, pageSize, name, widgetId }: IUseFetchWidgetsPageHookProps) => {
+export const useFetchWidgetsPageHook = ({ pageNumber, minPageNumberToFetch, pageSize, text, widgetId }: IUseFetchWidgetsPageHookProps) => {
 
     const dispatch = useDispatch();
     const [fetching, setFetching] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export const useFetchWidgetsPageHook = ({ pageNumber, minPageNumberToFetch, page
                 var widgets = await dispatch(fetchSearchWidgets({
                     pageSize,
                     pageNumber,
-                    name,
+                    text,
                     widgetId,
                 })) as unknown as IWidget[];
 
@@ -50,7 +50,7 @@ export const useFetchWidgetsPageHook = ({ pageNumber, minPageNumberToFetch, page
                 setFetching(false);
             }
         })();
-    }, [minPageNumberToFetch, dispatch, pageNumber, pageSize, name, widgetId]);
+    }, [minPageNumberToFetch, dispatch, pageNumber, pageSize, text, widgetId]);
 
     // Merge any new result sets with existing
     useEffect(() => {

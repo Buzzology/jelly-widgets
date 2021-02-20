@@ -117,7 +117,7 @@ export interface IFetchSearchWidgetsProps {
     pageNumber: number,
     pageSize: number,
     widgetId?: string,
-    name?: string,
+    text?: string,
     createdBy?: string,
     orderType?: WidgetSearchOrderTypeEnum,
 }
