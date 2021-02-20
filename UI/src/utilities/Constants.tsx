@@ -11,6 +11,12 @@ export const Configuration = {
 }
 
 
+export const ProductIds = {
+    SUBSCRIPTION_MONTHLY_PRICE_ID: 'price_1IARejB2aL3Fzkly4cVdakx8',
+    SUBSCRIPTION_ANNUAL_PRICE_ID: 'price_1IARejB2aL3FzklymW0uRgIU',
+}
+
+
 export const MessageTypes = {
     ERROR: 0,
     SUCCESS: 1,

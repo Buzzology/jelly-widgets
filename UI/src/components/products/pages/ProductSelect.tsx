@@ -9,6 +9,7 @@ import ButtonPrimary from '../../generic/buttons/ButtonPrimary';
 import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
 import AnimationWrapper from '../../generic/animations/AnimationWrapper';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
+import { ProductIds } from '../../../utilities/Constants';
 
 
 const ProductSelect = () => {
@@ -19,13 +20,13 @@ const ProductSelect = () => {
 
     // TODO: Make prices configurable
     async function purchaseMonthly() {
-        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3Fzkly4cVdakx8", quantity: 1 }] });
+        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: ProductIds.SUBSCRIPTION_MONTHLY_PRICE_ID, quantity: 1 }] });
         if (sessionId) stripe?.redirectToCheckout({ sessionId });
     }
 
 
     async function purchaseAnnual() {
-        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: "price_1IARejB2aL3FzklymW0uRgIU", quantity: 1 }] });
+        var sessionId = await fetchCheckoutPortalSessionId({ lineItems: [{ priceId: ProductIds.SUBSCRIPTION_ANNUAL_PRICE_ID, quantity: 1 }] });
         if (sessionId) stripe?.redirectToCheckout({ sessionId });
     }
 
