@@ -8,7 +8,10 @@ import { Configuration } from "../utilities/Constants";
 
 // Dashboards
 export const GetDashboardLinkByDashboardIdAndName = (dashboardId: string, name: string) => `/dashboards/${dashboardId}/${name}`;
+export const GetDashboardLinkWithHighlightedWidget = (dashboardId: string, name: string, dashboardWidgetId: string) => `${GetDashboardLinkByDashboardIdAndName(dashboardId, name)}/${dashboardWidgetId}`
 
+// Products
+export const GetProductsLink = () => `/products`;
 
 // Redirects
 // export const GetRedirectLinkByEntityTypeAndId = (entityType: EntityTypeEnum, entityId: string) => `/redirect/${entityType}/${entityId}`;
@@ -26,5 +29,4 @@ export const GetUserAccountConfigurationUrl = () => `/account`;
 
 // Widgets
 export const GetWidgetLinkByNameIdAndDashboardId = (widgetId: string, name: string, dashboardId: string) => `/widgets/${widgetId}/${Slugify(name)}/${dashboardId}`;
-// export const GetWidgetsSearch = () => `/widgets/search`;
 export const GetWidgetsSearchWithDashboardId = (dashboardId: string, query: string) => `/widgets/search/${dashboardId}/${query}`;

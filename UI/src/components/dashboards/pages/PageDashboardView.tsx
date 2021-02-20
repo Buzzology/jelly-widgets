@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow } from '@material-ui/core';
-import { NavLink, RouteComponentProps } from 'react-router-dom';
+import { NavLink, RouteComponentProps, useRouteMatch } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
@@ -22,7 +22,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConfirmationDialog';
 import { fetchRemoveDashboardWidget } from '../../../redux/dashboardWidget/actions';
 
-
 const useStyles = makeStyles(theme => ({
     widgetWrapper: {
         border: `none`,
@@ -41,42 +40,15 @@ const useStyles = makeStyles(theme => ({
     input: {
         flex: 1,
     },
-    postSearchResultWrapper: {
-        transition: 'background 200ms ease-out',
-        textDecoration: 'none',
-        padding: theme.spacing(2),
-        borderBottom: `1px solid ${CustomColors.MetalBorderColor}`,
-        overflowX: 'hidden',
-        position: 'relative',
-    },
-    linkedPostSearchResultWrapper: {
-        animation: '$highlight 5000ms 1'
-    },
-    postSearchResultDivider: {
-    },
-    nextPageOfImagesWrapper: {
-    },
     "@keyframes highlight": {
         "0%": {
+            backgroundColor: "rgba(255, 254, 0, 0.95)"
+        },
+        "25%": {
             backgroundColor: "rgba(255, 254, 0, 0.5)"
         },
         "100%": {
-            backgroundColor: "inherit"
-        }
-    },
-    morePagesWrapper: {
-        marginTop: theme.spacing(3),
-        backgroundColor: CustomColors.ActiveItemBlue,
-        color: '#FFF',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        padding: theme.spacing(1),
-        borderRadius: theme.shape.borderRadius,
-        cursor: 'pointer',
-        transition: 'opacity 300ms ease-in-out',
-        position: 'relative',
-        '&:hover': {
-            opacity: 0.6,
+            backgroundColor: "#FFF"
         }
     },
     widgetMenuIcon: {
@@ -84,6 +56,9 @@ const useStyles = makeStyles(theme => ({
         top: theme.spacing(1),
         right: theme.spacing(1),
     },
+    highlightedWidget: {
+        animation: '$highlight 5000ms 1',
+    }
 }));
 
 
@@ -100,7 +75,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
 
     function setUpdateDashboardOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardUpdate, true, { dashboard }));
-    }    
+    }
 
     if (!dashboard) {
         return (
@@ -272,6 +247,8 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
 
 function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: string }) {
 
+    const match = useRouteMatch() as any;
+    const isSidebarClickedWidget = match.params?.dashboardWidgetId === dashboardWidgetId;
     const dashboardWidget = useSelector((store: RootState) => selectorGetDashboardWidgetById(store, dashboardWidgetId));
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''));
     const classes = useStyles();
@@ -290,10 +267,11 @@ function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: str
 
         setDeleting(true);
 
-        await dispatch(fetchRemoveDashboardWidget({
-            dashboardWidgetId: dashboardWidget.dashboardWidgetId,
-            dashboardId: dashboardWidget.dashboardId,
-        })) as any;
+        await dispatch(
+            fetchRemoveDashboardWidget({
+                dashboardWidgetId: dashboardWidget.dashboardWidgetId,
+                dashboardId: dashboardWidget.dashboardId,
+            })) as any;
 
         setDeleting(false);
     }
@@ -320,7 +298,9 @@ function DashboardWidgetRenderer({ dashboardWidgetId }: { dashboardWidgetId: str
     }
 
     return (
-        <div className={classes.widgetWrapper}>
+        <div
+            className={`${classes.widgetWrapper} ${isSidebarClickedWidget ? classes.highlightedWidget : ''}`}
+        >
             <IconButton
                 className={classes.widgetMenuIcon}
                 aria-label="more"

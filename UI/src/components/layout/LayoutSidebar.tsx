@@ -14,7 +14,7 @@ import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
 import AboutIcon from '@material-ui/icons/ContactSupportTwoTone'
 import { NavLink, useHistory, useParams } from 'react-router-dom';
-import { GetDashboardLinkByDashboardIdAndName, GetProductsLink, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
+import { GetDashboardLinkWithHighlightedWidget, GetProductsLink, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { UiFormStateIdEnum } from '../../@types/UiFormState';
 import { RootState } from '../../redux';
@@ -341,6 +341,7 @@ function WidgetDisplay({ dashboardWidget }: { dashboardWidget: IDashboardWidget 
     const dispatch = useDispatch();
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget?.widgetId || ''))
     const theme = useTheme();
+    const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardWidget?.dashboardId));
 
     function setDashboardAddWidgetFormOpen() {
         dispatch(setFormOpenState(UiFormStateIdEnum.DashboardAddWidget, true, { dashboardId: dashboardWidget?.dashboardId }));
@@ -352,7 +353,7 @@ function WidgetDisplay({ dashboardWidget }: { dashboardWidget: IDashboardWidget 
         >
             <Typography
                 component={NavLink}
-                to={`${GetDashboardLinkByDashboardIdAndName(dashboardWidget?.dashboardId, widget?.name || 'Unknown')}`}
+                to={`${GetDashboardLinkWithHighlightedWidget(dashboardWidget?.dashboardId, dashboard?.name || '', dashboardWidget?.dashboardWidgetId)}`}
                 variant="body2"
                 className={classes.dashboardWidgetSidebarLink}>
                 <WidgetsIcon style={{ fontSize: 18, marginRight: theme.spacing(1) }} /> {widget?.name || 'Unknown'}

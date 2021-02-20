@@ -15,6 +15,7 @@ import { useIsAuthenticated } from '@azure/msal-react';
 import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecutionTracker/actions';
 import { fetchSearchSubscriptions } from '../redux/subscription/actions';
 import { Button } from '@material-ui/core';
+import RouteProducts from './RouteProducts';
 
 
 const RouteManagerCustom = () => {
@@ -89,6 +90,9 @@ const RouteManagerCustom = () => {
             <Route path={'/redirect/:type?/:id?'}><RouteRedirects /></Route>
             <Route path={'/dashboards'}>
                 <RouteDashboards />
+            </Route>
+            <Route path={'/products'}>
+                <RouteProducts />
             </Route>
             <Route path={'/widgets'}>
                 <RouteWidgets />
