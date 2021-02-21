@@ -18,8 +18,21 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
         }
 
 
-        public static async Task<Dictionary<string, string>> Validate(Dictionary<string, string> payloads)
+        public static Dictionary<string, string> ReturnSuccessResponse(string message, string requestValue)
         {
+            return new Dictionary<string, string>
+            {
+                { "valid", "true" },
+                { "message", message },
+                { "requestValue", requestValue },
+            };
+        }
+
+
+        public static async Task<Dictionary<string, string>> Process(Dictionary<string, string> payloads)
+        {
+            // TODO: (CJO) 8 digit tfn: file:///C:/Users/Chris/Downloads/Tax_file_number_.TFN._algorithm_8_digit.pdf
+
             if (payloads == null || payloads.Count == 0)
             {
                 return ReturnErrorResponse($"{nameof(payloads)} must have a value.", "");
@@ -40,6 +53,30 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
             {
                 return ReturnErrorResponse($"{nameof(payloads)} tfn should be 9 characters.", tfn);
             }
+
+            #region Special cases: https://www.ato.gov.au/Forms/PAYG-payment-summary---individual-non-business/?page=3
+
+            if (tfn == "111111111")
+            {
+                return ReturnSuccessResponse("Valid non-declared TFN for a new payee.", tfn);
+            }
+
+            if (tfn == "333333333")
+            {
+                return ReturnSuccessResponse("Valid under 18 TFN.", tfn);
+            }
+
+            if (tfn == "444444444")
+            {
+                return ReturnSuccessResponse("Valid Australian Goverment pensioner TFN.", tfn);
+            }
+
+            if (tfn == "000000000")
+            {
+                return ReturnSuccessResponse("Valid refusal to declare TFN.", tfn);
+            }
+
+            #endregion
 
             var tfnChars = tfn.ToArray();
             var weightedSum = 0;
@@ -78,12 +115,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
                 return ReturnErrorResponse($"Invalid TFN - checksum algorithm does not pass.", tfn);
             }
 
-            return new Dictionary<string, string>
-            {
-                { "valid", "true" },
-                { "requestValue", tfn },
-                { "message", "Valid Australian TFN" }
-            };
+            return ReturnSuccessResponse("Valid standard Australian TFN", tfn);
         }
     }
 }

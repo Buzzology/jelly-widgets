@@ -10,6 +10,8 @@ import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actio
 import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
 import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
 import { CustomColors } from '../../../utilities/Styles';
+import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
+import ButtonSecondaryDark from '../../generic/buttons/ButtonSecondaryDark';
 
 
 interface IPageWidgetViewProps {
@@ -105,19 +107,19 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
 
                 <Grid item xs={12} style={{ textAlign: 'right' }}>
                     <>
-                        <ButtonSecondary
+                        <ButtonSecondaryDark
                             variant="text"
                             onClick={() => history.goBack()}
                         >
                             Back
-                        </ButtonSecondary>
+                        </ButtonSecondaryDark>
                         &nbsp;
-                        <ButtonSecondary
+                        <ButtonPrimaryDark
                             variant="outlined"
                             onClick={addWidgetToDashboardClick}
                         >
                             Confirm<LoaderAbsoluteCentred loading={addingWidget} />
-                        </ButtonSecondary>
+                        </ButtonPrimaryDark>
                     </>
                 </Grid>
                 <Grid container>

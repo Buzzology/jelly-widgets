@@ -11,6 +11,8 @@ import { WidgetSearchOrderTypeEnum } from '../../redux/widget/types';
 import IWidget from '../../@types/Widget';
 import { GetWidgetLinkByNameIdAndDashboardId } from '../../routes/RouteLinkHelpers';
 import { GetUserId } from '../../utilities/ApiUtils';
+import ButtonPrimaryDark from '../generic/buttons/ButtonPrimaryDark';
+import ButtonSecondaryDark from '../generic/buttons/ButtonSecondaryDark';
 
 
 const useStyles = makeStyles(theme => ({
@@ -91,12 +93,12 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
                 </Grid>
                 {userId ? (
                     <Grid item xs={2} style={{ textAlign: 'right' }}>
-                        <ButtonSecondary
-                            variant="outlined"
+                        <ButtonSecondaryDark
+                            variant="text"
                             onClick={() => history.goBack()}
                         >
                             Back
-                    </ButtonSecondary>
+                        </ButtonSecondaryDark>
                     </Grid>
                 ) : null}
             </Grid>
@@ -130,7 +132,7 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
                         lastResultSet.map(x => {
                             return (
                                 <>
-                                    <WidgetSearchResult widget={x} dashboardId={dashboardId}/>
+                                    <WidgetSearchResult widget={x} dashboardId={dashboardId} />
                                 </>
                             )
                         })

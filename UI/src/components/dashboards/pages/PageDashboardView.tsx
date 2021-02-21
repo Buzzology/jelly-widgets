@@ -21,6 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConfirmationDialog';
 import { fetchRemoveDashboardWidget } from '../../../redux/dashboardWidget/actions';
+import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
 
 const useStyles = makeStyles(theme => ({
     widgetWrapper: {
@@ -138,11 +139,11 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                         to={GetWidgetsSearchWithDashboardId(dashboardId, '')}
                         style={{ textDecoration: 'none' }}
                     >
-                        <ButtonSecondary
+                        <ButtonPrimaryDark
                             variant="outlined"
                         >
                             Add Widget
-                        </ButtonSecondary>
+                        </ButtonPrimaryDark>
                     </NavLink>
                 </Grid>
                 <Grid container spacing={3} style={{ marginTop: 24 }}>

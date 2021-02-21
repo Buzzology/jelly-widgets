@@ -4,7 +4,6 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 - Need to allow v2 react apps
 - Landing page loader (authloading)
 
-
 # TODO:
 - Contact me button
 - Create landing page
@@ -32,3 +31,8 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 - Dashboard search dashboard widgets not wired up
 - Animate dashboard widget search removal/appear
 - Remove dashboard widget
+
+
+# TFN Article
+- Can be 8 digits although different weights are used
+- 4 special cases: 000000000, etc.

@@ -30,6 +30,12 @@ dotnet ef database update --project WidgetManagementGrpcService --context Integr
 Widgets:
 - TFN Generator
 #- TFN Validator
+- Australian Business Number
+- Australian Company Number
+- Australian medicare number generator
+- Australian medicare number validator
+- Medicare provider number generator
+- Medicare provider number validator
 - NZ TFN Generator
 - NZ TFN Validator
 - Australian driver's license generator
@@ -39,6 +45,7 @@ Widgets:
 - GUID Generator
 - Notepad (save state)
 - Random number generator (min, max, decimal places - save settings)
+- Random colour generator
 - Random person name generator
 - Random address generator
 - Random australian postcode
