@@ -25,13 +25,15 @@ namespace WidgetManagementGrpcService.Repositories.Widget
         private IMapper _mapper { get; init; }
         SubscriptionServicesClient _subscriptionServicesClient { get; init; }
         private IWidgetManagementIntegrationEventService _widgetManagementIntegrationEventService { get; init; }
+        private IWidgetUserExecutionTrackerRepository _widgetUserExecutionTrackerRepository { get; set; }
 
         public WidgetRepository(
             WidgetManagementMongoDbConfiguration config,
             IMapper mapper,
             ILogger<WidgetRepository> logger,
             SubscriptionServicesClient subscriptionServicesClient,
-            IWidgetManagementIntegrationEventService widgetManagementIntegrationEventService
+            IWidgetManagementIntegrationEventService widgetManagementIntegrationEventService,
+            IWidgetUserExecutionTrackerRepository widgetUserExecutionTrackerRepository
             )
         {
             var client = new MongoClient(config.ConnectionString);
@@ -43,6 +45,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
             _mapper = mapper;
             _subscriptionServicesClient = subscriptionServicesClient;
             _widgetManagementIntegrationEventService = widgetManagementIntegrationEventService;
+            _widgetUserExecutionTrackerRepository = widgetUserExecutionTrackerRepository;
         }
 
 
@@ -126,7 +129,17 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                 var widgetTracker = _widgetUserExecutionTrackers.Find(x => x.UserDetailId == currentUserId && x.Archived == false).FirstOrDefault();
                 if(widgetTracker?.DailyExecutions >= 25) // TODO: (CJO) We need to make this free quota configurable
                 {
-                    throw new ArgumentException($"Free tier resets in {widgetTracker.DailyExecutionsReset.Subtract(DateTime.UtcNow).Hours} hours.");
+                    // Reset the tracker if required otherwise error out
+                    if (widgetTracker?.DailyExecutionsReset == null || widgetTracker?.DailyExecutionsReset <= DateTime.UtcNow)
+                    {
+                        widgetTracker.DailyExecutionsReset = DateTime.UtcNow.AddDays(1);
+                        widgetTracker.DailyExecutions = 0;
+                        widgetTracker = await _widgetUserExecutionTrackerRepository.Update(widgetTracker, widgetTracker.UserDetailId);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Free tier resets in {widgetTracker.DailyExecutionsReset.Subtract(DateTime.UtcNow).Hours} hours.");
+                    }
                 }
             }
 
@@ -135,16 +148,13 @@ namespace WidgetManagementGrpcService.Repositories.Widget
             {
                 case WidgetManagementConstants.WidgetIds.TfnGeneratorWidgetId:
                     {
-                        resp = new Dictionary<string, string>
-                        {
-                            { "tfn", "123" }
-                        };
+                        resp = await AustralianTFNGenerator.Process(payloads);
                         break;
                     }
 
                 case WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId:
                     {
-                        resp = await AustralianTFNValidator.Validate(payloads);
+                        resp = await AustralianTFNValidator.Process(payloads);
                         break;
                     }
 

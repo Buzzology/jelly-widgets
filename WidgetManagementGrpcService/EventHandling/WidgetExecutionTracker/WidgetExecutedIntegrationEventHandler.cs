@@ -45,17 +45,7 @@ namespace WidgetManagementGrpcService.EventHandling.WidgetExecutionTracker
 
                 // Increment total executions
                 tracker.TotalExecutions++;
-
-                // Check whether we need to reset the daily executions
-                if(tracker?.DailyExecutionsReset == null || tracker?.DailyExecutionsReset <= DateTime.UtcNow)
-                {
-                    tracker.DailyExecutionsReset = DateTime.UtcNow.AddDays(1);
-                    tracker.DailyExecutions = 1;
-                }
-                else
-                {
-                    tracker.DailyExecutions++;
-                }
+                tracker.DailyExecutions++;
 
                 // Update the tracker
                 await _widgetUserExecutionTrackerRepository.Update(tracker, @event.UserId);
