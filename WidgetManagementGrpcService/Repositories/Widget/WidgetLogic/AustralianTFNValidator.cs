@@ -40,18 +40,23 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
 
             if (!payloads.ContainsKey("tfn"))
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn has not been provided.", "");
+                return ReturnErrorResponse($"TFN has not been provided.", "");
             }
 
             var tfn = payloads["tfn"];
             if (string.IsNullOrWhiteSpace(tfn))
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn value has not been provided.", tfn);
+                return ReturnErrorResponse($"TFN value has not been provided.", tfn);
             }
 
             if (tfn.Length != 9)
             {
-                return ReturnErrorResponse($"{nameof(payloads)} tfn should be 9 characters.", tfn);
+                return ReturnErrorResponse($"TFN should be 9 characters.", tfn);
+            }
+
+            if (!long.TryParse(tfn, out _))
+            {
+                return ReturnErrorResponse($"TFN should be all digits.", tfn);
             }
 
             #region Special cases: https://www.ato.gov.au/Forms/PAYG-payment-summary---individual-non-business/?page=3

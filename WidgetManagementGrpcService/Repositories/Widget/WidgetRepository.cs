@@ -166,8 +166,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
                 case WidgetManagementConstants.WidgetIds.AustralianBusinessNumberValidatorWidgetId:
                     {
-                        //resp = await AustralianBusinessNumberGenerator.Process(payloads);
-                        return null;
+                        resp = await AustralianBusinessNumberValidator.Process(payloads);
                         break;
                     }
 

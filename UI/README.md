@@ -5,6 +5,7 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 - Landing page loader (authloading)
 
 # TODO:
+- Widget not found placeholder (use widget)
 - Contact me button
 - Create landing page
 - Create explainer tours (use redux)

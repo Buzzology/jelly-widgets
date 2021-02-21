@@ -5,6 +5,7 @@ import { RootState } from "../../../../redux";
 import { selectorGetDashboardWidgetById } from "../../../../redux/dashboardWidget/selectors";
 import { WidgetIds } from "../../../../utilities/Constants";
 import WidgetAustralianBusinessNumberGenerator from "./WidgetAustralianBusinessNumberGenerator";
+import WidgetAustralianBusinessNumberValidator from "./WidgetAustralianBusinessNumberValidator";
 import WidgetTaxFileNumberGenerator from "./WidgetTaxFileNumberGenerator";
 import WidgetTaxFileNumberValidator from "./WidgetTaxFileNumberValidator";
 
@@ -27,7 +28,7 @@ function WidgetGenerator({ widgetId, dashboardWidgetId }: IWidgetGenerator) {
         case WidgetIds.ABN_GENERATOR:
             return <WidgetAustralianBusinessNumberGenerator dashboardWidget={dashboardWidget} />;
         case WidgetIds.ABN_VALIDATOR:
-            // return <WidgetAustralianBusinessNumberValidator dashboardWidget={dashboardWidget} />;
+            return <WidgetAustralianBusinessNumberValidator dashboardWidget={dashboardWidget} />;
         default:
             return <WidgetNotFound />;
     }
