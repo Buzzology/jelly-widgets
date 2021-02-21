@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
         padding: 10,
         minHeight: '100vh',
         flexGrow: 1,
+        animation: '$fadeIn 1s 1',
     },
     innerWrapper: {
         backgroundColor: '#FFF',
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
     icon: {
         fontSize: 125,
-        animation: '$loader 5000ms infinite',
+        animation: '$loader 4000ms infinite',
         backgroundColor: CustomColors.DarkGreenPrimaryColor,
         borderRadius: '50%',
         color: '#fefefb',
@@ -37,8 +38,16 @@ const useStyles = makeStyles(theme => ({
             transform: "rotate(0deg)",
         },
         "100%": {
-            transform: "rotate(360deg)",
-        }
+            transform: "rotate(-360deg)",
+        },
+    },
+    "@keyframes fadeIn": {
+        "0%": {
+            opacity: 0.1,
+        },
+        "100%": {
+            opacity: 1,
+        },
     },
 }));
 

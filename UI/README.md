@@ -6,20 +6,20 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 
 
 # TODO:
-- Login loading display
 - Contact me button
 - Create landing page
 - Create explainer tours (use redux)
 - Cleanup widget display (maybe include pictures)
 - Home link goes to landing page
-- Default load of first dashboard
-- Fix sign in first load bug
+- Default load of first dashboard or changes/updates page
 
 # Future
 - Subscription coupons (10% discount for you and the referred person for as long as they're a subscriber)
 - Create user account/profile
 
 # Done
+- Fix sign in error alert
+- Login loading display
 - Add widget search not wired up
 - OnClick sidebar link should select relevant widget
 - Subscriptions to sign up to page (list of purchase choices instead of only 7.50$ month) - see the apps tab in slack for design layout. This may work for - Configurable price ids for products

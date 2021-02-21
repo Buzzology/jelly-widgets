@@ -37,8 +37,6 @@ const RouteManagerCustom = () => {
 
         if (!isAuthenticated || loadingAuthentication) return;
 
-        debugger;
-
         // Fetch dashboards
         setFetchingDashboards(true);
         (async () => {

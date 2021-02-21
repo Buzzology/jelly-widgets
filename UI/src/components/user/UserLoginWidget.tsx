@@ -15,19 +15,12 @@ const useStyles = makeStyles(theme => ({
         padding: 10,
         minHeight: '100vh',
         flexGrow: 1,
+        animation: '$fadeIn 1s 1',
     },
     innerWrapper: {
         backgroundColor: '#FFF',
         borderRadius: theme.shape.borderRadius,
         width: 350,
-    },
-    icon: {
-        fontSize: 125,
-        animation: '$loader 5000ms infinite',
-        backgroundColor: '#d8d9db',
-        borderRadius: '50%',
-        color: '#fefefb',
-        padding: 8
     },
     content: {
         padding: theme.spacing(3),
@@ -37,13 +30,13 @@ const useStyles = makeStyles(theme => ({
     text: {
         opacity: 0.8
     },
-    "@keyframes loader": {
+    "@keyframes fadeIn": {
         "0%": {
-            transform: "rotate(0deg)",
+            opacity: 0.1,
         },
         "100%": {
-            transform: "rotate(360deg)",
-        }
+            opacity: 1,
+        },
     },
 }));
 
