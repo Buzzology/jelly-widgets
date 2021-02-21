@@ -36,6 +36,8 @@ export const StorageKeys = {
 export const WidgetIds = {
     TFN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgT',
     TFN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgV',
+    ABN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgA',
+    ABN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgB',
 }
 
 

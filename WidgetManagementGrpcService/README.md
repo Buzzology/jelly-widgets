@@ -28,10 +28,10 @@ dotnet ef database update --project WidgetManagementGrpcService --context Integr
 #- On user created event generate sample dashboard for the user
 
 Widgets:
-- TFN Generator
+#- TFN Generator
 #- TFN Validator
-- Australian Business Number
-- Australian Company Number
+#- Australian Business Number Generator
+- Australian Company Number Validator
 - Australian medicare number generator
 - Australian medicare number validator
 - Medicare provider number generator
@@ -57,3 +57,6 @@ Widgets:
 - json formatter
 - json to single line
 - Qr code generator
+
+### Useful references
+https://github.com/phuoc-ng/fake-numbers
