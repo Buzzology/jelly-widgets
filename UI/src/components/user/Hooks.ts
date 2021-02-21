@@ -7,7 +7,7 @@ import { SetAccessToken } from "../../utilities/ApiUtils";
 // https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md#acquiring-an-access-token
 export const usePrepareAccessTokenIfRequiredHook = () => {
 
-    const { instance, accounts } = useMsal();
+    const { instance, accounts, inProgress } = useMsal();
     const account = useAccount(accounts[0] || {});
     const [loading, setLoading] = useState(false);
 
@@ -16,16 +16,17 @@ export const usePrepareAccessTokenIfRequiredHook = () => {
             setLoading(true);
             (async () => {
                 try {
-                    await instance.acquireTokenSilent({
+                    var resp = await instance.acquireTokenSilent({
                         scopes: ["openid"],
                         account: account,
-                    }).then((response) => {
-                        if (response) {
-                            SetAccessToken(response.idToken);
-                        }
                     });
+
+                    if (resp) {
+                        SetAccessToken(resp.idToken);
+                    }
                 }
                 catch (error) {
+
                     if (error instanceof InteractionRequiredAuthError) {
                         await instance.acquireTokenRedirect({
                             scopes: ["openid"]
@@ -40,7 +41,7 @@ export const usePrepareAccessTokenIfRequiredHook = () => {
     }, [account, instance]);
 
     return {
-        loading,
+        loading: loading || inProgress !== 'none',
         account,
         instance,
     }

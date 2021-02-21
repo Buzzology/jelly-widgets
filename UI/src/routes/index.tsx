@@ -18,6 +18,7 @@ import { Button } from '@material-ui/core';
 import RouteProducts from './RouteProducts';
 import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
 import UserLoginWidget from '../components/user/UserLoginWidget';
+import { GetAccessToken } from '../utilities/ApiUtils';
 
 
 const RouteManagerCustom = () => {
@@ -28,13 +29,15 @@ const RouteManagerCustom = () => {
     const dispatch = useDispatch();
     const [fetchingDashboards, setFetchingDashboards] = useState(false);
     const [fetchingWidgets, setFetchingWidgets] = useState(false);
-    const isAuthenticated = useIsAuthenticated();
+    const isAuthenticated = useIsAuthenticated() && GetAccessToken();
     const [fetchingWidgetUserExecutionTracker, setFetchingWidgetUserExecutionTracker] = useState(false);
     const [fetchingSubscriptions, setFetchingSubscriptions] = useState(false);
 
     useEffect(() => {
 
         if (!isAuthenticated || loadingAuthentication) return;
+
+        debugger;
 
         // Fetch dashboards
         setFetchingDashboards(true);
