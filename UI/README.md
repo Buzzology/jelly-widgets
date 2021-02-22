@@ -5,7 +5,6 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 - Landing page loader (authloading)
 
 # TODO:
-- Widget not found placeholder (use widget)
 - Contact me button
 - Create landing page
 - Create explainer tours (use redux)
@@ -18,6 +17,7 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 - Create user account/profile
 
 # Done
+- Widget not found placeholder (use widget)
 - Fix sign in error alert
 - Login loading display
 - Add widget search not wired up

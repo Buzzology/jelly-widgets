@@ -38,6 +38,8 @@ export const WidgetIds = {
     TFN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgV',
     ABN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgA',
     ABN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgB',
+    ACN_VALIDATOR: 'gBE8YMxlnEa9BFv3DAItgC',
+    ACN_GENERATOR: 'gBE8YMxlnEa9BFv3DAItgD',
 }
 
 

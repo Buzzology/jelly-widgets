@@ -170,6 +170,18 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                         break;
                     }
 
+                case WidgetManagementConstants.WidgetIds.AustralianCompanyNumberGeneratorWidgetId:
+                    {
+                        resp = await AustralianCompanyNumberGenerator.Process(payloads);
+                        break;
+                    }
+
+                case WidgetManagementConstants.WidgetIds.AustralianCompanyNumberValidatorWidgetId:
+                    {
+                        resp = await AustralianBusinessNumberValidator.Process(payloads);
+                        break;
+                    }
+
                 default:
                     throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
             }

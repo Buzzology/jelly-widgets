@@ -9,6 +9,8 @@ namespace WidgetManagementGrpcService.Utilities.Seed
         private const string TfnValidatorWidgetId = WidgetManagementConstants.WidgetIds.TfnValidatorWidgetId;
         private const string AustralianBusinessNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianBusinessNumberGeneratorWidgetId;
         private const string AustralianBusinessNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianBusinessNumberValidatorWidgetId;
+        private const string AustralianCompanyNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianCompanyNumberValidatorWidgetId;
+        private const string AustralianCompanyNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianCompanyNumberGeneratorWidgetId;
 
         public static async Task Run(IWidgetRepository widgetsRepository)
         {
@@ -30,6 +32,16 @@ namespace WidgetManagementGrpcService.Utilities.Seed
             if (await widgetsRepository.Get(AustralianBusinessNumberValidatorWidgetId, string.Empty) == null)
             {
                 await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian business number validator.", Name = "ABN Validator", WidgetId = AustralianBusinessNumberValidatorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(AustralianCompanyNumberGeneratorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian company number generator.", Name = "ACN Generator", WidgetId = AustralianCompanyNumberGeneratorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(AustralianCompanyNumberValidatorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian company number validator.", Name = "ACN Validator", WidgetId = AustralianCompanyNumberValidatorWidgetId }, string.Empty);
             }
         }
     }

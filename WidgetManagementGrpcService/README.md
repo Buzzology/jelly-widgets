@@ -31,18 +31,23 @@ Widgets:
 #- TFN Generator
 #- TFN Validator
 #- Australian Business Number Generator
+#- Australian Business Number Validator
 - Australian Company Number Validator
+#- Australian Company Number Generator
+- Social security number generator
+- Social security number validator
 - Australian medicare number generator
 - Australian medicare number validator
 - Medicare provider number generator
 - Medicare provider number validator
-- NZ TFN Generator
+- NZ TFN Generator (acutally IRD)
 - NZ TFN Validator
 - Australian driver's license generator
 - Australian driver's license validator
 - Social security number generator
 - Social security number validator
 - GUID Generator
+- Guid validator
 - Notepad (save state)
 - Random number generator (min, max, decimal places - save settings)
 - Random colour generator
@@ -60,3 +65,5 @@ Widgets:
 
 ### Useful references
 https://github.com/phuoc-ng/fake-numbers
+https://clearwater.com.au/code
+http://www.ird.govt.nz/resources/b/9/b9369180451ef8e19355bb7747109566/rwt-nrwt-spec-2011-v1.pdf
