@@ -71,6 +71,7 @@ const ProductSelect = () => {
                                 <Typography variant="body1">
                                     <TextLine>No daily execution limit.</TextLine>
                                     <TextLine>Slack invitation.</TextLine>
+                                    <TextLine>Widget requests.</TextLine>
                                     <TextLine>Cancel at any time.</TextLine>
                                 </Typography>
                             </div>
@@ -87,6 +88,7 @@ const ProductSelect = () => {
                             <div>
                                 <Typography variant="body1">
                                     <TextLine>No daily execution limit.</TextLine>
+                                    <TextLine>Widget requests.</TextLine>
                                     <TextLine>Slack invitation.</TextLine>
                                     <TextLine>Cancel at any time.</TextLine>
                                     <TextLine>Save $30.01</TextLine>
