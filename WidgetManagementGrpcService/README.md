@@ -32,7 +32,7 @@ Widgets:
 #- TFN Validator
 #- Australian Business Number Generator
 #- Australian Business Number Validator
-- Australian Company Number Validator
+#- Australian Company Number Validator
 #- Australian Company Number Generator
 - Social security number generator
 - Social security number validator
@@ -62,8 +62,10 @@ Widgets:
 - json formatter
 - json to single line
 - Qr code generator
+- Generator a full test user
 
 ### Useful references
 https://github.com/phuoc-ng/fake-numbers
 https://clearwater.com.au/code
 http://www.ird.govt.nz/resources/b/9/b9369180451ef8e19355bb7747109566/rwt-nrwt-spec-2011-v1.pdf
+Test user identity generator: https://www.fakenamegenerator.com/gen-random-au-au.php
