@@ -1,13 +1,12 @@
-﻿{
+{
   "profiles": {
     "SubscriptionManagementWebApi": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:44387;http://localhost:58751",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": "true",
+      "applicationUrl": "https://localhost:44387;http://localhost:58751"
     }
   }
 }

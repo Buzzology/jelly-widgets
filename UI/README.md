@@ -15,7 +15,7 @@ https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/
 # Future
 - Subscription coupons (10% discount for you and the referred person for as long as they're a subscriber)
 - Create user account/profile
-- Make generators and validators look like the entity they're validating. e.g medicare looks like a medicare generator
+- Make generators and validators look like the entity they're validating. e.g medicare looks like a medicare generator. To still show previous generations can probably just show chevrons to page back.
 
 # Done
 - Widget not found placeholder (use widget)

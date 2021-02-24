@@ -11,6 +11,8 @@ namespace WidgetManagementGrpcService.Utilities.Seed
         private const string AustralianBusinessNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianBusinessNumberValidatorWidgetId;
         private const string AustralianCompanyNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianCompanyNumberValidatorWidgetId;
         private const string AustralianCompanyNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianCompanyNumberGeneratorWidgetId;
+        private const string AustralianMedicareNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianMedicareNumberValidatorWidgetId;
+        private const string AustralianMedicareNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianMedicareNumberGeneratorWidgetId;
 
         public static async Task Run(IWidgetRepository widgetsRepository)
         {
@@ -42,6 +44,16 @@ namespace WidgetManagementGrpcService.Utilities.Seed
             if (await widgetsRepository.Get(AustralianCompanyNumberValidatorWidgetId, string.Empty) == null)
             {
                 await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian company number validator.", Name = "ACN Validator", WidgetId = AustralianCompanyNumberValidatorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(AustralianMedicareNumberGeneratorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian medicare number generator.", Name = "AUS Medicare Nbr Generator", WidgetId = AustralianMedicareNumberGeneratorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(AustralianMedicareNumberValidatorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian medicare number validator.", Name = "AUS Medicare Nbr Validator", WidgetId = AustralianMedicareNumberValidatorWidgetId }, string.Empty);
             }
         }
     }

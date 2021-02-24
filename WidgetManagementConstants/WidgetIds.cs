@@ -8,5 +8,7 @@
         public const string AustralianBusinessNumberValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgB";
         public const string AustralianCompanyNumberValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgC";
         public const string AustralianCompanyNumberGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgD";
+        public const string AustralianMedicareNumberGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgE";
+        public const string AustralianMedicareNumberValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgF";
     }
 }

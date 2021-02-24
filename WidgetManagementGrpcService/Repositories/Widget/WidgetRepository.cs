@@ -182,6 +182,18 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                         break;
                     }
 
+                case WidgetManagementConstants.WidgetIds.AustralianMedicareNumberGeneratorWidgetId:
+                    {
+                        resp = await AustralianMedicareNumberGenerator.Process(payloads);
+                        break;
+                    }
+
+                case WidgetManagementConstants.WidgetIds.AustralianMedicareNumberValidatorWidgetId:
+                    {
+                        resp = await AustralianMedicareNumberGenerator.Process(payloads);
+                        break;
+                    }
+
                 default:
                     throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
             }
