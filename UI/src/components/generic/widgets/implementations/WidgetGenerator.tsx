@@ -12,6 +12,7 @@ import MissingIcon from "@material-ui/icons/NotInterested"
 import WidgetAustralianCompanyNumberGenerator from "./WidgetAustralianCompanyNumberGenerator";
 import WidgetAustralianCompanyNumberValidator from "./WidgetAustralianCompanyNumberValidator";
 import WidgetAustralianMedicareNumberGenerator from "./WidgetAustralianMedicareNumberGenerator";
+import WidgetAustralianMedicareNumberValidator from "./WidgetAustralianMedicareNumberValidator";
 
 interface IWidgetGenerator {
     widgetId: string,
@@ -40,7 +41,7 @@ function WidgetGenerator({ widgetId, dashboardWidgetId }: IWidgetGenerator) {
         case WidgetIds.AUS_MEDICARE_NBR_GENERATOR:
             return <WidgetAustralianMedicareNumberGenerator dashboardWidget={dashboardWidget} />;
         case WidgetIds.AUS_MEDICARE_NBR_VALIDATOR:
-            return <WidgetAustralianCompanyNumberValidator dashboardWidget={dashboardWidget} />;
+            return <WidgetAustralianMedicareNumberValidator dashboardWidget={dashboardWidget} />;
         default:
             debugger;
             return <WidgetNotFound />;

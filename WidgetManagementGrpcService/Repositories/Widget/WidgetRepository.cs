@@ -190,7 +190,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
                 case WidgetManagementConstants.WidgetIds.AustralianMedicareNumberValidatorWidgetId:
                     {
-                        resp = await AustralianMedicareNumberGenerator.Process(payloads);
+                        resp = await AustralianMedicareNumberValidator.Process(payloads);
                         break;
                     }
 
