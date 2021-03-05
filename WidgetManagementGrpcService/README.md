@@ -64,6 +64,8 @@ Widgets:
 - json to single line
 - Qr code generator
 - Generator a full test user
+- Cron job creator
+- Cron job describer
 
 ### Useful references
 https://github.com/phuoc-ng/fake-numbers
