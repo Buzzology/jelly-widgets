@@ -16,5 +16,14 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
                 s = string.Concat(s, random.Next(max).ToString());
             return s;
         }
+
+        /* https://stackoverflow.com/a/3975307/522859 */
+        public static string RandomDigitsInRange(int min, int max)
+        {
+            Random r = new Random();
+            int randomInt = r.Next(min, max);
+
+            return randomInt.ToString();
+        }
     }
 }

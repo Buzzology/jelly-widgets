@@ -13,6 +13,8 @@ import WidgetAustralianCompanyNumberGenerator from "./WidgetAustralianCompanyNum
 import WidgetAustralianCompanyNumberValidator from "./WidgetAustralianCompanyNumberValidator";
 import WidgetAustralianMedicareNumberGenerator from "./WidgetAustralianMedicareNumberGenerator";
 import WidgetAustralianMedicareNumberValidator from "./WidgetAustralianMedicareNumberValidator";
+import WidgetNewZealandIRDGenerator from "./WidgetNewZealandIRDGenerator";
+import WidgetNewZealandIRDValidator from "./WidgetNewZealandIRDValidator";
 
 interface IWidgetGenerator {
     widgetId: string,
@@ -42,6 +44,10 @@ function WidgetGenerator({ widgetId, dashboardWidgetId }: IWidgetGenerator) {
             return <WidgetAustralianMedicareNumberGenerator dashboardWidget={dashboardWidget} />;
         case WidgetIds.AUS_MEDICARE_NBR_VALIDATOR:
             return <WidgetAustralianMedicareNumberValidator dashboardWidget={dashboardWidget} />;
+        case WidgetIds.NZ_IRD_GENERATOR:
+            return <WidgetNewZealandIRDGenerator dashboardWidget={dashboardWidget} />;
+        case WidgetIds.NZ_IRD_VALIDATOR:
+            return <WidgetNewZealandIRDValidator dashboardWidget={dashboardWidget} />;
         default:
             debugger;
             return <WidgetNotFound />;

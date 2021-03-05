@@ -194,6 +194,18 @@ namespace WidgetManagementGrpcService.Repositories.Widget
                         break;
                     }
 
+                case WidgetManagementConstants.WidgetIds.NewZealandIRDGenerator:
+                    {
+                        resp = await NewZealandIRDGenerator.Process(payloads);
+                        break;
+                    }
+
+                case WidgetManagementConstants.WidgetIds.NewZealandIRDValidator:
+                    {
+                        resp = await NewZealandIRDGenerator.Process(payloads);
+                        break;
+                    }
+
                 default:
                     throw new ArgumentException($"Invalid {nameof(widgetId)}: {widgetId}");
             }

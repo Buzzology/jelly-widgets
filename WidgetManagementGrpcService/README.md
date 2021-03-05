@@ -34,14 +34,15 @@ Widgets:
 #- Australian Business Number Validator
 #- Australian Company Number Validator
 #- Australian Company Number Generator
+#- Australian medicare number generator
+#- Australian medicare number validator
+#- NZ TFN Generator (acutally IRD)
+- NZ TFN Validator
 - Social security number generator
 - Social security number validator
-- Australian medicare number generator
-- Australian medicare number validator
+
 - Medicare provider number generator
 - Medicare provider number validator
-- NZ TFN Generator (acutally IRD)
-- NZ TFN Validator
 - Australian driver's license generator
 - Australian driver's license validator
 - Social security number generator

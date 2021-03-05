@@ -10,5 +10,7 @@
         public const string AustralianCompanyNumberGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgD";
         public const string AustralianMedicareNumberGeneratorWidgetId = "gBE8YMxlnEa9BFv3DAItgE";
         public const string AustralianMedicareNumberValidatorWidgetId = "gBE8YMxlnEa9BFv3DAItgF";
+        public const string NewZealandIRDGenerator = "gBE8YMxlnEa9BFv3DAItgG";
+        public const string NewZealandIRDValidator = "gBE8YMxlnEa9BFv3DAItgH";
     }
 }

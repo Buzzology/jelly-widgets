@@ -13,6 +13,8 @@ namespace WidgetManagementGrpcService.Utilities.Seed
         private const string AustralianCompanyNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianCompanyNumberGeneratorWidgetId;
         private const string AustralianMedicareNumberValidatorWidgetId = WidgetManagementConstants.WidgetIds.AustralianMedicareNumberValidatorWidgetId;
         private const string AustralianMedicareNumberGeneratorWidgetId = WidgetManagementConstants.WidgetIds.AustralianMedicareNumberGeneratorWidgetId;
+        private const string NewZealandIRDValidatorWidgetId = WidgetManagementConstants.WidgetIds.NewZealandIRDValidator;
+        private const string NewZealandIRDGeneratorWidgetId = WidgetManagementConstants.WidgetIds.NewZealandIRDGenerator;
 
         public static async Task Run(IWidgetRepository widgetsRepository)
         {
@@ -54,6 +56,16 @@ namespace WidgetManagementGrpcService.Utilities.Seed
             if (await widgetsRepository.Get(AustralianMedicareNumberValidatorWidgetId, string.Empty) == null)
             {
                 await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "Australian medicare number validator.", Name = "AUS Medicare Nbr Validator", WidgetId = AustralianMedicareNumberValidatorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(NewZealandIRDGeneratorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "New Zealand IRD generator.", Name = "New Zealand IRD generator.", WidgetId = NewZealandIRDGeneratorWidgetId }, string.Empty);
+            }
+
+            if (await widgetsRepository.Get(NewZealandIRDValidatorWidgetId, string.Empty) == null)
+            {
+                await widgetsRepository.Create(new WidgetManagementData.Models.Widget { Description = "New Zealand IRD validator.", Name = "New Zealand IRD validator.", WidgetId = NewZealandIRDValidatorWidgetId }, string.Empty);
             }
         }
     }
