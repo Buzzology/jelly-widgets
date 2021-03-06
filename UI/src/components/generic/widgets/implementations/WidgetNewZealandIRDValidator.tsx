@@ -37,7 +37,7 @@ function WidgetNewZealandIRDValidator({ dashboardWidget }: IWidgetNewZealandIRDV
                 widgetId: dashboardWidget.widgetId,
                 dashboardWidgetId: dashboardWidget.dashboardWidgetId,
                 payloads: {
-                    medicareNumber: inputValue,
+                    ird: inputValue,
                 },
             }));
         }

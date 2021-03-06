@@ -37,7 +37,7 @@ Widgets:
 #- Australian medicare number generator
 #- Australian medicare number validator
 #- NZ TFN Generator (acutally IRD)
-- NZ TFN Validator
+#- NZ TFN Validator
 - Social security number generator
 - Social security number validator
 
@@ -45,8 +45,6 @@ Widgets:
 - Medicare provider number validator
 - Australian driver's license generator
 - Australian driver's license validator
-- Social security number generator
-- Social security number validator
 - GUID Generator
 - Guid validator
 - Notepad (save state)

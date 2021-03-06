@@ -202,7 +202,7 @@ namespace WidgetManagementGrpcService.Repositories.Widget
 
                 case WidgetManagementConstants.WidgetIds.NewZealandIRDValidator:
                     {
-                        resp = await NewZealandIRDGenerator.Process(payloads);
+                        resp = await NewZealandIRDValidator.Process(payloads);
                         break;
                     }
 
