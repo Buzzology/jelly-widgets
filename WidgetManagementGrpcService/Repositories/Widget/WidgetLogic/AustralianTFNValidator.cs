@@ -83,44 +83,20 @@ namespace WidgetManagementGrpcService.Repositories.Widget.WidgetLogic
 
             #endregion
 
-            var tfnChars = tfn.ToArray();
-            var weightedSum = 0;
-
-            for (var i = 0; i < tfnChars.Length; i++)
+            try
             {
-                if (!int.TryParse(tfnChars[i].ToString(), out var validNumber))
+                var checkDigit = AustralianTFNGenerator.CheckDigit(tfn.Substring(0, 8).ToCharArray());
+                if(checkDigit == tfn.Substring(8, 1))
                 {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be a valid number.", tfn);
-                }
-
-                if (validNumber > 9)
-                {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be less than or equal to 9.", tfn); ;
-                }
-
-                if (validNumber < 0)
-                {
-                    return ReturnErrorResponse($"{nameof(payloads)} tfn character number {i + 1} should be more than or equal to 0.", tfn);
-                }
-
-                // All but the last digit are multiplied by their index + 1
-                if (i < tfnChars.Length - 1)
-                {
-                    weightedSum += (i + 1) * validNumber;
-                }
-                else
-                {
-                    // The last digit is simply multiplied by two
-                    weightedSum += 2 * validNumber;
+                    return ReturnSuccessResponse("Valid standard Australian TFN", tfn);
                 }
             }
-
-            if (weightedSum % 11 != 0)
+            catch(InvalidOperationException)
             {
                 return ReturnErrorResponse($"Invalid TFN - checksum algorithm does not pass.", tfn);
             }
 
-            return ReturnSuccessResponse("Valid standard Australian TFN", tfn);
+            return ReturnErrorResponse($"Invalid TFN - checksum algorithm does not pass.", tfn);
         }
     }
 }
