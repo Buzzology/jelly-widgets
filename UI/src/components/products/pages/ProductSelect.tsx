@@ -57,7 +57,7 @@ const ProductSelect = () => {
                     <Typography
                         variant="subtitle2"
                     >
-                        If there are any widgets you wanted added please let me know.
+                        If there are any widgets you want added please let me know.
                     </Typography>
 
                 </Grid>
@@ -145,6 +145,7 @@ interface IProductDisplayProps {
     content: React.ReactNode,
     buttonText: string,
     onClick(): void,
+    hideButton?: boolean,
 }
 
 const ProductDisplay = ({
@@ -153,7 +154,8 @@ const ProductDisplay = ({
     priceDescription,
     content,
     buttonText,
-    onClick
+    onClick,
+    hideButton,
 }: IProductDisplayProps) => {
 
     const theme = useTheme();
@@ -221,7 +223,8 @@ const ProductDisplay = ({
                         onClick={internalButtonClick}
                         style={{
                             backgroundColor: CustomColors.DarkBrownSecondaryColor,
-                            color: '#FFF'
+                            color: '#FFF',
+                            opacity: hideButton ? 0 : 1,
                         }}
                     >
                         {buttonText}
