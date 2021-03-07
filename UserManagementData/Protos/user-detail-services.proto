@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 
 package UserManagementGrpcService.v1;
 
-// The user detail service definition.
 service UserDetailServices {
   rpc UserDetailCreate (UserDetailCreateRequest) returns (UserDetailCreateResponse);
   rpc UserDetailGet (UserDetailGetRequest) returns (UserDetailGetResponse);

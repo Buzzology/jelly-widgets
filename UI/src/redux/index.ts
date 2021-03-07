@@ -11,6 +11,7 @@ import { widgetsReducer } from "./widget/reducers";
 import { payloadsReducer } from "./payload/reducers";
 import { widgetUserExecutionTrackersReducer } from "./widgetUserExecutionTracker/reducers";
 import { subscriptionsReducer } from "./subscription/reducers"
+import { userToursReducer } from "./userTour/reducers";
 
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     subscriptions: subscriptionsReducer,
     uiFormStates: uiFormStatesReducer,
     userDetails: userDetailsReducer,
+    userTours: userToursReducer,
     widgets: widgetsReducer,
     widgetUserExecutionTrackers: widgetUserExecutionTrackersReducer,
 });

@@ -10,8 +10,8 @@ using UserManagementGrpcService.Infrastructure;
 namespace UserManagementGrpcService.Migrations
 {
     [DbContext(typeof(UserManagementDbContext))]
-    [Migration("20201213054930_initial")]
-    partial class initial
+    [Migration("20210307092116_user-toursn")]
+    partial class usertoursn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,30 @@ namespace UserManagementGrpcService.Migrations
                     b.HasKey("UserDetailId");
 
                     b.ToTable("UserDetails");
+                });
+
+            modelBuilder.Entity("UserManagementData.Models.UserTour", b =>
+                {
+                    b.Property<string>("UserTourId")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("TourId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UserDetailId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("UserTourId");
+
+                    b.ToTable("UserTours");
                 });
 #pragma warning restore 612, 618
         }

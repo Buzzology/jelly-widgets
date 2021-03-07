@@ -1,0 +1,37 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "UserTourGrpcService";
+
+import "google/protobuf/timestamp.proto";
+
+package UserManagementGrpcService.v1;
+
+service UserTourServices {
+  rpc UserTourCreate (UserTourCreateRequest) returns (UserTourCreateResponse);
+  rpc UserTourSearch (UserTourSearchRequest) returns (UserTourSearchResponse);
+}
+
+message UserTourCreateRequest {
+  UserTourDto userTour = 1;
+  string currentUserId = 2;
+}
+
+message UserTourCreateResponse {
+    UserTourDto userTour = 1;
+}
+
+message UserTourSearchRequest {
+    string currentUserId = 1;
+}
+
+message UserTourSearchResponse {
+    repeated UserTourDto userTours = 1;
+}
+
+message UserTourDto {
+	string userTourId = 1;
+    string tourId = 2;
+    string userDetailId = 3;
+    string created = 4;
+    string updated = 5;
+}

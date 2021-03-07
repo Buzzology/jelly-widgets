@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Route } from "react-router-dom";
 import CognitoAuthHandler from '../components/user/CognitoAuthHandler';
+import LayoutDefault from '../components/layout/LayoutDefault';
 import RouteRedirects from './RouteRedirects';
 import usePageTracking from '../components/generic/util/ReactRouterAnalytics';
 import RouteDashboards from './RouteDashboards';
 import { useDispatch } from 'react-redux';
 import { fetchSearchDashboards } from '../redux/dashboard/actions';
+import LoaderAbsoluteCentred from '../components/generic/loaders/LoaderAbsoluteCentred';
 import RouteWidgets from './RouteWidgets';
 import { fetchSearchWidgets } from '../redux/widget/actions';
 import { usePrepareAccessTokenIfRequiredHook } from '../components/user/Hooks';
 import { useIsAuthenticated } from '@azure/msal-react';
 import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecutionTracker/actions';
 import { fetchSearchSubscriptions } from '../redux/subscription/actions';
+import { Button } from '@material-ui/core';
 import RouteProducts from './RouteProducts';
 import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
 import UserLoginWidget from '../components/user/UserLoginWidget';
@@ -102,10 +105,10 @@ const RouteManagerCustom = () => {
             </Route>
 
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
-            {/* <Route render={props => <LayoutDefault routeProps={props}> */}
+            <Route render={props => <LayoutDefault routeProps={props}>
                 {/* <DashboardPage {...props} /> */}
-                {/* <LoaderAbsoluteCentred loading={fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions} />
-            </LayoutDefault>} /> */}
+                <LoaderAbsoluteCentred loading={fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions} />
+            </LayoutDefault>} />
         </Switch>
     )
 }

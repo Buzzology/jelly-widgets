@@ -23,6 +23,9 @@
     <Protobuf Include="..\UserManagementData\Protos\user-detail-services.proto" GrpcServices="Server">
       <Link>Protos\user-detail-services.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\UserManagementData\Protos\user-tour-services.proto" GrpcServices="Server">
+      <Link>Protos\user-tour-services.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

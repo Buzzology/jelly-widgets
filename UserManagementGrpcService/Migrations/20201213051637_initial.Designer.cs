@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserManagementGrpcService.Infrastructure;
@@ -9,9 +10,10 @@ using UserManagementGrpcService.Infrastructure;
 namespace UserManagementGrpcService.Migrations
 {
     [DbContext(typeof(UserManagementDbContext))]
-    partial class UserManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201213051637_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,30 +50,6 @@ namespace UserManagementGrpcService.Migrations
                     b.HasKey("UserDetailId");
 
                     b.ToTable("UserDetails");
-                });
-
-            modelBuilder.Entity("UserManagementData.Models.UserTour", b =>
-                {
-                    b.Property<string>("UserTourId")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("TourId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("UserDetailId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("UserTourId");
-
-                    b.ToTable("UserTours");
                 });
 #pragma warning restore 612, 618
         }
