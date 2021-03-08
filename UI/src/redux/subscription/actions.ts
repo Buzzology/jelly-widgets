@@ -129,7 +129,7 @@ export const fetchSearchSubscriptions = (searchParams: IFetchSearchSubscriptions
         var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_SUBSCRIPTION_MANAGEMENT_API_URL}/subscriptions/search`, {
             method: 'POST',
             headers: headers,
-            body:PrepareBody({ searchParams }),
+            body: PrepareBody({ searchParams }),
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);

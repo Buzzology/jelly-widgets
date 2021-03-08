@@ -61,8 +61,8 @@ export const fetchDismissUserTour = (userTourToDismiss: IFetchDismissUserTourPro
 
 
 export interface IFetchSearchUserToursProps {
-    pageNumber: number,
-    pageSize: number,
+    pageNumber?: number,
+    pageSize?: number,
     userTourId?: string,
     userId?: string,
 }
@@ -73,9 +73,10 @@ export const fetchSearchUserTours = (searchParams: IFetchSearchUserToursProps): 
     var headers = await GetDefaultHeaders(true, false, true);
 
     try {
-        var apiResponse = await fetch(AddQueryStringsToUrl(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userTours`, searchParams), {
-            method: 'GET',
-            headers: headers
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userTours/search`, {
+            method: 'POST',
+            headers: headers,
+            body: PrepareBody({ searchParams }),
         });
 
         // NOTE: Check status handles dispatching of generic types (userdetails, files, etc)
@@ -92,14 +93,14 @@ export const fetchSearchUserTours = (searchParams: IFetchSearchUserToursProps): 
         }
         else {
             if (!parsedResp || !parsedResp.messages || !parsedResp.messages.length) {
-                ShowError("Error searching userTour.");
+                ShowError("Error searching user tour.");
                 return [];
             }
         }
     }
     catch (e) {
         ShowExceptionAsMessage(e);
-        console.log("Error searching userTour.", e.stack);
+        console.log("Error searching user tour.", e.stack);
         return [];
     }
 }

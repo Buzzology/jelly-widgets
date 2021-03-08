@@ -20,6 +20,7 @@ import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
 import UserLoginWidget from '../components/user/UserLoginWidget';
 import { GetAccessToken } from '../utilities/ApiUtils';
 import { fetchValidateUser } from '../redux/userDetail/actions';
+import { fetchSearchUserTours } from '../redux/userTour/actions';
 
 
 const RouteManagerCustom = () => {
@@ -33,6 +34,7 @@ const RouteManagerCustom = () => {
     const isAuthenticated = useIsAuthenticated() && GetAccessToken();
     const [fetchingWidgetUserExecutionTracker, setFetchingWidgetUserExecutionTracker] = useState(false);
     const [fetchingSubscriptions, setFetchingSubscriptions] = useState(false);
+    const [fetchingUserTours, setFetchingUserTours] = useState(false);
     const [validatingUser, setValidatingUser] = useState(false);
     const [userValidated, setUserValidated] = useState(false);
 
@@ -78,9 +80,16 @@ const RouteManagerCustom = () => {
             setFetchingSubscriptions(false);
         })();
 
+        // Fetch user tours
+        setFetchingUserTours(true);
+        (async () => {
+            await dispatch(fetchSearchUserTours({}));
+            setFetchingUserTours(false);
+        })();
+
     }, [dispatch, isAuthenticated, loadingAuthentication, userValidated]);
 
-    if (loadingAuthentication || validatingUser || fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions) {
+    if (loadingAuthentication || validatingUser || fetchingUserTours || fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions) {
         return (
             <LoaderInitialPage loading={true} />
         )
