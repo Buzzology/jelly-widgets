@@ -21,6 +21,7 @@ import UserLoginWidget from '../components/user/UserLoginWidget';
 import { GetAccessToken } from '../utilities/ApiUtils';
 import { fetchValidateUser } from '../redux/userDetail/actions';
 import { fetchSearchUserTours } from '../redux/userTour/actions';
+import TourDashboards from '../components/tour/TourDashboards';
 
 
 const RouteManagerCustom = () => {
@@ -116,6 +117,7 @@ const RouteManagerCustom = () => {
             {/* <Route path={'/topics'}><RouteTopics /></Route> */}
             <Route render={props => <LayoutDefault routeProps={props}>
                 {/* <DashboardPage {...props} /> */}
+                <TourDashboards />
                 <LoaderAbsoluteCentred loading={fetchingDashboards || fetchingWidgetUserExecutionTracker || fetchingWidgets || fetchingSubscriptions} />
             </LayoutDefault>} />
         </Switch>

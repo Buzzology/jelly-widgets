@@ -210,11 +210,12 @@ const LayoutSidebar = ({ open, setDrawerOpen }: ILayoutSidebarProps) => {
             </div>
             <Divider />
             <div className={classes.sidebarSelectionsWrapper}>
-                <div className={classes.topicIconsContainer}>
+                <div id="dashboard-selection" className={classes.topicIconsContainer}>
                     <div>
                         <IconButton
                             onClick={setCreateDashboardFormOpen}
                             className={classes.newTopicIcon}
+                            id="btn-add-dashboard"
                         >
                             <NewTopicIcon />
                         </IconButton>

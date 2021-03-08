@@ -16,29 +16,38 @@ function TourDashboard() {
 
 const steps = [
     {
-        selector: '#body',
+        selector: 'root',
         content: (
             <TourDefaultStepContainer>
-                <Typography variant="body1">Dashboard</Typography>
-                <Typography variant="body2" color="textSecondary">Your dashboard lets you organise your widgets.</Typography>
+                <Typography variant="body1">New Dashboard!</Typography>
+                <Typography variant="body2" color="textSecondary">You've got a brand new dashboard here. Add widgets to give it some functionality.</Typography>
             </TourDefaultStepContainer>
         ),
     },
     {
-        selector: '#btn-dashboard-add',
-        content: (
-            <TourDefaultStepContainer>
-                <Typography variant="body1">Add Dashboard</Typography>
-                <Typography variant="body2" color="textSecondary">You can add another one here.</Typography>
-            </TourDefaultStepContainer>
-        ),
-    },
-    {
-        selector: '#btn-widget-add',
+        selector: '#btn-add-widget',
         content: (
             <TourDefaultStepContainer>
                 <Typography variant="body1">Add a Widget</Typography>
-                <Typography variant="body2" color="textSecondary">You can add widgets but clicking on the button here.</Typography>
+                <Typography variant="body2" color="textSecondary">You can add widgets by clicking this button.</Typography>
+            </TourDefaultStepContainer>
+        ),
+    },
+    {
+        selector: '#dashboard-selection',
+        content: (
+            <TourDefaultStepContainer>
+                <Typography variant="body1">Switching dashboards.</Typography>
+                <Typography variant="body2" color="textSecondary">You can switch dashboards by using the sidebar.</Typography>
+            </TourDefaultStepContainer>
+        ),
+    },
+    {
+        selector: '#btn-edit-dashboard',
+        content: (
+            <TourDefaultStepContainer>
+                <Typography variant="body1">Rename dashboard.</Typography>
+                <Typography variant="body2" color="textSecondary">You can rename a dashboard using the button here.</Typography>
             </TourDefaultStepContainer>
         ),
     },

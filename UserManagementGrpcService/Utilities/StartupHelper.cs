@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserManagementGrpcService.EventHandling;
 using UserManagementGrpcService.Repositories.UserDetail;
+using UserManagementGrpcService.Repositories.UserTour;
 using UserManagementGrpcService.Services;
 
 namespace UserManagementGrpcService.Utilities
@@ -35,6 +36,7 @@ namespace UserManagementGrpcService.Utilities
         {
             // Add repositories
             services.AddTransient(typeof(IUserDetailRepository), typeof(UserDetailRepository));
+            services.AddTransient(typeof(IUserTourRepository), typeof(UserTourRepository));
         }
     }
 }

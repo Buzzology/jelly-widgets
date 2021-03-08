@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static UserManagementGrpcService.UserDetailServices;
+using static UserTourGrpcService.UserTourServices;
 
 namespace UserManagementWebApi.Utilities
 {
@@ -24,6 +25,11 @@ namespace UserManagementWebApi.Utilities
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             services.AddGrpcClient<UserDetailServicesClient>(c =>
+            {
+                c.Address = new Uri(@"http://localhost:5005");
+            });
+
+            services.AddGrpcClient<UserTourServicesClient>(c =>
             {
                 c.Address = new Uri(@"http://localhost:5005");
             });

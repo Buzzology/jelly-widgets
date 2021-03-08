@@ -70,7 +70,7 @@ export interface IFetchSearchUserToursProps {
 
 export const fetchSearchUserTours = (searchParams: IFetchSearchUserToursProps): AppThunk<Promise<IUserTour[]>> => async dispatch => {
 
-    var headers = await GetDefaultHeaders(true, false, true);
+    var headers = await GetDefaultHeaders(true, true);
 
     try {
         var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userTours/search`, {

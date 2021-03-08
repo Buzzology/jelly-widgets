@@ -72,6 +72,7 @@ namespace UserManagementGrpcService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<UserDetailServiceV1>();
+                endpoints.MapGrpcService<UserTourServiceV1>();
             });
         }
     }

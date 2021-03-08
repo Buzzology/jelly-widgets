@@ -105,6 +105,7 @@ function FreeUserContent({ executionTracker }: { executionTracker: IWidgetUserEx
         <div className={classes.freeRunsWrapper}>
             <div
                 className={classes.countContainer}
+                id="txt-count-container"
                 style={{
                     color: remainingRuns < 10 ? red[700] : CustomColors.DarkBrownSecondaryColor
                 }}

@@ -22,6 +22,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import WidgetModalConfirmationDialog from '../../generic/widgets/WidgetModalConfirmationDialog';
 import { fetchRemoveDashboardWidget } from '../../../redux/dashboardWidget/actions';
 import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
+import TourDashboard from '../../tour/TourDashboard';
 
 const useStyles = makeStyles(theme => ({
     widgetWrapper: {
@@ -127,7 +128,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                     </Typography>
                     {dashboard ? (
                         <>
-                            <IconButton size="small" style={{ marginLeft: 8 }} onClick={setUpdateDashboardOpen}>
+                            <IconButton size="small" style={{ marginLeft: 8 }} onClick={setUpdateDashboardOpen} id="btn-edit-dashboard">
                                 <EditDashboardIcon style={{ height: 16, width: 16 }} />
                             </IconButton>
                         </>
@@ -141,6 +142,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                     >
                         <ButtonPrimaryDark
                             variant="outlined"
+                            id="btn-add-widget"
                         >
                             Add Widget
                         </ButtonPrimaryDark>
@@ -153,6 +155,7 @@ const PageDashboardView = ({ loading, dashboardId }: IPageDashboardViewProps) =>
                 </Grid>
             </Grid>
             <LoaderAbsoluteCentred loading={loading} />
+            <TourDashboard />
         </Container>
     );
 }

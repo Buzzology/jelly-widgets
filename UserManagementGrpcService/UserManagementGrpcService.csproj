@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="..\UserManagementData\Protos\user-detail-services.proto" GrpcServices="Server">
       <Link>Protos\user-detail-services.proto</Link>
     </Protobuf>
