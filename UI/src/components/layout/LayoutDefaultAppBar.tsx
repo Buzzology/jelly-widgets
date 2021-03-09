@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
         boxShadow: 'none',
         borderBottom: `1px solid ${CustomColors.MetalBorderColor}`
     },
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
     drawerOpen: {
         width: DrawerWidth,
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
 }));
 

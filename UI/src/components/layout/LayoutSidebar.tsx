@@ -38,7 +38,7 @@ import { useStripe } from '@stripe/react-stripe-js';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
         overflowX: 'hidden',
     },
     menuButton: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         width: DrawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
     drawerOpen: {
         width: DrawerWidth,
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
         overflowX: 'hidden',
     },
     drawerClose: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         }),
         overflowX: 'hidden',
         width: theme.spacing(9) + 1,
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
     toolbar: {
         display: 'flex',
@@ -78,12 +78,12 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-        backgroundColor: CustomColors.MetalBackgroundColor,
+        backgroundColor: '#FFF',
     },
     ...ScrollbarPretty,
     sidebarSelectionsWrapper: {
