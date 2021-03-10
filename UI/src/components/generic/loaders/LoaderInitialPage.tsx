@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: CustomColors.DarkGreenPrimaryColor,
         borderRadius: '50%',
         color: '#fefefb',
-        padding: 8
+        padding: 8,
     },
     content: {
         padding: theme.spacing(3),

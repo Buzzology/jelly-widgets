@@ -27,16 +27,16 @@ export interface IFetchDismissUserTourProps {
 }
 
 
-export const fetchDismissUserTour = (userTourToDismiss: IFetchDismissUserTourProps): AppThunk<Promise<IUserTour>> => async dispatch => {
+export const fetchDismissUserTour = (request: IFetchDismissUserTourProps): AppThunk<Promise<IUserTour>> => async dispatch => {
 
     var headers = await GetDefaultHeaders(true, true);
 
     try {
 
-        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userTours/dismiss`, {
+        var apiResponse = await fetch(`${Configuration.REACT_APP_BASE_USER_MANAGEMENT_API_URL}/userTours/create`, {
             method: 'POST',
             headers: headers,
-            body: PrepareBody(userTourToDismiss),
+            body: PrepareBody({ userTour: { ...request } }),
         });
 
         var parsedResp: IApiResponse = await CheckStatus(apiResponse);

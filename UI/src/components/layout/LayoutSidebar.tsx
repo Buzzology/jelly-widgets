@@ -12,7 +12,7 @@ import { DrawerWidth } from './LayoutConstants';
 import { Typography, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import NewTopicIcon from '@material-ui/icons/Add'
 import HomeIcon from '@material-ui/icons/Home'
-import AboutIcon from '@material-ui/icons/ContactSupportTwoTone'
+import AboutIcon from '@material-ui/icons/ContactSupport'
 import { NavLink, useHistory, useParams } from 'react-router-dom';
 import { GetDashboardLinkWithHighlightedWidget, GetProductsLink, GetWidgetsSearchWithDashboardId } from '../../routes/RouteLinkHelpers';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,11 +25,11 @@ import { selectorGetDashboardById, selectorGetDashboards } from '../../redux/das
 import IDashboard from '../../@types/Dashboard';
 import IDashboardWidget from '../../@types/DashboardWidget';
 import EditIcon from '@material-ui/icons/Edit';
-import WidgetsIcon from '@material-ui/icons/WidgetsTwoTone';
+import WidgetsIcon from '@material-ui/icons/Widgets';
 import AddWidgetIcon from '@material-ui/icons/AddOutlined';
 import DashboardIcon from '../dashboards/DashboardIcon';
-import PaymentsIcon from '@material-ui/icons/PaymentTwoTone';
-import PremiumIcon from '@material-ui/icons/PresentToAllTwoTone';
+import PaymentsIcon from '@material-ui/icons/Payment';
+import PremiumIcon from '@material-ui/icons/PresentToAll';
 import { selectorGetWidgetById } from '../../redux/widget/selectors';
 import { fetchAccountManagementPortalUrl, fetchCheckoutPortalSessionId } from '../../redux/paymentSessions/actions';
 import { useStripe } from '@stripe/react-stripe-js';

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UserManagementGrpcService.EventHandling;
 using UserManagementGrpcService.Infrastructure;
 using UserManagementGrpcService.Repositories.UserTour.Messages;
+using UserManagementIntegrationEvents.UserTour;
 
 namespace UserManagementGrpcService.Repositories.UserTour
 {
@@ -40,9 +41,13 @@ namespace UserManagementGrpcService.Repositories.UserTour
 
             // Remove existing matches
             _userManagementDbContext.UserTours.RemoveRange(_userManagementDbContext.UserTours.Where(x => x.UserDetailId == userTour.UserDetailId && x.TourId == userTour.UserDetailId));
-
-            // Add a new record so that we don't keep showing the tour
             _userManagementDbContext.UserTours.Add(userTour);
+
+
+            // Save siteCustomer and then publish
+            var @event = new UserTourCreatedIntegrationEvent(userTour);
+            await _userManagementIntegrationEventService.SaveEventAndContentManagementContextChangesAsync(@event);
+            await _userManagementIntegrationEventService.PublishThroughEventBusAsync(@event);
 
             return userTour;
         }
@@ -50,10 +55,10 @@ namespace UserManagementGrpcService.Repositories.UserTour
 
         public async Task<List<UserManagementData.Models.UserTour>> Search(UserTourRepositorySearchProperties searchProperties, string currentUserId)
         {
-            IQueryable<UserManagementData.Models.UserTour> query = from subscription in _userManagementDbContext.UserTours select subscription;
+            IQueryable<UserManagementData.Models.UserTour> query = from userTour in _userManagementDbContext.UserTours select userTour;
 
             // Limit to current user
-            query = query.Where(x => x.UserTourId == currentUserId);
+            query = query.Where(x => x.UserDetailId == currentUserId);
 
             // Apply paging
             query = query.Skip((searchProperties.PageNumber - 1) * searchProperties.PageSize).Take(searchProperties.PageSize);

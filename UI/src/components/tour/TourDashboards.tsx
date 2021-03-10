@@ -3,7 +3,7 @@ import TourDefaultStepContainer from './TourDefaultStepContainer';
 import TourWrapper from './TourWrapper';
 import { Typography } from '@material-ui/core';
 
-const TOUR_ID = "e38d8396-efef-4f23-9ade-c84db4ac7864";
+const TOUR_ID = "62bb8e27-1f0d-4ede-82ef-620667e863e4";
 
 function TourDashboards() {
     return (

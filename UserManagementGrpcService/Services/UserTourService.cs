@@ -32,8 +32,11 @@ namespace UserManagementGrpcService.Services
             {
                 var userTour = await _userTourRepository.Create(
                     new UserManagementData.Models.UserTour {
+                        UserTourId = Guid.NewGuid().GetUrlFriendlyString(),
                         TourId = request?.UserTour?.TourId,
                         UserDetailId = request?.CurrentUserId,
+                        Created = DateTime.UtcNow,
+                        Updated = DateTime.UtcNow,
                     });
 
                 return new UserTourCreateResponse { UserTour = _mapper.Map<UserTourDto>(userTour) };

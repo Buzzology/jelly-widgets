@@ -1,5 +1,6 @@
 ﻿using MicroservicesProjectLibrary.Utilities.Converters;
 using UserManagementData.Models;
+using UserTourGrpcService;
 
 namespace UserManagementGrpcService.Utilities
 {
@@ -7,8 +8,8 @@ namespace UserManagementGrpcService.Utilities
     {
         public MappingProfile()
         {
-            CreateMap<UserDetail, UserDetailDto>();
-            CreateMap<UserDetailDto, UserDetail>();
+            CreateMap<UserDetail, UserDetailDto>().ReverseMap();
+            CreateMap<UserTour, UserTourDto>().ReverseMap();
         }
     }
 }
