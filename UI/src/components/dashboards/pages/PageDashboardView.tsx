@@ -209,7 +209,8 @@ function DashboardWidgets({ dashboardId }: { dashboardId: string }) {
                                     </InputAdornment>
                                 ),
                                 style: {
-                                    backgroundColor: '#FFF'
+                                    backgroundColor: '#FFF',
+                                    padding: '6px 10px'
                                 }
                             }}
                         />

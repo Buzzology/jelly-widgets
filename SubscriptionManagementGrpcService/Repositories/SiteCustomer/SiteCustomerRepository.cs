@@ -184,6 +184,11 @@ namespace SubscriptionManagementGrpcService.Repositories.SiteCustomer
                     query = query.Where(x => searchProperties.UserIds.Contains(x.UserDetailId));
                 }
 
+                if (searchProperties.UserId != null && searchProperties.UserId.Any())
+                {
+                    query = query.Where(x => x.UserDetailId == searchProperties.UserId);
+                }
+
                 query = query.Skip((searchProperties.PageNumber - 1) * searchProperties.PageSize).Take(searchProperties.PageSize);
             }
 
