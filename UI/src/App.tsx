@@ -49,9 +49,9 @@ const theme = createMuiTheme({
 			default: '#FFFFFF',
 		},
 	},
-	// typography: {
-	// 	fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
-	// },
+	typography: {
+		fontFamily: `font-family: 'Lato', sans-serif;`,
+	},
 });
 
 // Stripe settings: https://github.com/stripe/react-stripe-js/tree/9fe1a5473cd1125fcda4e01adb6d6242a9bae731
