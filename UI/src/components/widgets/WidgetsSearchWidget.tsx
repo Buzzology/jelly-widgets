@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, Grid, Divider, TextField, InputAdornment } from '@material-ui/core';
+import { makeStyles, Typography, Grid, Divider, TextField, InputAdornment, useTheme } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LoaderAbsoluteCentred from '../generic/loaders/LoaderAbsoluteCentred';
 import { CustomColors } from '../../utilities/Styles';
@@ -26,14 +26,20 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
     },
     widgetSearchResultWrapper: {
+        padding: theme.spacing(2),
+        textDecoration: 'none',
+        cursor: 'default',
+    },
+    widgetSearchResultInnerWrapper: {
         transition: 'background 200ms ease-out',
         cursor: 'pointer',
-        textDecoration: 'none',
+        backgroundColor: '#FFF',
         '&:hover': {
-            backgroundColor: CustomColors.MetalBackgroundColor,
+            backgroundColor: '#DEDEDE',
         },
+        borderRadius: theme.shape.borderRadius,
+        display: 'flex',
         padding: theme.spacing(2),
-        borderBottom: `1px solid ${CustomColors.MetalBorderColor}`,
     },
     widgetSearchResultDivider: {
     }
@@ -51,6 +57,7 @@ interface IWidgetsSearchWidgetProps {
 function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) {
 
     const classes = useStyles();
+    const theme = useTheme();
     const [searchText, setSearchTextFilter] = useState<string>(query || '');
     const [orderTypeToSearchWith] = useState<WidgetSearchOrderTypeEnum>();
     const userId = GetUserId();
@@ -102,30 +109,41 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
                     </Grid>
                 ) : null}
             </Grid>
-            <form
-                className={classes.searchRoot}
-                onSubmit={runSearch}
+            <div
+                style={{
+                    marginLeft: theme.spacing(2),
+                    marginRight: theme.spacing(2),
+                }}
             >
-                <TextField
-                    margin="none"
-                    variant="outlined"
-                    className={classes.input}
-                    placeholder="Search widgets"
-                    onChange={onSearchTextChangeHandler}
-                    type="text"
+                <form
+                    className={classes.searchRoot}
                     onSubmit={runSearch}
-                    size="small"
-                    fullWidth={true}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </form>
-            <Divider className={classes.widgetSearchResultDivider} />
+                >
+                    <TextField
+                        margin="none"
+                        variant="outlined"
+                        className={classes.input}
+                        placeholder="Search widgets"
+                        onChange={onSearchTextChangeHandler}
+                        type="text"
+                        onSubmit={runSearch}
+                        size="small"
+                        fullWidth={true}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                            style: {
+                                backgroundColor: '#FFF',
+                                padding: '6px 10px'
+                            }
+                        }}
+                    />
+                </form>
+            </div>
+
             <div>
                 <Grid container>
                     {
@@ -158,8 +176,8 @@ function WidgetsSearchWidget({ query, dashboardId }: IWidgetsSearchWidgetProps) 
                         )
                     }
                 </Grid>
+                <LoaderAbsoluteCentred loading={fetchingWidgets} />
             </div>
-            <LoaderAbsoluteCentred loading={fetchingWidgets} />
         </>
     );
 }
@@ -170,37 +188,36 @@ const WidgetSearchResult = ({ widget, dashboardId }: { widget: IWidget, dashboar
     const classes = useStyles();
 
     return (
-        <>
-            <Grid
-                item
-                xs={12}
-                className={classes.widgetSearchResultWrapper}
-                component={Link}
-                to={GetWidgetLinkByNameIdAndDashboardId(widget?.widgetId, widget?.name, dashboardId)}
-            >
-                <div style={{ display: 'flex' }}>
-                    <div style={{ flexShrink: 0, display: 'flex', marginRight: 16 }}>
-                        <WidgetIcon widgetName={widget.name} />
-                    </div>
-                    <div style={{ flexGrow: 1, display: 'flex' }}>
-                        <div>
-                            <Typography variant="body2" style={{
-                                color: CustomColors.MetalDarkTextColor,
-                                fontWeight: 600,
-                            }} >
-                                {widget.name}
-                            </Typography>
-                            <Typography variant="body2" style={{ color: CustomColors.MetalDefaultTextColor }} >
-                                10 members <b>&middot;</b>&nbsp;
+        <Grid
+            item
+            xs={12}
+            md={6}
+            xl={4}
+            className={classes.widgetSearchResultWrapper}
+            component={Link}
+            to={GetWidgetLinkByNameIdAndDashboardId(widget?.widgetId, widget?.name, dashboardId)}
+        >
+            <div className={classes.widgetSearchResultInnerWrapper}>
+                <div style={{ flexShrink: 0, display: 'flex', marginRight: 16 }}>
+                    <WidgetIcon widgetName={widget.name} />
+                </div>
+                <div style={{ flexGrow: 1, display: 'flex' }}>
+                    <div>
+                        <Typography variant="body2" style={{
+                            color: CustomColors.MetalDarkTextColor,
+                            fontWeight: 600,
+                        }} >
+                            {widget.name}
+                        </Typography>
+                        <Typography variant="body2" style={{ color: CustomColors.MetalDefaultTextColor }} >
+                            10 members <b>&middot;</b>&nbsp;
                                 4 posts <b>&middot;</b>&nbsp;
                                 {widget.description}
-                            </Typography>
-                        </div>
+                        </Typography>
                     </div>
                 </div>
-            </Grid>
-        </>
-
+            </div>
+        </Grid>
     )
 }
 

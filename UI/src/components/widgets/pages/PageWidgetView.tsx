@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, IconButton, Typography } from '@material-ui/core';
+import { Container, Grid, IconButton, Typography, useTheme } from '@material-ui/core';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,6 +28,7 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
     const [addingWidget, setAddingWidget] = useState(false);
     let history = useHistory();
     const dashboard = useSelector((store: RootState) => selectorGetDashboardById(store, dashboardId));
+    const theme = useTheme();
 
     const addWidgetToDashboardClick = async () => {
 
@@ -43,7 +44,7 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                 }
             })) as any;
 
-            if(dashboardWidgets?.length) history.push(GetDashboardLinkByDashboardIdAndName(dashboardId, dashboard?.name || ''));
+            if (dashboardWidgets?.length) history.push(GetDashboardLinkByDashboardIdAndName(dashboardId, dashboard?.name || ''));
         }
         finally {
             setAddingWidget(false);
@@ -89,24 +90,30 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
         }}
             maxWidth={false}
         >
-            <Grid container>
-                <Grid item xs={10}>
-                    <Typography variant="body1" component="span" style={{
-                        color: CustomColors.MetalDarkTextColor,
-                        fontWeight: 600,
-                    }} >
-                        {widgetId}
+            <Grid container
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '80vh' }}
+            >
+                <Grid item xs={12} md={6} xl={4} style={{
+                    backgroundColor: '#FFF',
+                    padding: theme.spacing(3),
+                    borderRadius: theme.shape.borderRadius,
+                    minWidth: '400px',
+                }}>
+                    <Typography variant="body2" style={{marginBottom: theme.spacing(3)}}>
+                        Add the <i>{widget?.name}</i> widget to your {dashboard?.name} dashboard?
                     </Typography>
-                    {widget ? (
-                        <>
-                            <IconButton size="small" style={{ marginLeft: 8 }}>
-                            </IconButton>
-                        </>
-                    ) : null}
-                </Grid>
-
-                <Grid item xs={12} style={{ textAlign: 'right' }}>
-                    <>
+                    <Typography variant="caption" color="textSecondary" style={{ margin: theme.spacing(3), }}>
+                        {widget.description}
+                    </Typography>
+                    <div
+                        style={{
+                            textAlign: 'right',
+                            marginTop: theme.spacing(3),
+                        }}
+                    >
                         <ButtonSecondaryDark
                             variant="text"
                             onClick={() => history.goBack()}
@@ -120,19 +127,7 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                         >
                             Confirm<LoaderAbsoluteCentred loading={addingWidget} />
                         </ButtonPrimaryDark>
-                    </>
-                </Grid>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <>
-                            <Typography variant="subtitle1" style={{ marginBottom: 8, fontWeight: 600 }}>
-                                {widget?.name}
-                            </Typography>
-                            <Typography variant="subtitle2">
-                                {widget?.description}
-                            </Typography>
-                        </>
-                    </Grid>
+                    </div>
                 </Grid>
             </Grid>
             <LoaderAbsoluteCentred loading={loading} />
