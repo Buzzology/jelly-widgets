@@ -24,9 +24,9 @@ const useStyles = makeStyles(theme => ({
     },
     noImagePlaceholder: {
         textTransform: 'uppercase',
-        lineHeight: '50px',
+        lineHeight: '45px',
         textAlign: 'center',
-        fontSize: '35px',
+        fontSize: '25px',
         verticalAlign: 'middle',
     },
     activeDashboard: {

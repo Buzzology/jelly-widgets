@@ -19,7 +19,7 @@ function ModalDashboardCreate({ onCancelCallback, open, onCompleteCallback }: IM
             handleCancel={onCancelCallback}
             open={open}
             title={"Create a new dashboard"}
-            subtitle={"Fill in the form to complete."}
+            subtitle={"Dashboards are used to group widgets. For example, you might use one dashboard for your financial widgets and another for higher education."}
             headerIcon={<BuildIcon />}
             headerColor={deepOrange[500]}
         >

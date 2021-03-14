@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextField, Grid, Divider, Button } from '@material-ui/core';
+import { TextField, Grid, Divider } from '@material-ui/core';
 import { getFormikFieldProps } from '../../../utilities/Helpers';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,6 +8,8 @@ import { fetchCreateDashboard } from '../../../redux/dashboard/actions';
 import { useDispatch } from 'react-redux';
 import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
 import { useHistory } from 'react-router-dom';
+import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
+import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 
 
 interface FormValues {
@@ -33,7 +35,7 @@ const FormDashboardCreate = ({ formValues, onCancelCallback, onCompleteCallback 
         var dashboardCreateResp = await dispatch(fetchCreateDashboard({ ...values })) as any;
         setSubmitting(false);
 
-        if(dashboardCreateResp?.dashboardId) {
+        if (dashboardCreateResp?.dashboardId) {
             onCompleteCallback();
             history.push(GetDashboardLinkByDashboardIdAndName(dashboardCreateResp.dashboardId, dashboardCreateResp.name));
         }
@@ -57,7 +59,7 @@ const FormDashboardCreate = ({ formValues, onCancelCallback, onCompleteCallback 
                 return (
                     <form onSubmit={props.handleSubmit}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12}>
                                 <TextField
                                     onChange={props.handleChange}
                                     {...getFormikFieldProps(props, 'name', 'Name')}
@@ -71,22 +73,21 @@ const FormDashboardCreate = ({ formValues, onCancelCallback, onCompleteCallback 
                             </Grid>
 
                             <Grid item xs={12} style={{ textAlign: 'right' }}>
-                                <Button
+                                <ButtonSecondary
                                     disabled={submitting}
                                     variant="text"
                                     color="default"
                                     onClick={onCancelCallback}
                                 >
                                     Cancel
-                            </Button>&nbsp;&nbsp;&nbsp;
-                            <Button
+                                </ButtonSecondary>&nbsp;&nbsp;&nbsp;
+                                <ButtonPrimaryDark
                                     type="submit"
                                     disabled={submitting}
-                                    variant="outlined"
-                                    color="primary"
-                                >
+                                    variant="contained"
+                                    color="primary">
                                     Create
-                                </Button>
+                                </ButtonPrimaryDark>
                                 <LoaderAbsoluteCentred loading={submitting} />
                             </Grid>
                         </Grid>

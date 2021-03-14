@@ -100,10 +100,13 @@ const PageWidgetView = ({ loading, widgetId, dashboardId }: IPageWidgetViewProps
                     borderRadius: theme.shape.borderRadius,
                     minWidth: '400px',
                 }}>
-                    <Typography variant="body2" style={{marginBottom: theme.spacing(3)}}>
-                        Add the <i>{widget?.name}</i> widget to your {dashboard?.name} dashboard?
+                    <Typography variant="subtitle1" style={{ marginBottom: theme.spacing(3), fontWeight: 600 }}>
+                        Add widget to your <i>{dashboard?.name}</i> dashboard?
                     </Typography>
-                    <Typography variant="caption" color="textSecondary" style={{ margin: theme.spacing(3), }}>
+                    <Typography variant="body1">
+                        {widget?.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
                         {widget.description}
                     </Typography>
                     <div
