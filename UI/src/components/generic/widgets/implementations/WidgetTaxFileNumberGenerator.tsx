@@ -1,16 +1,15 @@
-import { Fade, Grid, Tooltip, Chip, useTheme } from "@material-ui/core";
+import { Fade, Grid, Chip, useTheme } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import IDashboardWidget from "../../../../@types/DashboardWidget";
 import IPayload from "../../../../@types/Payload";
 import { RootState } from "../../../../redux";
 import { fetchDashboardWidgetProcessMessage } from "../../../../redux/dashboardWidget/actions";
-import { selectorGetLatestPayloadByDashboardWidgetId, selectorGetPayloadsByDashboardWidgetId } from "../../../../redux/payload/selectors";
+import { selectorGetPayloadsByDashboardWidgetId } from "../../../../redux/payload/selectors";
 import { selectorGetWidgetById } from "../../../../redux/widget/selectors";
 import WidgetSimpleGenerator from "./implementationTypes/WidgetSimpleGenerator";
 import ValidIcon from '@material-ui/icons/CheckRounded'
 import InvalidIcon from '@material-ui/icons/WarningRounded'
-import LoaderAbsoluteCentred from "../../loaders/LoaderAbsoluteCentred";
 
 
 interface IWidgetTaxFileNumberGeneratorProps {
@@ -30,7 +29,7 @@ function WidgetTaxFileNumberGenerator({ dashboardWidget }: IWidgetTaxFileNumberG
         setLoading(true);
 
         try {
-            dispatch(fetchDashboardWidgetProcessMessage({
+            await dispatch(fetchDashboardWidgetProcessMessage({
                 widgetId: dashboardWidget.widgetId,
                 dashboardWidgetId: dashboardWidget.dashboardWidgetId,
                 payloads: {},

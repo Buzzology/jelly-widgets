@@ -1,7 +1,7 @@
 import { ACTIONS_USER_TOUR } from './types';
 import { AppThunk } from '..';
 import { Configuration } from '../../utilities/Constants';
-import { GetDefaultHeaders, CheckStatus, ShowExceptionAsMessage, AddQueryStringsToUrl } from '../../utilities/ApiUtils';
+import { GetDefaultHeaders, CheckStatus, ShowExceptionAsMessage } from '../../utilities/ApiUtils';
 import { PrepareBody, ShowError } from '../../utilities/Helpers';
 import { IApiResponse } from '../../@types/Api';
 import { IUserTour } from '../../@types/UserTour';

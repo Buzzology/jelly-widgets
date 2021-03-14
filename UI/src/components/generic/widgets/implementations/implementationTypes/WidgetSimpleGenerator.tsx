@@ -1,8 +1,9 @@
-import { Grid, Typography, useTheme } from "@material-ui/core";
 import React, { ReactNode } from "react";
 import IDashboardWidget from "../../../../../@types/DashboardWidget";
 import ButtonSecondary from "../../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../../loaders/LoaderAbsoluteCentred";
+import { WidgetHeader } from "./WidgetHeader";
+
 
 interface IWidgetSimpleGenerator {
     label: string | undefined,
@@ -13,6 +14,7 @@ interface IWidgetSimpleGenerator {
     dashboardWidget: IDashboardWidget,
     onClickCallback(): void,
     loading: boolean,
+    img?: string,
 }
 
 
@@ -21,27 +23,23 @@ function WidgetSimpleGenerator({
     description,
     onClickCallback,
     buttonLabel,
-    outputLabel,
     dashboardWidget,
     loading,
     outputValues,
 }: IWidgetSimpleGenerator) {
 
-    const theme = useTheme();
-
     return (
         <div>
-            <Grid item xs={12} style={{ textAlign: 'center', opacity: 0.75, marginBottom: theme.spacing(3) }}>
-                <Typography variant="overline">
-                    {label}
-                </Typography><br />
-                <Typography variant="caption">
-                    {description}
-                </Typography>
-            </Grid>
+            <WidgetHeader
+                widgetId={dashboardWidget.widgetId}
+                title={label}
+                description={description}
+            />
             <div>
                 <ButtonSecondary
                     onClick={onClickCallback}
+                    variant="outlined"
+                    fullWidth
                 >
                     {buttonLabel}
                 </ButtonSecondary>

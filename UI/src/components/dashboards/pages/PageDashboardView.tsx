@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
 import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
 import { CustomColors } from '../../../utilities/Styles';
-import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { UiFormStateIdEnum } from '../../../@types/UiFormState';
 import { setFormOpenState } from '../../../redux/uiFormState/actions';
 import EditDashboardIcon from '@material-ui/icons/EditTwoTone';

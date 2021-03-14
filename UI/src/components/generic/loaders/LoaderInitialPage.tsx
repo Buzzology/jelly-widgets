@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, Typography, useTheme } from "@material-ui/core"
+import { makeStyles, Typography } from "@material-ui/core"
 import LoaderIcon from '@material-ui/icons/ToysRounded'
 import { CustomColors } from '../../../utilities/Styles';
 

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Container, Grid, IconButton, Typography, useTheme } from '@material-ui/core';
+import { Container, Grid, Typography, useTheme } from '@material-ui/core';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../redux';
 import { selectorGetWidgetById } from '../../../redux/widget/selectors';
-import ButtonSecondary from '../../generic/buttons/ButtonSecondary';
 import { fetchCreateDashboardWidget } from '../../../redux/dashboardWidget/actions';
 import { GetDashboardLinkByDashboardIdAndName } from '../../../routes/RouteLinkHelpers';
 import { selectorGetDashboardById } from '../../../redux/dashboard/selectors';
-import { CustomColors } from '../../../utilities/Styles';
 import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
 import ButtonSecondaryDark from '../../generic/buttons/ButtonSecondaryDark';
 

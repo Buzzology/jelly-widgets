@@ -31,8 +31,7 @@ import DashboardIcon from '../dashboards/DashboardIcon';
 import PaymentsIcon from '@material-ui/icons/Payment';
 import PremiumIcon from '@material-ui/icons/PresentToAll';
 import { selectorGetWidgetById } from '../../redux/widget/selectors';
-import { fetchAccountManagementPortalUrl, fetchCheckoutPortalSessionId } from '../../redux/paymentSessions/actions';
-import { useStripe } from '@stripe/react-stripe-js';
+import { fetchAccountManagementPortalUrl } from '../../redux/paymentSessions/actions';
 
 
 const useStyles = makeStyles((theme) => ({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, Grid, Divider, TextField, InputAdornment, useTheme } from '@material-ui/core';
+import { makeStyles, Typography, Grid, TextField, InputAdornment, useTheme } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LoaderAbsoluteCentred from '../generic/loaders/LoaderAbsoluteCentred';
 import { CustomColors } from '../../utilities/Styles';
@@ -11,7 +11,6 @@ import { WidgetSearchOrderTypeEnum } from '../../redux/widget/types';
 import IWidget from '../../@types/Widget';
 import { GetWidgetLinkByNameIdAndDashboardId } from '../../routes/RouteLinkHelpers';
 import { GetUserId } from '../../utilities/ApiUtils';
-import ButtonPrimaryDark from '../generic/buttons/ButtonPrimaryDark';
 import ButtonSecondaryDark from '../generic/buttons/ButtonSecondaryDark';
 
 
@@ -27,19 +26,17 @@ const useStyles = makeStyles(theme => ({
     },
     widgetSearchResultWrapper: {
         padding: theme.spacing(2),
-        textDecoration: 'none',
-        cursor: 'default',
+        height: '100%',
     },
     widgetSearchResultInnerWrapper: {
-        transition: 'background 200ms ease-out',
-        cursor: 'pointer',
         backgroundColor: '#FFF',
-        '&:hover': {
-            backgroundColor: '#DEDEDE',
-        },
         borderRadius: theme.shape.borderRadius,
-        display: 'flex',
         padding: theme.spacing(2),
+        height: '100%',
+    },
+    topSectionWrapper: {
+        display: 'flex',
+        marginBottom: theme.spacing(3),
     },
     widgetSearchResultDivider: {
     }
@@ -194,28 +191,41 @@ const WidgetSearchResult = ({ widget, dashboardId }: { widget: IWidget, dashboar
             md={6}
             xl={4}
             className={classes.widgetSearchResultWrapper}
-            component={Link}
-            to={GetWidgetLinkByNameIdAndDashboardId(widget?.widgetId, widget?.name, dashboardId)}
+            style={{ minHeight: '100%' }}
         >
             <div className={classes.widgetSearchResultInnerWrapper}>
-                <div style={{ flexShrink: 0, display: 'flex', marginRight: 16 }}>
-                    <WidgetIcon widgetName={widget.name} />
-                </div>
-                <div style={{ flexGrow: 1, display: 'flex' }}>
-                    <div>
-                        <Typography variant="body2" style={{
-                            color: CustomColors.MetalDarkTextColor,
-                            fontWeight: 600,
-                        }} >
-                            {widget.name}
-                        </Typography>
-                        <Typography variant="body2" style={{ color: CustomColors.MetalDefaultTextColor }} >
-                            10 members <b>&middot;</b>&nbsp;
-                                4 posts <b>&middot;</b>&nbsp;
+                <div className={classes.topSectionWrapper}>
+                    <div style={{ flexShrink: 0, display: 'flex', marginRight: 16 }}>
+                        <WidgetIcon widgetId={widget.widgetId} />
+                    </div>
+                    <div style={{ flexGrow: 1, display: 'flex' }}>
+                        <div>
+                            <Typography variant="body2" style={{
+                                color: CustomColors.MetalDarkTextColor,
+                                fontWeight: 600,
+                            }} >
+                                {widget.name}
+                            </Typography>
+                            <Typography variant="body2" style={{ color: CustomColors.MetalDefaultTextColor }} >
                                 {widget.description}
-                        </Typography>
+                            </Typography>
+                        </div>
                     </div>
                 </div>
+                <Link
+                    to={GetWidgetLinkByNameIdAndDashboardId(widget?.widgetId, widget?.name, dashboardId)}
+                    style={{
+                        textDecoration: 'none',
+                        cursor: 'default',
+                    }}
+                >
+                    <ButtonSecondary
+                        variant="outlined"
+                        fullWidth
+                    >
+                        Add Widget
+                    </ButtonSecondary>
+                </Link>
             </div>
         </Grid>
     )

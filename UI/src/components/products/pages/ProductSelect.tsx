@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, IconButton, makeStyles, InputAdornment, TextField, Grow, Paper, useTheme, Button, Fade } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Container, Grid, Typography, useTheme } from '@material-ui/core';
 import { useStripe } from '@stripe/react-stripe-js';
 import { fetchCheckoutPortalSessionId } from '../../../redux/paymentSessions/actions';
 import { CustomColors } from '../../../utilities/Styles';
-import { green, indigo, blue, yellow, pink, blueGrey } from '@material-ui/core/colors';
+import { green } from '@material-ui/core/colors';
 import Tick from '@material-ui/icons/CheckTwoTone'
-import ButtonPrimary from '../../generic/buttons/ButtonPrimary';
 import ButtonPrimaryDark from '../../generic/buttons/ButtonPrimaryDark';
 import AnimationWrapper from '../../generic/animations/AnimationWrapper';
 import LoaderAbsoluteCentred from '../../generic/loaders/LoaderAbsoluteCentred';
@@ -14,9 +13,7 @@ import { ProductIds } from '../../../utilities/Constants';
 
 const ProductSelect = () => {
 
-
     const stripe = useStripe();
-    const theme = useTheme();
 
     // TODO: Make prices configurable
     async function purchaseMonthly() {

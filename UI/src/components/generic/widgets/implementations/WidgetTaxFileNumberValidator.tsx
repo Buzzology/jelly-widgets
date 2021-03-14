@@ -1,4 +1,4 @@
-import { TextField, useTheme, Chip, Tooltip, Grid, withStyles, Fade, Typography } from "@material-ui/core";
+import { TextField, useTheme, Chip, Tooltip, Grid, Fade } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import IDashboardWidget from "../../../../@types/DashboardWidget";
@@ -9,9 +9,9 @@ import ButtonSecondary from "../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../loaders/LoaderAbsoluteCentred";
 import ValidIcon from '@material-ui/icons/CheckRounded'
 import InvalidIcon from '@material-ui/icons/WarningRounded'
-import { CustomColors } from "../../../../utilities/Styles";
 import { WidgetNoResultsPlaceholder } from "../WidgetNoResultsPlaceholder";
 import { selectorGetWidgetById } from "../../../../redux/widget/selectors";
+import { WidgetHeader } from "./implementationTypes/WidgetHeader";
 
 
 interface IWidgetTaxFileNumberValidatorProps {
@@ -27,13 +27,13 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
     const [inputValue, setInputValue] = useState('');
     const theme = useTheme();
     const widget = useSelector((store: RootState) => selectorGetWidgetById(store, dashboardWidget.widgetId));
-    
+
     const onClickHandler = async () => {
 
         setLoading(true);
 
         try {
-            dispatch(fetchDashboardWidgetProcessMessage({
+            await dispatch(fetchDashboardWidgetProcessMessage({
                 widgetId: dashboardWidget.widgetId,
                 dashboardWidgetId: dashboardWidget.dashboardWidgetId,
                 payloads: {
@@ -51,43 +51,36 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
     return (
         <div style={{ height: '100%' }}>
             <Grid container>
-                <Grid item xs={12} style={{ textAlign: 'center', opacity: 0.75, marginBottom: theme.spacing(3) }}>
-                    <Typography variant="overline">
-                        {widget.name}
-                    </Typography><br />
-                    <Typography variant="caption">
-                        {widget.description}
-                    </Typography>
+                <Grid item xs={12}>
+                    <WidgetHeader
+                        widgetId={dashboardWidget.widgetId}
+                        title={widget.name}
+                        description={widget.description}
+                    />
                 </Grid>
                 <Grid item xs={9}>
-                    <CustomBorderRadiusTextField
+                    <TextField
                         onChange={(e: any) => setInputValue(e?.target.value)}
                         fullWidth
-                        style={{ textAlign: 'center', borderRadius: '4px 0 0 4px' }}
+                        variant="outlined"
                         placeholder="_ _ _ _ _ _ _ _ _"
                         inputProps={{
                             style: {
                                 textAlign: 'center',
-                                borderRadius: '4px 0 0 4px',
-                                color: CustomColors.MetalDarkTextColor,
-                                border: 'none',
-                                borderBottom: 'none',
-                                backgroundColor: 'rgba(0,0,0,0.1)',
-                                padding: '15px 3px'
+                                padding: '9px 8px'
                             }
                         }}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={3} style={{ paddingLeft: 16 }}>
                     <ButtonSecondary
                         onClick={onClickHandler}
                         variant="outlined"
                         color="default"
                         fullWidth
-                        style={{ color: '#EEE', height: '100%', borderRadius: '0 4px 4px 0', marginLeft: -1, backgroundColor: 'rgba(0,0,0,0.4)' }}
                     >
                         Validate
-                </ButtonSecondary>
+                    </ButtonSecondary>
                 </Grid>
             </Grid>
             {payloadResponses?.length ? (
@@ -115,21 +108,10 @@ function WidgetTaxFileNumberValidator({ dashboardWidget }: IWidgetTaxFileNumberV
                 </div>
             ) : null
             }
-            <LoaderAbsoluteCentred loading={loading} />            
+            <LoaderAbsoluteCentred loading={loading} />
         </div >
     );
 }
-
-
-const CustomBorderRadiusTextField = withStyles({
-    root: {
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderRadius: `4px 0 0 4px`,
-            },
-        },
-    },
-})(TextField);
 
 
 export default WidgetTaxFileNumberValidator;

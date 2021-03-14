@@ -14,7 +14,6 @@ import { usePrepareAccessTokenIfRequiredHook } from '../components/user/Hooks';
 import { useIsAuthenticated } from '@azure/msal-react';
 import { fetchGetWidgetUserExecutionTracker } from '../redux/widgetUserExecutionTracker/actions';
 import { fetchSearchSubscriptions } from '../redux/subscription/actions';
-import { Button } from '@material-ui/core';
 import RouteProducts from './RouteProducts';
 import LoaderInitialPage from '../components/generic/loaders/LoaderInitialPage';
 import UserLoginWidget from '../components/user/UserLoginWidget';

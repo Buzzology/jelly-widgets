@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, Typography, useTheme } from "@material-ui/core"
-import LoaderIcon from '@material-ui/icons/ToysRounded'
+import { makeStyles, Typography } from "@material-ui/core"
 import { useMsal } from '@azure/msal-react';
 import ButtonPrimary from '../generic/buttons/ButtonPrimary';
 import ButtonSecondary from '../generic/buttons/ButtonSecondary';

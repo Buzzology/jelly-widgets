@@ -1,6 +1,7 @@
-import { TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography, useTheme } from "@material-ui/core";
 import React, { useState } from "react";
 import IDashboardWidget from "../../../../../@types/DashboardWidget";
+import WidgetIcon from "../../../../widgets/WidgetIcon";
 import ButtonSecondary from "../../../buttons/ButtonSecondary";
 import LoaderAbsoluteCentred from "../../../loaders/LoaderAbsoluteCentred";
 
@@ -31,16 +32,31 @@ function WidgetSimpleInputValidator({
 }: IWidgetSimpleInputValidatorProps) {
 
     const [inputValue, setInputValue] = useState('');
+    const theme = useTheme();
 
     return (
         <div style={{ height: '100%' }}>
-            <Typography noWrap={true}>
-                {label}
-            </Typography>
-            <Typography noWrap={true}>
-                {label}
-            </Typography>
-            {description}
+            <Grid item xs={12} style={{ marginBottom: theme.spacing(3), display: 'flex' }}>
+                <div style={{
+                    width: 60,
+                    marginRight: 20,
+                }}>
+                    <WidgetIcon widgetId={dashboardWidget.widgetId} />
+                </div>
+                <div
+                    style={{
+                        flex: 1,
+                    }}
+                >
+                    <Typography variant="body1" style={{ fontWeight: 500 }}>
+                        {label}
+                    </Typography>
+                    <Typography variant="body2">
+                        {description}
+                    </Typography>
+                </div>
+
+            </Grid>
             <div>
                 <TextField
                     onChange={(e: any) => setInputValue(e?.target.value)}
