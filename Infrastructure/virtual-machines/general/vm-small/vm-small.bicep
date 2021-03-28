@@ -1,4 +1,4 @@
-param namePrefix string = 'unique'
+param namePrefix string
 param location string = resourceGroup().location
 param subnetId string
 param ubuntuOsVersion string = '18.04-LTS'

@@ -32,6 +32,7 @@ Outputs to here by default: `C:\Users\Chris/.ssh/id_rsa`
 
 ### Associate a nsg with ssh access
 
+
 ### Connect to the vm via SSH
 ssh -i ~/.ssh/widgetsprod/id_rsa.pub widgetsprod@104.209.151.169
 
