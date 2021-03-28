@@ -66,6 +66,7 @@ Widgets:
 - Cron job describer
 
 ### Useful references
+https://www.coderstool.com/?rf=wp
 https://github.com/phuoc-ng/fake-numbers
 https://clearwater.com.au/code
 http://www.ird.govt.nz/resources/b/9/b9369180451ef8e19355bb7747109566/rwt-nrwt-spec-2011-v1.pdf
