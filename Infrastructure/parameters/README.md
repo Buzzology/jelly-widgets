@@ -1,7 +1,7 @@
 # Creating a VM on Azure with Bicep
 
 ## Run it
-az deployment group create --template-file ./main.bicep  --parameters ./parameters/parameters.prod.json -g "{YOUR_RESOURCE_GROUP}"
+az deployment group create --template-file ./main.bicep  --parameters ./parameters/parameters.prod.json -g "widgets-prod"
 
 ## SSH
 

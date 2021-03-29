@@ -6,6 +6,9 @@ param resourceGroupName string
 param toolsResourceGroupName string
 param namePrefix string
 param tenantId string
+param aksLinuxAdminUsername string
+param aksSshRSAPublicKey string
+
 
 // Setup the standard vnet
 module vnet_generic './vnets/vnet-generic.bicep' = {
@@ -16,21 +19,22 @@ module vnet_generic './vnets/vnet-generic.bicep' = {
   }
 }
 
+// Create the key vault
+module key_vault_prod './key-vaults/key-vault.bicep' = {
+  name: 'key-vault'
+  scope: resourceGroup(toolsResourceGroupName)
+  params: {
+    namePrefix: namePrefix
+    tenantId: tenantId
+  }
+}
+
 // Create the container registry
 module acr './container-registries/container-registry.bicep' = {
   name: 'acr'
   scope: resourceGroup(toolsResourceGroupName)
   params: {
     namePrefix: 'widgets'
-  }
-}
-
-// Create the container registry
-module key_vault_prod './container-registries/container-registry.bicep' = {
-  name: 'key-vault'
-  scope: resourceGroup(toolsResourceGroupName)
-  params: {
-    namePrefix: '${namePrefix}KeyVault'
   }
 }
 
@@ -45,6 +49,21 @@ module vm_pgsql './virtual-machines/postgresql/vm-postgresql.bicep' = {
     password: vmPgsqlPassword
   }
 }
+
+// Create the cluster
+module aks './kubernetes-clusters/aks.bicep' = {
+  name: 'aks'
+  scope: resourceGroup(resourceGroupName)
+  params: {
+    clusterName: '${namePrefix}-aks'
+    dnsPrefix: '${namePrefix}-aks'
+    agentCount: 1
+    agentVMSize: 'Standard_B2s'
+    linuxAdminUsername: aksLinuxAdminUsername
+    sshRSAPublicKey: aksSshRSAPublicKey
+  }
+}
+
  
 
 output vmName string = vm_pgsql.name
