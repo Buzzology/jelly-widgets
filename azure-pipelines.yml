@@ -30,6 +30,10 @@ steps:
     SecretsFilter: 'pipeline'
     RunAsPreJob: false
 
+- powershell: |
+   $env:pipeline-infrastructure | Out-File ./parameters/parameters.prod.json
+   workingDirectory: '/Infrastructure'
+
 # Run the bicep deploy command
 - task: AzurePowerShell@5
   inputs:
