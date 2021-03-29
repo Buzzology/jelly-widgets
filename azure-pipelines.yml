@@ -37,7 +37,7 @@ jobs:
 
   # Write secrets to a file for the deploy command
   - powershell: |
-      $env:pipeline-infrastructure | Out-File ./parameters/parameters.prod.json
+      $env:`pipeline-infrastructure` | Out-File ./parameters/parameters.prod.json
       workingDirectory: '/Infrastructure'
 
   # Run the bicep deploy command
