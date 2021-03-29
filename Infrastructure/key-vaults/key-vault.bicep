@@ -13,48 +13,35 @@ resource key_vault 'Microsoft.KeyVault/vaults@2019-09-01' = {
       name: 'standard'
     }    
     tenantId: tenantId
+    accessPolicies: [
+      // {
+      //   tenantId: tenantId
+      //   objectId: string
+        // applicationId: string
+        // permissions": {
+        //   "keys": [
+        //     "string"
+        //   ],
+        //   "secrets": [
+        //     "string"
+        //   ],
+        //   "certificates": [
+        //     "string"
+        //   ],
+        //   "storage": [
+        //     "string"
+        //   ]
+        // }
+      // }
+    ]
   }
 }
 
-resource key_vault_key_vault_client_id 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/azure-key-vault-client-id'
+resource my_test_secret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  name: '${key_vault.name}/my-test-secret'
   properties: {
-    attributes: {
-      enabled: true
-    }
-  }
-}
-
-resource key_vault_key_vault_client_secret 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/azure-key-vault-client-secret'
-  properties: {
-    attributes: {
-      enabled: true
-    }
-  }
-}
-
-resource key_vault_azure_key_vault_name 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/azure-key-vault-name'
-  properties: {
-    attributes: {
-      enabled: true
-    }
-  }
-}
-
-resource key_vault_connection_string_mongodb 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/connection-string-mongodb'
-  properties: {
-    attributes: {
-      enabled: true
-    }
-  }
-}
-
-resource key_vault_connection_string_postgresql 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
-  name: '${key_vault.name}/connection-string-postgresql'
-  properties: {
+    value: 'my_test_value'
+    contentType: 'string'
     attributes: {
       enabled: true
     }
