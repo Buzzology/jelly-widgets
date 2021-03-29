@@ -32,7 +32,7 @@ jobs:
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
-      SecretsFilter: 'pipeline'
+      SecretsFilter: 'pipeline-infrastructure'
       RunAsPreJob: false
 
   # Write secrets to a file for the deploy command
