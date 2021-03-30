@@ -35,6 +35,11 @@ jobs:
       SecretsFilter: 'PipelineInfrastructure'
       RunAsPreJob: false
 
+    # Write secrets to a file for the deploy command
+  - powershell: |
+      ls
+      workingDirectory: '/Infrastructure'
+
   # Write secrets to a file for the deploy command
   - powershell: |
       $env:PipelineInfrastructure | Out-File ./parameters/parameters.prod.json
