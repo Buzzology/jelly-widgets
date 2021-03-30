@@ -40,7 +40,8 @@ jobs:
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
-      Inline: '"$(PipelineInfrastructure)" | Out-File ./parameters/parameters.prod.json'
+      # Inline: '"$(PipelineInfrastructure)" | Out-File ./parameters/parameters.prod.json'
+      ScriptPath: './scripts/WriteParametersToFile.ps1'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
@@ -60,7 +61,8 @@ jobs:
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
-      Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
+      # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
+      ScriptPath: './scripts/InvokeDeployment.ps1'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
