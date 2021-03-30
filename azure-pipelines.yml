@@ -35,8 +35,8 @@ jobs:
       SecretsFilter: 'PipelineInfrastructure'
       RunAsPreJob: false
 
-  # Debug
   - task: AzurePowerShell@5
+    displayName: 'List Directory Contents'
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
@@ -45,46 +45,8 @@ jobs:
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
 
-  # Write secrets to a file for the deploy command
   - task: AzurePowerShell@5
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: 'InlineScript'
-      Inline: '$(PipelineInfrastructure) | Out-File ./parameters/parameters.prod.json'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
-  
-  # Write secrets to a file for the deploy command
-  - task: AzurePowerShell@5
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: 'InlineScript'
-      Inline: 'echo $(PipelineInfrastructure)'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
-      
-  - task: AzurePowerShell@5
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: 'InlineScript'
-      Inline: 'ls ./parameters/'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
-      
-  - task: AzurePowerShell@5
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: 'InlineScript'
-      Inline: 'gc ./parameters/parameters.prod.json'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
-
-  # Run the bicep deploy command
-  - task: AzurePowerShell@5
+    displayName: 'Deploy infrastructure using Bicep.'
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
