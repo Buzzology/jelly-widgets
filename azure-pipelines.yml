@@ -54,6 +54,16 @@ jobs:
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
+  
+  # Write secrets to a file for the deploy command
+  - task: AzurePowerShell@5
+    inputs:
+      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
+      ScriptType: 'InlineScript'
+      Inline: 'echo $env:PipelineInfrastructure'
+      FailOnStandardError: true
+      azurePowerShellVersion: 'LatestVersion'
+      workingDirectory: 'Infrastructure'
       
   - task: AzurePowerShell@5
     inputs:
@@ -78,7 +88,7 @@ jobs:
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
-      Inline: 'az deployment group create --template-file ./main.bicep  --parameters parameters/parameters.prod.json -g "widgets-prod"'
+      Inline: 'az deployment group create --template-file ./main.bicep  --parameters $env:PipelineInfrastructure -g "widgets-prod"'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
