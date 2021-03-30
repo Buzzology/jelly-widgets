@@ -15,7 +15,7 @@ param osDiskSizeGB int = 0
 @minValue(1)
 @maxValue(50)
 @description('The number of nodes for the cluster.')
-param agentCount int = 1
+param agentCount int = 0
 
 @description('The size of the Virtual Machine. Currently the cheapest is Standard_B2s: https://azureprice.net/?currency=AUD&region=eastus2')
 param agentVMSize string = 'Standard_B2s'
