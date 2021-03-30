@@ -33,7 +33,7 @@ jobs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
       SecretsFilter: 'PipelineInfrastructure'
-      RunAsPreJob: false
+      RunAsPreJob: true
 
   # Debug
   - task: AzurePowerShell@5
