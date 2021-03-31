@@ -11,6 +11,9 @@ trigger:
    include:
    - Infrastructure
   
+
+
+
 # variables:
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
@@ -31,7 +34,33 @@ jobs:
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
       SecretsFilter: 'PipelineInfrastructure'
       RunAsPreJob: false
-       
+
+  # - task: PowerShell@2
+  #   displayName: 'List Directory Contents'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'ls'
+  #     failOnStderr: true
+  #     showWarnings: true
+  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure' 
+
+  # - task: PowerShell@2
+  #   displayName: 'List Directory Contents'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'ls scripts/*'
+  #     failOnStderr: true
+  #     showWarnings: true
+  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+
+  - task: PowerShell@2
+    displayName: 'Save to file'
+    inputs:
+      filePath: 'Infrastructure/scripts/WriteParametersToFile.ps1'
+      failOnStderr: true
+      showWarnings: true
+      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+      
   - task: AzurePowerShell@5
     displayName: 'Deploy infrastructure using Bicep.'
     inputs:
