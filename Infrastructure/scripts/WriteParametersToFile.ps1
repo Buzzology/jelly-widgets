@@ -1,1 +1,1 @@
-"$(PipelineInfrastructure)" | Out-File ./parameters/parameters.prod.json
+"$env:PipelineInfrastructure" | Out-File ./parameters/parameters.prod.json
