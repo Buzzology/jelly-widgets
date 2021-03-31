@@ -1,5 +1,5 @@
 # This script actually does the deployment. See the readme for more info.
-
+Write-Host "Getting content:"
 get-content parameters/parameters.prod.json
 
 
