@@ -9,3 +9,7 @@ Write-Host "Getting content:"
 get-content "parameters/parameters.prod.json"
 ${parameters/parameters.prod.json}
 ${$PipelineInfrastructure}
+
+${$SECRET_PIPELINEINFRASTRUCTURE}
+get-content "$SECRET_PIPELINEINFRASTRUCTURE"
+get-content $SECRET_PIPELINEINFRASTRUCTURE
