@@ -29,11 +29,19 @@ jobs:
   
   # Get secrets from the key vault
   - task: AzureKeyVault@1
+    displayName: 'Get KeyVault Secrets'
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
       SecretsFilter: 'PipelineInfrastructure'
       RunAsPreJob: false
+
+
+  – task: Bash@3
+    displayName: 'Display env vars'
+    inputs:
+      targetType: 'inline'
+      script: 'env | sort'
 
   # - task: PowerShell@2
   #   displayName: 'List Directory Contents'
