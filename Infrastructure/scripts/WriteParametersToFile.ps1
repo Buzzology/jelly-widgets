@@ -8,10 +8,10 @@ ls *
 Write-Host "Getting content:"
 get-content "parameters/parameters.prod.json"
 ${parameters/parameters.prod.json}
-${$PipelineInfrastructure}
 
-${$SECRET_PIPELINEINFRASTRUCTURE}
+Write-Host "More Info"
+Write-Host $(PIPELINEINFRASTRUCTURE)
+Write-Host $(SECRET_PIPELINEINFRASTRUCTURE)
+
 Write-Host "$SECRET_PIPELINEINFRASTRUCTURE"
 Write-Host $SECRET_PIPELINEINFRASTRUCTURE
-Write-Host $(SECRET_PIPELINEINFRASTRUCTURE)
-Write-Host $(PIPELINEINFRASTRUCTURE)
