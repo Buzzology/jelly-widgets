@@ -9,6 +9,8 @@ ls *
 
 Write-Host "Getting content:"
 get-content "parameters/parameters.prod.json"
+${parameters/parameters.prod.json}
+${$PipelineInfrastructure}
 
 
 az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"
