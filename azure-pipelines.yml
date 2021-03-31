@@ -35,23 +35,23 @@ jobs:
       SecretsFilter: 'PipelineInfrastructure'
       RunAsPreJob: false
 
-  - task: PowerShell@2
-    displayName: 'List Directory Contents'
-    inputs:
-      targetType: 'inline'
-      script: 'ls'
-      failOnStderr: true
-      showWarnings: true
-      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure' 
+  # - task: PowerShell@2
+  #   displayName: 'List Directory Contents'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'ls'
+  #     failOnStderr: true
+  #     showWarnings: true
+  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure' 
 
-  - task: PowerShell@2
-    displayName: 'List Directory Contents'
-    inputs:
-      targetType: 'inline'
-      script: 'ls scripts/*'
-      failOnStderr: true
-      showWarnings: true
-      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+  # - task: PowerShell@2
+  #   displayName: 'List Directory Contents'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'ls scripts/*'
+  #     failOnStderr: true
+  #     showWarnings: true
+  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
 
   - task: PowerShell@2
     displayName: 'Save to file'
@@ -60,14 +60,14 @@ jobs:
       failOnStderr: true
       showWarnings: true
       workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
-  - task: PowerShell@2
-    displayName: 'List Directory Contents'
-    inputs:
-      targetType: 'inline'
-      script: 'ls'
-      failOnStderr: true
-      showWarnings: true
-      workingDirectory: 'Infrastructure'
+  # - task: PowerShell@2
+  #   displayName: 'List Directory Contents'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'ls'
+  #     failOnStderr: true
+  #     showWarnings: true
+  #     workingDirectory: 'Infrastructure'
       
   - task: AzurePowerShell@5
     displayName: 'Deploy infrastructure using Bicep.'
@@ -101,13 +101,13 @@ jobs:
   #     azurePowerShellVersion: 'LatestVersion'
   #     workingDirectory: 'Infrastructure'
 
-  - task: AzurePowerShell@5
-    displayName: 'Deploy infrastructure using Bicep.'
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: 'InlineScript'
-      # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-      ScriptPath: '$(Build.SourcesDirectory)/scripts/InvokeDeployment.ps1'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
+  # - task: AzurePowerShell@5
+  #   displayName: 'Deploy infrastructure using Bicep.'
+  #   inputs:
+  #     azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
+  #     ScriptType: 'InlineScript'
+  #     # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
+  #     ScriptPath: '$(Build.SourcesDirectory)/scripts/InvokeDeployment.ps1'
+  #     FailOnStandardError: true
+  #     azurePowerShellVersion: 'LatestVersion'
+  #     workingDirectory: 'Infrastructure'
