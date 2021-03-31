@@ -10,7 +10,7 @@ get-content "parameters/parameters.prod.json"
 ${parameters/parameters.prod.json}
 
 Write-Host "More Info"
-Write-Host "$(PipelineInfrastructure)"
+Write-Host $(PipelineInfrastructure)
 # Write-Host "$(SECRET_PIPELINEINFRASTRUCTURE)"
 
 # Write-Host "$SECRET_PIPELINEINFRASTRUCTURE"
