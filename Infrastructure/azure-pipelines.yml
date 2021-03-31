@@ -19,7 +19,7 @@ trigger:
 
 jobs:
 - job: DeployInfrastructure
-  timeoutInMinutes: 10
+  timeoutInMinutes: 2
   pool:
     vmImage: 'ubuntu-latest'
   steps:
