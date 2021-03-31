@@ -38,14 +38,14 @@ jobs:
   - task: PowerShell@2
     displayName: 'Save to file'
     inputs:
-      filePath: './scripts/WriteParametersToFile.ps1'
+      filePath: 'scripts/WriteParametersToFile.ps1'
       failOnStderr: true
       showWarnings: true
       workingDirectory: 'Infrastructure'
   - task: PowerShell@2
     displayName: 'List Directory Contents'
     inputs:
-      targetType: 'InlineScript'
+      targetType: 'inline'
       script: 'ls'
       failOnStderr: true
       showWarnings: true
@@ -57,7 +57,7 @@ jobs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: FilePath
       # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-      ScriptPath: './scripts/InvokeDeployment.ps1'
+      ScriptPath: 'scripts/InvokeDeployment.ps1'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
@@ -89,7 +89,7 @@ jobs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: 'InlineScript'
       # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-      ScriptPath: './scripts/InvokeDeployment.ps1'
+      ScriptPath: 'scripts/InvokeDeployment.ps1'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
       workingDirectory: 'Infrastructure'
