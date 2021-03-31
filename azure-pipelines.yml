@@ -42,7 +42,7 @@ jobs:
       script: 'ls'
       failOnStderr: true
       showWarnings: true
-      workingDirectory: 'Infrastructure' 
+      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure' 
 
   - task: PowerShell@2
     displayName: 'List Directory Contents'
@@ -51,15 +51,15 @@ jobs:
       script: 'ls scripts/*'
       failOnStderr: true
       showWarnings: true
-      workingDirectory: 'Infrastructure'
+      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
 
   - task: PowerShell@2
     displayName: 'Save to file'
     inputs:
-      filePath: '$(Build.SourcesDirectory)/scripts/WriteParametersToFile.ps1'
+      filePath: 'scripts/WriteParametersToFile.ps1'
       failOnStderr: true
       showWarnings: true
-      workingDirectory: 'Infrastructure'
+      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
   - task: PowerShell@2
     displayName: 'List Directory Contents'
     inputs:
@@ -75,10 +75,10 @@ jobs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
       ScriptType: FilePath
       # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-      ScriptPath: '$(Build.SourcesDirectory)/scripts/InvokeDeployment.ps1'
+      ScriptPath: 'scripts/InvokeDeployment.ps1'
       FailOnStandardError: true
       azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: 'Infrastructure'
+      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
 
   # - task: AzurePowerShell@5
   #   displayName: 'Save to file'
