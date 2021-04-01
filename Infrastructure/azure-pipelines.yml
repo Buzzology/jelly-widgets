@@ -33,33 +33,6 @@ jobs:
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
       SecretsFilter: 'PipelineInfrastructure'
 
-   # - task: PowerShell@2
-  #   displayName: 'List Directory Contents'
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: 'ls'
-  #     failOnStderr: true
-  #     showWarnings: true
-  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure' 
-
-  # - task: PowerShell@2
-  #   displayName: 'List Directory Contents'
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: 'ls scripts/*'
-  #     failOnStderr: true
-  #     showWarnings: true
-  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
-
-  - task: Bash@3
-    displayName: 'Display env vars'
-    inputs:
-      targetType: 'inline'
-      script: 'env | sort'
-    #env:
-    #  PIPELINE_VARS: "$(PipelineInfrastructure)"
-
-
   - task: PowerShell@2
     displayName: 'Save to file'
     inputs:

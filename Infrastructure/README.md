@@ -13,3 +13,11 @@ az deployment group create --template-file ./main.bicep  --parameters ./paramete
 ## Pipeline
 ### Debugging
 - Add a System.Debug variable to the pipeline with a value of `true` or check `enable diagnostics` on the run.
+- Display all environment variables
+```
+  - task: Bash@3
+    displayName: 'Display env vars'
+    inputs:
+      targetType: 'inline'
+      script: 'env | sort'
+```
