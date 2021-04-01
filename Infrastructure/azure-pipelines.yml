@@ -33,6 +33,8 @@ jobs:
       KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
       SecretsFilter: 'PipelineInfrastructure'
 
+  
+  # Save variables to file
   - task: PowerShell@2
     displayName: "Save variables to file"
     inputs:
@@ -43,19 +45,7 @@ jobs:
     env:
      PIPELINE_VARS: "$(PipelineInfrastructure)"
       
-  # - task: AzurePowerShell@5
-  #   displayName: 'Deploy infrastructure using Bicep.'
-  #   inputs:
-  #     azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-  #     #ScriptType: FilePath
-  #     ScriptType: Inline
-  #     # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-  #     Inline: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
-  #     #ScriptPath: 'Infrastructure/scripts/InvokeDeployment.ps1'
-  #     FailOnStandardError: true
-  #     azurePowerShellVersion: 'LatestVersion'
-  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
-
+  # Run deployment
   - task: AzureCLI@2
     displayName: 'Deploy infrastructure using Bicep.'
     inputs:
