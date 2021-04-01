@@ -69,6 +69,8 @@ jobs:
       failOnStderr: true
       showWarnings: true
       workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+    env:
+     PIPELINE_VARS: "$(PipelineInfrastructure)"
       
   - task: AzurePowerShell@5
     displayName: 'Deploy infrastructure using Bicep.'
