@@ -89,7 +89,7 @@ jobs:
     displayName: 'Deploy infrastructure using Bicep.'
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      scriptType: 'ps'
+      scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
       workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
