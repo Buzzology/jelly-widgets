@@ -59,7 +59,7 @@ jobs:
       targetType: 'inline'
       script: 'env | sort'
     env:
-      PIPELINE_VARS: $(PipelineInfrastructure)
+      PIPELINE_VARS: "$(PipelineInfrastructure)"
 
 
   - task: PowerShell@2
