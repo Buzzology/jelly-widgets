@@ -12,7 +12,8 @@ if($test -eq ""){
 }
 
 Write-Host "Getting content #1:"
-${$test}
+Write-Host("$test")
+Write-Host("$env:PIPELINE_VARS")
 
 # Write-Host "Getting content #2:"
 # ${$env:PIPELINE_VARS}
