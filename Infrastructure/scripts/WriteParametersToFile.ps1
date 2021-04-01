@@ -5,7 +5,18 @@ ls
 Write-Host "List Files"
 ls *
 
-Write-Host "Getting content:"
+$test = "$env:PIPELINE_VARS"
+if($test -eq ""){
+    Write-Host("PIPELINE_VARS not populated")
+    exit 1
+}
+
+Write-Host "Getting content #1:"
+${$test}
+
+Write-Host "Getting content #2:"
+${$env:PIPELINE_VARS}
+
 get-content "parameters/parameters.prod.json"
 ${parameters/parameters.prod.json}
 

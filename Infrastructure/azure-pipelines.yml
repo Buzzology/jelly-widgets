@@ -58,6 +58,9 @@ jobs:
     inputs:
       targetType: 'inline'
       script: 'env | sort'
+    env:
+      PIPELINE_VARS: $(PipelineInfrastructure)
+
 
   - task: PowerShell@2
     displayName: 'Save to file'
