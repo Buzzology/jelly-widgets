@@ -11,3 +11,7 @@ Write-Host("$env:PIPELINE_VARS")
 ls parameters/*
 
 "$env:PIPELINE_VARS" | Out-File parameters/parameters.prod.json
+
+ls parameters/*
+
+${parameters/parameters.prod.json}
