@@ -6,56 +6,55 @@
 trigger:
   branches:
     include:
-    - master
+      - master
   paths:
-   include:
-   - UI
-  
+    include:
+      - UI
 
 # variables:
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
 #   buildConfiguration: 'Release'
 
-
 jobs:
-- job: DeployInfrastructure
-  timeoutInMinutes: 10
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  
-  # Get secrets from the key vault
-  - task: AzureKeyVault@1
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
-      SecretsFilter: 'PipelineUI'
-      RunAsPreJob: false
+  - job: DeployInfrastructure
+    timeoutInMinutes: 10
+    pool:
+      vmImage: "ubuntu-latest"
+    steps:
+      # Get secrets from the key vault
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
+          KeyVaultName: "widgetsprodbh5qtqj2ezp6m"
+          SecretsFilter: "PipelineUI"
+          RunAsPreJob: false
 
-  - task: Bash@3
-    displayName: 'Directory content'
-    inputs:
-      targetType: 'inline'
-      script: 'ls | sort'
-      workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
+      - task: Bash@3
+        displayName: "Directory content"
+        inputs:
+          targetType: "inline"
+          script: "ls | sort"
+          workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
 
-  # Prepare variables for consumption
-  - task: PowerShell@2
-    displayName: 'Save to file'
-    inputs:
-      filePath: 'UI/infrastructure/scripts/WriteParametersToFile.ps1'
-      failOnStderr: true
-      showWarnings: true
-      workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
+      # Prepare variables for consumption
+      - task: PowerShell@2
+        displayName: "Save to file"
+        inputs:
+          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
+          failOnStderr: true
+          showWarnings: true
+          workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
+        env:
+          PIPELINE_VARS: "$(PipelineInfrastructure)"
 
-  # Run the deployment      
-  - task: AzurePowerShell@5
-    displayName: 'Deploy infrastructure using Bicep.'
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      ScriptType: FilePath
-      ScriptPath: 'UI/infrastructure/scripts/InvokeDeployment.ps1'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
-      workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
+      # Run the deployment
+      - task: AzurePowerShell@5
+        displayName: "Deploy infrastructure using Bicep."
+        inputs:
+          azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
+          ScriptType: FilePath
+          ScriptPath: "UI/infrastructure/scripts/InvokeDeployment.ps1"
+          FailOnStandardError: true
+          azurePowerShellVersion: "LatestVersion"
+          workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
