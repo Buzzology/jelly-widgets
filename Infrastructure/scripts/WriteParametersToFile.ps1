@@ -14,14 +14,14 @@ if($test -eq ""){
 Write-Host "Getting content #1:"
 ${$test}
 
-Write-Host "Getting content #2:"
-${$env:PIPELINE_VARS}
+# Write-Host "Getting content #2:"
+# ${$env:PIPELINE_VARS}
 
-get-content "parameters/parameters.prod.json"
-${parameters/parameters.prod.json}
+# get-content "parameters/parameters.prod.json"
+# ${parameters/parameters.prod.json}
 
-Write-Host "More Info"
-Write-Host $(PipelineInfrastructure)
+# Write-Host "More Info"
+# Write-Host $(PipelineInfrastructure)
 # Write-Host "$(SECRET_PIPELINEINFRASTRUCTURE)"
 
 # Write-Host "$SECRET_PIPELINEINFRASTRUCTURE"
