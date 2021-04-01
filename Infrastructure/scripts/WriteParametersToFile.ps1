@@ -15,6 +15,8 @@ Write-Host "Getting content #1:"
 Write-Host("$test")
 Write-Host("$env:PIPELINE_VARS")
 
+"$env:PIPELINE_VARS" | Out-File parameters/parameters.prod.json
+
 # Write-Host "Getting content #2:"
 # ${$env:PIPELINE_VARS}
 
