@@ -11,7 +11,8 @@ trigger:
     include:
       - UI
 
-# variables:
+variables:
+  system.debug: true
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
 #   buildConfiguration: 'Release'
