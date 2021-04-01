@@ -40,7 +40,7 @@ jobs:
           showWarnings: true
           workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
         env:
-          PIPELINE_VARS: "$(PipelineInfrastructure)"
+          PIPELINE_VARS: "$(PipelineUI)"
 
       # Run the deployment
       - task: AzurePowerShell@5
