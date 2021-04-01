@@ -38,12 +38,13 @@ jobs:
     inputs:
       targetType: 'inline'
       script: 'ls | sort'
+      workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
 
   # Prepare variables for consumption
   - task: PowerShell@2
     displayName: 'Save to file'
     inputs:
-      filePath: 'ui/infrastructure/scripts/WriteParametersToFile.ps1'
+      filePath: 'UI/infrastructure/scripts/WriteParametersToFile.ps1'
       failOnStderr: true
       showWarnings: true
       workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
