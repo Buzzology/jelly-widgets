@@ -6,8 +6,6 @@ if($test -eq ""){
     exit 1
 }
 
-ls
-
 Write-Host "Writing vars:"
 
 "$env:PIPELINE_VARS" | Out-File parameters/parameters.prod.json
