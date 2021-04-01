@@ -2,8 +2,11 @@
 $test = "$env:PIPELINE_VARS"
 if($test -eq ""){
     Write-Host("PIPELINE_VARS not populated")
+    Write-Host("${test}")
     exit 1
 }
+
+ls
 
 Write-Host "Writing vars:"
 
