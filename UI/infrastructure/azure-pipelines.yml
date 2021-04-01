@@ -52,3 +52,26 @@ jobs:
           inlineScript: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
           workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
           failOnStandardError: true
+
+  - job: BuildUI
+    timeoutInMinutes: 5
+    pool:
+      vmImage: "ubuntu-latest"
+    steps:
+      - task: Npm@1
+        displayName: 'Build the UI'
+        inputs:
+          command: 'custom'
+          workingDir: '$(Build.SourcesDirectory)/UI'
+          customCommand: 'npm run build/infrastructure'
+          failOnStandardError: true
+
+      - task: AzureFileCopy@4
+        displayName: 'Deploy the UI'
+        inputs:
+          SourcePath: '$(Build.SourcesDirectory)/UI/build/*'
+          azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
+          Destination: 'AzureBlob'
+          storage: 'widgetsprody6bsmxj7ail7y'
+          ContainerName: '$web'
+          sasTokenTimeOutInMinutes: '30'
