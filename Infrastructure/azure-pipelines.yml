@@ -72,15 +72,25 @@ jobs:
     env:
      PIPELINE_VARS: "$(PipelineInfrastructure)"
       
-  - task: AzurePowerShell@5
+  # - task: AzurePowerShell@5
+  #   displayName: 'Deploy infrastructure using Bicep.'
+  #   inputs:
+  #     azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
+  #     #ScriptType: FilePath
+  #     ScriptType: Inline
+  #     # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
+  #     Inline: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
+  #     #ScriptPath: 'Infrastructure/scripts/InvokeDeployment.ps1'
+  #     FailOnStandardError: true
+  #     azurePowerShellVersion: 'LatestVersion'
+  #     workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+
+  - task: AzureCLI@2
     displayName: 'Deploy infrastructure using Bicep.'
     inputs:
       azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      #ScriptType: FilePath
-      ScriptType: Inline
-      # Inline: 'az deployment group create --template-file ./main.bicep  --parameters "./parameters/parameters.prod.json" -g "widgets-prod"'
-      Inline: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
-      #ScriptPath: 'Infrastructure/scripts/InvokeDeployment.ps1'
-      FailOnStandardError: true
-      azurePowerShellVersion: 'LatestVersion'
+      scriptType: 'ps'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
       workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+      failOnStandardError: true'
