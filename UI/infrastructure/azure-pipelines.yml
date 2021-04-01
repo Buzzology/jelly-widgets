@@ -49,7 +49,7 @@ jobs:
         inputs:
           azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
           ScriptType: FilePath
-          ScriptPath: "UI/infrastructure/scripts/InvokeDeployment.ps1"
+          ScriptPath: "scripts/InvokeDeployment.ps1"
           FailOnStandardError: true
           azurePowerShellVersion: "LatestVersion"
           workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
