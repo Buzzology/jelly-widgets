@@ -27,6 +27,16 @@ module key_vault_prod './key-vaults/key-vault.bicep' = {
   params: {
     namePrefix: namePrefix
     tenantId: tenantId
+    secrets: [
+      {
+        name: 'my-test-secret'
+        value: 'my-test-value'
+      }
+      {
+        name: 'PipelineInfrastructure'
+        value: ''
+      }   
+    ]
     accessPolicies: [
       {
         tenantId: tenantId
