@@ -8,7 +8,8 @@ param namePrefix string
 param tenantId string
 param aksLinuxAdminUsername string
 param aksSshRSAPublicKey string
-
+param keyVaultAdminObjectId string
+param keyVaultPipelineObjectId string
 
 // Setup the standard vnet
 module vnet_generic './vnets/vnet-generic.bicep' = {
@@ -26,6 +27,71 @@ module key_vault_prod './key-vaults/key-vault.bicep' = {
   params: {
     namePrefix: namePrefix
     tenantId: tenantId
+    accessPolicies: [
+      {
+        tenantId: tenantId
+        objectId: keyVaultPipelineObjectId
+        permissions: {
+          keys: []
+          secrets: [
+            'get'
+            'list'
+          ]
+          certificates: []
+        }
+      }
+      {
+        tenantId: tenantId
+        objectId: keyVaultAdminObjectId
+        permissions: {
+          keys: [
+            'get'
+            'list'
+            'update'
+            'create'
+            'import'
+            'delete'
+            'recover'
+            'backup'
+            'restore'
+            'decrypt'
+            'encrypt'
+            'unwrapKey'
+            'wrapKey'
+            'verify'
+            'sign'
+            'purge'
+          ]
+          secrets: [
+            'get'
+            'list'
+            'set'
+            'recover'
+            'backup'
+            'restore'
+            'delete'
+          ]
+          certificates: [
+            'get'
+            'list'
+            'update'
+            'create'
+            'import'
+            'delete'
+            'recover'
+            'backup'
+            'restore'
+            'managecontacts'
+            'manageissuers'
+            'getissuers'
+            'listissuers'
+            'setissuers'
+            'deleteissuers'
+            'purge'
+          ]
+        }
+      }
+    ]
   }
 }
 
@@ -63,7 +129,5 @@ module aks './kubernetes-clusters/aks.bicep' = {
     sshRSAPublicKey: aksSshRSAPublicKey
   }
 }
-
- 
 
 output vmName string = vm_pgsql.name

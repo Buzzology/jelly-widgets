@@ -7,7 +7,7 @@ Decompile an arm template into Bicep
 # Deployment etc
 
 ## Run it
-az deployment group create --template-file ./main.bicep  --parameters ./parameters/parameters.prod.json -g "{YOUR_RESOURCE_GROUP}"
+`az deployment group create --template-file ./main.bicep  --parameters ./parameters/parameters.prod.json -g "{YOUR_RESOURCE_GROUP}"`
 
 
 ## Pipeline

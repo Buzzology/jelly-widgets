@@ -1,6 +1,7 @@
 param namePrefix string
 param location string = resourceGroup().location
 param tenantId string
+param accessPolicies array
 
 var name = '${namePrefix}${uniqueString(resourceGroup().id)}'
 
@@ -11,30 +12,9 @@ resource key_vault 'Microsoft.KeyVault/vaults@2019-09-01' = {
     sku: {
       family: 'A'
       name: 'standard'
-    }    
+    }
     tenantId: tenantId
-    accessPolicies: [
-      // TODO: Need to add these
-      // {
-      //   tenantId: tenantId
-      //   objectId: string
-        // applicationId: string
-        // permissions": {
-        //   "keys": [
-        //     "string"
-        //   ],
-        //   "secrets": [
-        //     "string"
-        //   ],
-        //   "certificates": [
-        //     "string"
-        //   ],
-        //   "storage": [
-        //     "string"
-        //   ]
-        // }
-      // }
-    ]
+    accessPolicies: accessPolicies
   }
 }
 
