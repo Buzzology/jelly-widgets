@@ -34,7 +34,7 @@ jobs:
       SecretsFilter: 'PipelineInfrastructure'
 
   - task: PowerShell@2
-    displayName: 'Save to file'
+    displayName: "Save variables to file"
     inputs:
       filePath: 'Infrastructure/scripts/WriteParametersToFile.ps1'
       failOnStderr: true

@@ -8,4 +8,6 @@ if($test -eq ""){
 Write-Host "Writing vars:"
 Write-Host("$env:PIPELINE_VARS")
 
+ls parameters/*
+
 "$env:PIPELINE_VARS" | Out-File parameters/parameters.prod.json
