@@ -33,6 +33,12 @@ jobs:
       SecretsFilter: 'PipelineUI'
       RunAsPreJob: false
 
+  - task: Bash@3
+    displayName: 'Directory content'
+    inputs:
+      targetType: 'inline'
+      script: 'ls | sort'
+
   # Prepare variables for consumption
   - task: PowerShell@2
     displayName: 'Save to file'
