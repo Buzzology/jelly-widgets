@@ -63,7 +63,7 @@ jobs:
         inputs:
           command: 'custom'
           workingDir: '$(Build.SourcesDirectory)/UI'
-          customCommand: 'npm run build/infrastructure'
+          customCommand: 'run build'
           failOnStandardError: true
 
       - task: AzureFileCopy@4
