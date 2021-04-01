@@ -58,6 +58,14 @@ jobs:
     pool:
       vmImage: "ubuntu-latest"
     steps:
+    
+      - task: Npm@1
+        displayName: 'Install dependencies'
+        inputs:
+          command: 'custom'
+          workingDir: '$(Build.SourcesDirectory)/UI'
+          customCommand: 'install'
+          failOnStandardError: true
       - task: Npm@1
         displayName: 'Build the UI'
         inputs:
