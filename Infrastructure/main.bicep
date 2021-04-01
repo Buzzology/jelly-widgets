@@ -35,7 +35,11 @@ module key_vault_prod './key-vaults/key-vault.bicep' = {
       {
         name: 'PipelineInfrastructure'
         value: ''
-      }   
+      }  
+      {
+        name: 'PipelineUI'
+        value: ''
+      }  
     ]
     accessPolicies: [
       {
