@@ -12,8 +12,6 @@ trigger:
    - Infrastructure
   
 
-
-
 # variables:
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
@@ -22,7 +20,7 @@ trigger:
 
 jobs:
 - job: DeployInfrastructure
-  timeoutInMinutes: 2
+  timeoutInMinutes: 5
   pool:
     vmImage: 'ubuntu-latest'
   steps:
