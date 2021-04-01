@@ -14,4 +14,4 @@ ls parameters/*
 
 ls parameters/*
 
-gc ${parameters/parameters.prod.json}
+gc 'parameters/parameters.prod.json'
