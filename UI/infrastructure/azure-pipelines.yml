@@ -52,7 +52,7 @@ jobs:
             az storage blob upload-batch \
               --destination \$web \
               --account-name "$(webStorageAccountName)" \
-              --source "$(Build.SourcesDirectory)/UI/build/*"
+              --source "$(Build.SourcesDirectory)/UI/build"
               
   # This dependsOn can be removed if we end up with multiple agents. Slows down the builds without it.
   - job: DeployInfrastructure
