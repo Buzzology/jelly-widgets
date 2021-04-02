@@ -1,10 +1,10 @@
 # Used to copy environment variables to a file so that they are more accessible to subsequent steps
 
-$test = "$env:INPUT_VARS"
+$test = "$env:TEST_INPUT"
 Write-Host("$env:TEST_INPUT")
 Write-Host("$env:TEST_INPUT2")
 Write-Host("HERE:")
-Write-Host("$env:INPUT_VARS")
+Write-Host("$env:TEST_INPUT")
 Write-Host("$test")
 
 if($test -eq ""){
@@ -12,4 +12,4 @@ if($test -eq ""){
     exit 1
 }
 
-"$env:INPUT_VARS" | Out-File "$env:OUTPUT_NAME"
+"$env:TEST_INPUT" | Out-File "$env:OUTPUT_NAME"
