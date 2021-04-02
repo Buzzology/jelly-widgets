@@ -14,6 +14,7 @@ trigger:
 variables:
   system.debug: true
   azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
+  webStorageAccountName: "widgetsprody6bsmxj7ail7y"
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
 #   buildConfiguration: 'Release'
@@ -33,6 +34,7 @@ jobs:
           workingDir: '$(Build.SourcesDirectory)/UI'
           customCommand: 'install'
           failOnStandardError: true
+
       - task: Npm@1
         displayName: 'Build the UI'
         inputs:
@@ -49,8 +51,8 @@ jobs:
           inlineScript: |
             az storage blob upload-batch \
               --destination \$web \
-              --account-name "$(storageAccountName)" \
-              --source "$(Agent.BuildDirectory)/$(outputDir)"
+              --account-name "$(webStorageAccountName)" \
+              --source "$(Build.SourcesDirectory)/UI/build/*"
               
   # This dependsOn can be removed if we end up with multiple agents. Slows down the builds without it.
   - job: DeployInfrastructure
