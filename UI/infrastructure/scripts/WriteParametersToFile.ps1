@@ -1,8 +1,8 @@
 # Used to copy environment variables to a file so that they are more accessible to subsequent steps
-$test = "$env:PIPELINE_VARS"
+$test = "$env:INPUT_VARS"
 if($test -eq ""){
-    Write-Host("PIPELINE_VARS not populated")    
+    Write-Host("INPUT_VARS not populated")    
     exit 1
 }
 
-"$env:PIPELINE_VARS" | Out-File parameters/parameters.prod.json
+"$env:INPUT_VARS" | Out-File "$env:OUTPUT_NAME"

@@ -26,6 +26,25 @@ jobs:
     pool:
       vmImage: "ubuntu-latest"
     steps:
+
+      - task: AzureKeyVault@1
+        displayName: Get key vault secrets
+        inputs:
+          azureSubscription: $(azureSubscription)
+          KeyVaultName: $(keyVaultName)
+          SecretsFilter: "ReactUIEnv"
+          RunAsPreJob: false
+
+      - task: PowerShell@2
+        displayName: "Save variables to file"
+        inputs:
+          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
+          failOnStderr: true
+          showWarnings: true
+          workingDirectory: "$(Build.SourcesDirectory)/UI"
+        env:
+          INPUT_VARS: "$(ReactUIEnv)"
+          OUTPUT_NAME: '.env'
     
       - task: Npm@1
         displayName: 'Install dependencies'
@@ -53,6 +72,16 @@ jobs:
               --destination \$web \
               --account-name "$(webStorageAccountName)" \
               --source "$(Build.SourcesDirectory)/UI/build"
+
+      - task: PowerShell@2
+        displayName: "Save variables to file"
+        inputs:
+          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
+          failOnStderr: true
+          showWarnings: true
+          workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
+        env:
+          PIPELINE_VARS: "$(PipelineUI)"
               
   # This dependsOn can be removed if we end up with multiple agents. Slows down the builds without it.
   - job: DeployInfrastructure
@@ -80,6 +109,8 @@ jobs:
           workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
         env:
           PIPELINE_VARS: "$(PipelineUI)"
+          INPUT_VARS: "$(PipelineUI)"
+          OUTPUT_NAME: 'parameters/parameters.prod.json'
 
       - task: AzureCLI@2
         displayName: 'Deploy infrastructure using Bicep.'
