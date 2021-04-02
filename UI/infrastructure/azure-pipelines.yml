@@ -15,6 +15,7 @@ variables:
   system.debug: true
   azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
   webStorageAccountName: "widgetsprody6bsmxj7ail7y"
+  keyVaultName: "widgetsprodbh5qtqj2ezp6m"
 #   solution: '**/*.sln'
 #   buildPlatform: 'Any CPU'
 #   buildConfiguration: 'Release'
@@ -50,7 +51,7 @@ jobs:
         displayName: 'Install dependencies'
         inputs:
           command: 'custom'
-          workingDir: '$(Build.SourcesDirectory)/UI'
+          workingDir: "$(Build.SourcesDirectory)/UI"
           customCommand: 'install'
           failOnStandardError: true
 
@@ -95,7 +96,7 @@ jobs:
       - task: AzureKeyVault@1
         inputs:
           azureSubscription: $(azureSubscription)
-          KeyVaultName: "widgetsprodbh5qtqj2ezp6m"
+          KeyVaultName: $(keyVaultName)
           SecretsFilter: "PipelineUI"
           RunAsPreJob: false
 
