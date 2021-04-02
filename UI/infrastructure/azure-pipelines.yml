@@ -44,7 +44,7 @@ jobs:
           showWarnings: true
           workingDirectory: "$(Build.SourcesDirectory)/UI"
         env:
-          INPUT_VARS: "$(ReactUIEnv)"
+          INPUT_VARS: $(ReactUIEnv)
           OUTPUT_NAME: '.env'
     
       - task: Npm@1
@@ -73,16 +73,6 @@ jobs:
               --destination \$web \
               --account-name "$(webStorageAccountName)" \
               --source "$(Build.SourcesDirectory)/UI/build"
-
-      - task: PowerShell@2
-        displayName: "Save variables to file"
-        inputs:
-          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
-          failOnStderr: true
-          showWarnings: true
-          workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
-        env:
-          PIPELINE_VARS: "$(PipelineUI)"
               
   # This dependsOn can be removed if we end up with multiple agents. Slows down the builds without it.
   - job: DeployInfrastructure
