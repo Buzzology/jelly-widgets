@@ -25,32 +25,6 @@ jobs:
       vmImage: "ubuntu-latest"
     steps:
 
-      - task: AzureKeyVault@1
-        displayName: Get key vault secrets
-        inputs:
-          azureSubscription: $(azureSubscription)
-          KeyVaultName: $(keyVaultName)
-          SecretsFilter: "ReactUIEnv"
-          RunAsPreJob: false
-
-      - task: PowerShell@2
-        displayName: "Save variables to file"
-        inputs:
-          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
-          failOnStderr: true
-          showWarnings: true
-          workingDirectory: "$(Build.SourcesDirectory)/UI"
-        env:
-          VALUES_TO_SAVE: "$(ReactUIEnv)"
-          OUTPUT_NAME: '.env'
-
-      
-      - task: CopyPublishBuildArtifacts@1
-        inputs:
-          CopyRoot: '$(Build.SourcesDirectory)/UI'
-          Contents: '.env'
-          ArtifactName: 'Environment Variables'
-          ArtifactType: 'Container'
     
       - task: Npm@1
         displayName: 'Install dependencies'
