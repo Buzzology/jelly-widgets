@@ -13,8 +13,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
 // Initialisation info
-console.log(`Environment Name: ${process.env.REACT_APP_ENV_DISPLAY_NAME}`);
-console.log(`Cognito Endpoint: ${process.env.REACT_APP_COGNITO_ENDPOINT}`);
 console.log(`Configuration: ${JSON.stringify(process.env, null, '    ')}`);
 
 // MSAL configuration

@@ -23,8 +23,8 @@ export const GetTopicsSearch = () => `/topics/search`;
 // Users
 export const GetUserLinkByUser = (user: IUserDetail) => `${GetUserLinkByUserId(user.userDetailId)}/${Slugify(user.displayName)}`;
 export const GetUserLinkByUserId = (userId: string) => `/users/${userId}`;
-export const GetLoginUrl = () => `${Configuration.COGNITO_ENDPOINT}`;
-export const GetSignUpUrl = () => `${Configuration.COGNITO_ENDPOINT}`;
+export const GetLoginUrl = () => `${Configuration.LOGIN_ENDPOINT}`;
+export const GetSignUpUrl = () => `${Configuration.LOGOUT_ENDPOINT}`;
 export const GetUserAccountConfigurationUrl = () => `/account`;
 
 // Widgets
