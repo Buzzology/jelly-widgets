@@ -16,9 +16,6 @@ variables:
   azureSubscription: "Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)"
   webStorageAccountName: "widgetsprody6bsmxj7ail7y"
   keyVaultName: "widgetsprodbh5qtqj2ezp6m"
-#   solution: '**/*.sln'
-#   buildPlatform: 'Any CPU'
-#   buildConfiguration: 'Release'
 
 jobs:  
 
@@ -107,7 +104,7 @@ jobs:
           showWarnings: true
           workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
         env:
-          INPUT_VARS: "$(PipelineUI)"
+          VALUES_TO_SAVE: "$(PipelineUI)"
           OUTPUT_NAME: 'parameters/parameters.prod.json'
 
       - task: AzureCLI@2
