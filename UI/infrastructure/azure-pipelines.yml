@@ -45,7 +45,7 @@ jobs:
           workingDirectory: "$(Build.SourcesDirectory)/UI"
         env:
           #INPUT_VARS: "$(ReactUIEnv)"
-          INPUT_VARS: $(PipelineUI)
+          INPUT_VARS: "$(PipelineUI)"
           OUTPUT_NAME: '.env'
     
       - task: Npm@1
