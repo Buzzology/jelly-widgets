@@ -2,6 +2,7 @@
 
 $test = "$env:INPUT_VARS"
 Write-Host("$env:TEST_INPUT")
+Write-Host("$env:TEST_INPUT2")
 Write-Host("HERE:")
 Write-Host("$env:INPUT_VARS")
 Write-Host("$test")
