@@ -1,15 +1,11 @@
 # Used to copy environment variables to a file so that they are more accessible to subsequent steps
 
-$test = "$env:TEST_INPUT"
-Write-Host("$env:TEST_INPUT")
-Write-Host("$env:TEST_INPUT2")
+$test = "$env:VALUES_TO_SAVE"
 Write-Host("HERE:")
-Write-Host("$env:TEST_INPUT")
-Write-Host("$test")
 
 if($test -eq ""){
-    Write-Host("INPUT_VARS not populated")    
+    Write-Host("VALUES_TO_SAVE not populated")    
     exit 1
 }
 
-"$env:TEST_INPUT" | Out-File "$env:OUTPUT_NAME"
+"$env:VALUES_TO_SAVE" | Out-File "$env:OUTPUT_NAME"
