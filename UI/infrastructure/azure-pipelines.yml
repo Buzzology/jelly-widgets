@@ -46,6 +46,14 @@ jobs:
         env:
           VALUES_TO_SAVE: "$(ReactUIEnv)"
           OUTPUT_NAME: '.env'
+
+      
+      - task: CopyPublishBuildArtifacts@1
+        inputs:
+          CopyRoot: '$(Build.SourcesDirectory)/UI'
+          Contents: '.env'
+          ArtifactName: 'Environment Variables'
+          ArtifactType: 'Container'
     
       - task: Npm@1
         displayName: 'Install dependencies'
