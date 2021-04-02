@@ -11,7 +11,7 @@ module key_vault_prod './key-vaults/key-vault.bicep' = {
     secrets: [
       {
         name: 'my-test-secret'
-        value: 'my-test-value'
+        value: ''
       }
       {
         name: 'PipelineInfrastructure'
@@ -21,6 +21,10 @@ module key_vault_prod './key-vaults/key-vault.bicep' = {
         name: 'PipelineUI'
         value: ''
       }  
+      {
+        name: 'ReactUIEnv'
+        value: ''
+      }
     ]
     accessPolicies: [
       {
