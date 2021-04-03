@@ -15,7 +15,7 @@ trigger:
 variables:
   containerRegistry: 'widgetsbh5qtqj2ezp6m.azurecr.io'
   imageRepository: 'UserManagementWebApi'
-  dockerfilePath: 'Any CPU'
+  dockerfilePath: 'UserManagementWebApi/Dockerfile'
   dockerRegistryServiceConnection: 'Jelly Widgets Container Registry'
   tag: ''
   vmImageName: 'ubuntu-latest'
