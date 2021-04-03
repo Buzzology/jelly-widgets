@@ -13,22 +13,27 @@ trigger:
   
 
 variables:
-  imageRepository: '**/*.sln'
+  containerRegistry: 'widgetsbh5qtqj2ezp6m.azurecr.io'
+  imageRepository: 'UserManagementWebApi'
   dockerfilePath: 'Any CPU'
-  dockerRegistryServiceConnection: 'Release'
+  dockerRegistryServiceConnection: 'Jelly Widgets Container Registry'
   tag: ''
-  vmImageName: ''
+  vmImageName: 'ubuntu-latest'
+  imagePullSecret: 'jellywidgetspullsecret' # https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes#use-the-image-pull-secret
+  k8sNamespace: 'default'
 
 
-jobs:
-
-  - job: Build
+- stage: Build
+  displayName: Build containers
+  jobs:
+  - job: Usermanagement API
     displayName: Build job
     pool:
       vmImage: $(vmImageName)
-    steps:
+    steps:    
+    
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Build docker image
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
@@ -41,3 +46,42 @@ jobs:
       inputs:
         artifactName: 'manifests'
         path: 'manifests'
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'azooinmyluggagepipelinesjavascriptdocker.aksnamespace'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              namespace: $(k8sNamespace)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              namespace: $(k8sNamespace)
+              manifests: |
+                $(System.ArtifactsDirectory)/manifests/deployment.yml
+                $(System.ArtifactsDirectory)/manifests/service.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
