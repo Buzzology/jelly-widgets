@@ -37,8 +37,8 @@ stages:
       displayName: List directory contents"
       inputs:
         targetType: 'inline'
-        script: 'ls'
-        
+        script: 'ls UserManagementWebApi/*'
+
     - task: Docker@2
       displayName: Build docker image
       inputs:
