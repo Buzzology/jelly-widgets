@@ -12,25 +12,32 @@ trigger:
    - Infrastructure/UserManagementInfrastructure
   
 
-# variables:
-#   solution: '**/*.sln'
-#   buildPlatform: 'Any CPU'
-#   buildConfiguration: 'Release'
+variables:
+  imageRepository: '**/*.sln'
+  dockerfilePath: 'Any CPU'
+  dockerRegistryServiceConnection: 'Release'
+  tag: ''
+  vmImageName: ''
 
 
 jobs:
-- job: DeployInfrastructure
-  timeoutInMinutes: 5
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  
-  - task: AzureCLI@2
-    displayName: 'Deploy infrastructure using Bicep.'
-    inputs:
-      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
-      scriptType: 'pscore'
-      scriptLocation: 'inlineScript'
-      inlineScript: 'ls'
-      workingDirectory: '$(Build.SourcesDirectory)/UserManagementInfrastructure'
-      failOnStandardError: true'
+
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'
