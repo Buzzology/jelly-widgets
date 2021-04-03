@@ -53,7 +53,7 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
         artifactName: 'manifests'
-        path: 'manifests'
+        path: 'UserManagementInfrastructure/manifests'
 
 - stage: Deploy
   displayName: Deploy stage
