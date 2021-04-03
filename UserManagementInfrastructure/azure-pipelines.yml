@@ -21,12 +21,13 @@ variables:
   vmImageName: 'ubuntu-latest'
   imagePullSecret: 'jellywidgetspullsecret' # https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes#use-the-image-pull-secret
   k8sNamespace: 'default'
+  environment: 'JellyWidgets'
 
-
+stages:
 - stage: Build
   displayName: Build containers
   jobs:
-  - job: Usermanagement API
+  - job: UsermanagementAPI
     displayName: Build job
     pool:
       vmImage: $(vmImageName)
@@ -55,7 +56,7 @@ variables:
     displayName: Deploy job
     pool:
       vmImage: $(vmImageName)
-    environment: 'azooinmyluggagepipelinesjavascriptdocker.aksnamespace'
+    environment: "$(environment).$(k8sNamespace)"
     strategy:
       runOnce:
         deploy:
