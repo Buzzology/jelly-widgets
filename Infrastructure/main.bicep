@@ -42,14 +42,12 @@ module vm_pgsql './virtual-machines/postgresql/vm-postgresql.bicep' = {
 }
 
 // Create the cluster
-module aks './kubernetes-clusters/aks.bicep' = {
+module aks './kubernetes-clusters/aks-prod.bicep' = {
   name: 'aks'
   scope: resourceGroup(resourceGroupName)
   params: {
-    clusterName: '${namePrefix}-aks'
-    dnsPrefix: '${namePrefix}-aks'
-    agentCount: 1
-    agentVMSize: 'Standard_B2s'
+    resourceGroupName: resourceGroupName
+    namePrefix: namePrefix
     linuxAdminUsername: aksLinuxAdminUsername
     sshRSAPublicKey: aksSshRSAPublicKey
   }
