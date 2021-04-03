@@ -1,0 +1,36 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+   include:
+   - Infrastructure/UserManagementInfrastructure
+  
+
+# variables:
+#   solution: '**/*.sln'
+#   buildPlatform: 'Any CPU'
+#   buildConfiguration: 'Release'
+
+
+jobs:
+- job: DeployInfrastructure
+  timeoutInMinutes: 5
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  
+  - task: AzureCLI@2
+    displayName: 'Deploy infrastructure using Bicep.'
+    inputs:
+      azureSubscription: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'ls'
+      workingDirectory: '$(Build.SourcesDirectory)/UserManagementInfrastructure'
+      failOnStandardError: true'
