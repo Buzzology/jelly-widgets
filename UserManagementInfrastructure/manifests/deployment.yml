@@ -5,16 +5,16 @@ kind: Deployment
 metadata:
   name: usermanagement-deployment
   labels:
-    app: UserManagementWebApi
+    app: user-management-web-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: UserManagementWebApi
+      app: user-management-web-api
   template:
     metadata:
       labels:
-        app: UserManagementWebApi
+        app: user-management-web-api
     spec:
       containers:
         - name: UserManagementWebApi
