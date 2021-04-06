@@ -17,7 +17,7 @@ variables:
   imageRepository: 'usermanagementwebapi'
   dockerfilePath: 'UserManagementWebApi/Dockerfile'
   dockerRegistryServiceConnection: 'Jelly Widgets Container Registry'
-  tag: ''
+  tag: 'latest'
   vmImageName: 'ubuntu-latest'
   imagePullSecret: 'jellywidgetspullsecret' # https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes#use-the-image-pull-secret
   k8sNamespace: 'default'
