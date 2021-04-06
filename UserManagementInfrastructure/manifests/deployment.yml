@@ -1,5 +1,4 @@
 # https://medium.com/@karthi.net/kubernetes-tutorial-create-deployments-using-yaml-file-90ea901a2f74
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,5 +20,5 @@ spec:
           image: usermanagementwebapi
           ports:
           - containerPort: 80
-      imagePullSecrets:
-      - name: jellywidgetspullsecret
+      # imagePullSecrets:
+      # - name: jellywidgetspullsecret
