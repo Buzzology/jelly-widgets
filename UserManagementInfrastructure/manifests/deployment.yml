@@ -20,5 +20,4 @@ spec:
         - name: user-management-web-api
           image: UserManagementWebApi
           ports:
-            - port: 80
             - containerPort: 80
