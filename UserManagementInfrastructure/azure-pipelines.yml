@@ -24,37 +24,36 @@ variables:
   environment: 'JellyWidgets'
 
 stages:
-- stage: Build
-  condition: false # TODO: Remove htis, just added to make build faster
-  displayName: Build containers
-  jobs:
-  - job: UsermanagementAPI
-    displayName: Build job
-    pool:
-      vmImage: $(vmImageName)
-    steps:    
+# - stage: Build
+#   displayName: Build containers
+#   jobs:
+#   - job: UsermanagementAPI
+#     displayName: Build job
+#     pool:
+#       vmImage: $(vmImageName)
+#     steps:    
     
-    - task: PowerShell@2
-      displayName: List directory contents"
-      inputs:
-        targetType: 'inline'
-        script: 'ls UserManagementWebApi/*'
+#     - task: PowerShell@2
+#       displayName: List directory contents"
+#       inputs:
+#         targetType: 'inline'
+#         script: 'ls UserManagementWebApi/*'
 
-    - task: Docker@2
-      displayName: Build docker image
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        buildContext: './'
-        tags: |
-          $(tag)
+#     - task: Docker@2
+#       displayName: Build docker image
+#       inputs:
+#         command: buildAndPush
+#         repository: $(imageRepository)
+#         dockerfile: $(dockerfilePath)
+#         containerRegistry: $(dockerRegistryServiceConnection)
+#         buildContext: './'
+#         tags: |
+#           $(tag)
           
-    - task: PublishPipelineArtifact@1
-      inputs:
-        artifactName: 'manifests'
-        path: 'UserManagementInfrastructure/manifests'
+#     - task: PublishPipelineArtifact@1
+#       inputs:
+#         artifactName: 'manifests'
+#         path: 'UserManagementInfrastructure/manifests'
 
 - stage: Deploy
   displayName: Deploy stage
