@@ -25,6 +25,7 @@ variables:
 
 stages:
 - stage: Build
+  condition: false # TODO: Remove htis, just added to make build faster
   displayName: Build containers
   jobs:
   - job: UsermanagementAPI
