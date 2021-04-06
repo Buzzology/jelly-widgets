@@ -14,7 +14,7 @@ trigger:
 
 variables:
   containerRegistry: 'widgetsbh5qtqj2ezp6m.azurecr.io'
-  imageRepository: 'UserManagementWebApi'
+  imageRepository: 'usermanagementwebapi'
   dockerfilePath: 'UserManagementWebApi/Dockerfile'
   dockerRegistryServiceConnection: 'Jelly Widgets Container Registry'
   tag: ''
