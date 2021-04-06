@@ -17,7 +17,8 @@ spec:
         app: user-management-web-api
     spec:
       containers:
-        - name: UserManagementWebApi
+        - name: user-management-web-api
           image: UserManagementWebApi
           ports:
+            - port: 80
             - containerPort: 80
