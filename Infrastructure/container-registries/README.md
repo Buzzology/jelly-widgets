@@ -49,4 +49,4 @@ kubectl create secret docker-registry jellywidgetspullsecret
 kubectl create secret docker-registry jellywidgetspullsecret    --namespace default    --docker-server=widgetsbh5qtqj2ezp6m.azurecr.io    --docker-username=74ef1024-21fb-4f5c-b79f-dafab18d49f5    --docker-password=wy8X.i9jLqo.aMIJWQuP5-VM5J_sZaNv86
 
 ## Integrate aks with acr
-`az aks update -n myAKSCluster -g myResourceGroup --attach-acr <acr-name>`
+`az aks update -n widgetsprod-aks -g myResourceGroup --attach-acr <acr-name>`

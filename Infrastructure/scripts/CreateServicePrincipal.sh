@@ -3,8 +3,8 @@
 # Modify for your environment.
 # ACR_NAME: The name of your Azure Container Registry
 # SERVICE_PRINCIPAL_NAME: Must be unique within your AD tenant
-ACR_NAME=widgetsbh5qtqj2ezp6m.azurecr.io
-SERVICE_PRINCIPAL_NAME=acr-service-principal
+ACR_NAME=widgetsbh5qtqj2ezp6m
+SERVICE_PRINCIPAL_NAME=acr-service-principal-jelly-widgets
 
 MSYS_NO_PATHCONV=1
 

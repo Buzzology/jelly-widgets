@@ -52,4 +52,14 @@ module aks './kubernetes-clusters/aks-prod.bicep' = {
   }
 }
 
+// Create the ingress ip address
+module nginx_ip './ip-addresses/ip-address.bicep' = {
+  name: 'nginx_ip'
+  scope: resourceGroup(resourceGroupName)
+  params: {
+    namePrefix: 'widgets'
+  }
+}
+
+
 output vmName string = vm_pgsql.name
