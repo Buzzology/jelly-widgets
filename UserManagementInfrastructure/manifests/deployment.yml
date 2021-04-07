@@ -17,8 +17,6 @@ spec:
     spec:
       containers:
         - name: user-management-web-api
-          image: usermanagementwebapi
+          image: widgetsbh5qtqj2ezp6m.azurecr.io/usermanagementwebapi:latest
           ports:
             - containerPort: 80
-      imagePullSecrets:
-        - name: jellywidgetspullsecret

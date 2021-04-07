@@ -3,7 +3,6 @@ targetScope = 'subscription' // tenant', 'managementGroup', 'subscription', 'res
 param vmPgsqlUsername string
 param vmPgsqlPassword string
 param resourceGroupName string
-param toolsResourceGroupName string
 param namePrefix string
 param tenantId string
 param aksLinuxAdminUsername string
@@ -23,7 +22,7 @@ module vnet_generic './vnets/vnet-generic.bicep' = {
 // Create the container registry
 module acr './container-registries/container-registry.bicep' = {
   name: 'acr'
-  scope: resourceGroup(toolsResourceGroupName)
+  scope: resourceGroup(resourceGroupName)
   params: {
     namePrefix: 'widgets'
   }

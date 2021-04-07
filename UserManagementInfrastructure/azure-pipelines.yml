@@ -73,14 +73,6 @@ stages:
             inputs:
               artifactName: 'manifests'
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
-
-          # - task: KubernetesManifest@0
-          #   displayName: Create imagePullSecret
-          #   inputs:
-          #     action: createSecret
-          #     secretName: $(imagePullSecret)
-          #     namespace: $(k8sNamespace)
-          #     dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
               
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
@@ -93,5 +85,5 @@ stages:
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                widgetsbh5qtqj2ezp6m.azurecr.io/usermanagementwebapi:latest
-#                $(containerRegistry)/$(imageRepository):$(tag)
+                $(containerRegistry)/$(imageRepository):$(tag)
+#                widgetsbh5qtqj2ezp6m.azurecr.io/usermanagementwebapi:latest
