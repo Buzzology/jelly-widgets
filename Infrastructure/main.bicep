@@ -40,6 +40,16 @@ module vm_pgsql './virtual-machines/postgresql/vm-postgresql.bicep' = {
   }
 }
 
+// Create the ingress ip address
+module nginx_ip './ip-addresses/ip-address.bicep' = {
+  name: 'nginx_ip'
+  scope: resourceGroup(resourceGroupName)
+  params: {
+    namePrefix: 'widgets'
+  }
+}
+
+// TODO: (CJO) This is failing with this error:  "message": "{\r\n  \"error\": {\r\n    \"code\": \"DeploymentActive\",\r\n    \"message\": \"Unable to edit or replace deployment 'aks': previous deployment from '4/7/2021 4:50:46 AM' is still active (expiration time is '4/14/2021 4:50:46 AM'). Please see https://aka.ms/arm-deploy for usage details.\"\r\n  }\r\n}"
 // Create the cluster
 module aks './kubernetes-clusters/aks-prod.bicep' = {
   name: 'aks'
@@ -52,14 +62,7 @@ module aks './kubernetes-clusters/aks-prod.bicep' = {
   }
 }
 
-// Create the ingress ip address
-module nginx_ip './ip-addresses/ip-address.bicep' = {
-  name: 'nginx_ip'
-  scope: resourceGroup(resourceGroupName)
-  params: {
-    namePrefix: 'widgets'
-  }
-}
+
 
 
 output vmName string = vm_pgsql.name
