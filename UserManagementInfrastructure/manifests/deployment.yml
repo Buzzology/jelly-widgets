@@ -19,6 +19,6 @@ spec:
         - name: user-management-web-api
           image: usermanagementwebapi
           ports:
-          - containerPort: 80
-      # imagePullSecrets:
-      # - name: jellywidgetspullsecret
+            - containerPort: 80
+      imagePullSecrets:
+        - name: jellywidgetspullsecret
