@@ -9,7 +9,11 @@ trigger:
     - master
   paths:
    include:
-   - Infrastructure/UserManagementInfrastructure
+   - UserManagementInfrastructure
+   - UserManagementWebApi
+   - UserManagementIntegrationEvents
+   - UserManagementGrpcService
+   - UserManagementData
   
 
 variables:
