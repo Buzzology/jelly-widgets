@@ -90,3 +90,15 @@ jobs:
           inlineScript: 'az deployment group create --template-file ./main.bicep  --parameters "parameters/parameters.prod.json" -g "widgets-prod"'
           workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
           failOnStandardError: true
+          
+      - task: AzureCLI@2
+        displayName: 'Purge the CDN.'
+        inputs:
+          azureSubscription: $(azureSubscription)
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az cdn endpoint purge --resource-group widgets-prod --name jellywidgets --profile-name JellyWidgets --content-paths "/*" --no-wait'
+          workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
+          failOnStandardError: true
+          
+      
