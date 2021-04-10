@@ -37,7 +37,7 @@ namespace UserManagementWebApi
                                 "https://localhost:3000",
                                 "https://localhost:3000",
                                 "https://jellywidgets.eastus2.cloudapp.azure.com",
-                                "https://jellywidgets.com"
+                                "https://www.jellywidgets.com"
                             )
                             .AllowAnyHeader()
                             .SetIsOriginAllowed((host) => true)
