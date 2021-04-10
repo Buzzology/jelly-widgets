@@ -97,7 +97,7 @@ jobs:
           azureSubscription: $(azureSubscription)
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
-          inlineScript: 'az cdn endpoint purge --resource-group widgets-prod --name JellyWidgets --profile-name JellyWidgets --content-paths "/*" --no-wait'
+          inlineScript: 'az cdn endpoint purge --resource-group widgets-prod --name jellywidgets --profile-name JellyWidgets --content-paths "/*" --no-wait'
           workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
           failOnStandardError: true
           
