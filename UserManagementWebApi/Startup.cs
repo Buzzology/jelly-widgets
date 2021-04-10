@@ -28,11 +28,21 @@ namespace UserManagementWebApi
             // Add cors
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed((host) => true)
-                    .AllowCredentials());
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyMethod()
+                            .WithOrigins(
+                                "http://localhost:3000",
+                                "https://localhost:3000",
+                                "https://localhost:3000",
+                                "https://jellywidgets.eastus2.cloudapp.azure.com",
+                                "https://jellywidgets.com"
+                            )
+                            .AllowAnyHeader()
+                            .SetIsOriginAllowed((host) => true)
+                            .AllowCredentials();
+                    });
             });
 
             // Add additional libraries/packages
