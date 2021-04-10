@@ -89,5 +89,5 @@ stages:
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-#                widgetsbh5qtqj2ezp6m.azurecr.io/usermanagementwebapi:latest
+                 widgetsy6bsmxj7ail7y.azurecr.io/usermanagementwebapi:latest
+#                $(containerRegistry)/$(imageRepository):$(tag)
