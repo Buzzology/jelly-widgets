@@ -16,9 +16,9 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
     public class ApiErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly Logger<ApiErrorHandlingMiddleware> _logger;
+        private readonly ILogger<ApiErrorHandlingMiddleware> _logger;
 
-        public ApiErrorHandlingMiddleware(RequestDelegate next, Logger<ApiErrorHandlingMiddleware> logger)
+        public ApiErrorHandlingMiddleware(RequestDelegate next, ILogger<ApiErrorHandlingMiddleware> logger)
         {
             this.next = next;
             _logger = logger;
