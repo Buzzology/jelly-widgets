@@ -57,10 +57,10 @@ stages:
         filePath: 'Infrastructure/scripts/WriteParametersToFile.ps1'
         failOnStderr: true
         showWarnings: true
-        workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+        workingDirectory: '$(Build.SourcesDirectory)/UserManagementWebApi'
       env:
         VALUES_TO_SAVE: "$(UserManagementWebApi)"
-        OUTPUT_NAME: "UserManagementWebApi/appsettings.json"
+        OUTPUT_NAME: "appsettings.json"
 
     - task: PowerShell@2
       displayName: List directory contents"
