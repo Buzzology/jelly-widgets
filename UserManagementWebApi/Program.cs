@@ -1,15 +1,8 @@
 using MicroservicesProjectLibrary.Utilities.Startup;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace UserManagementWebApi
 {
@@ -22,7 +15,9 @@ namespace UserManagementWebApi
                 .WriteTo.Console()
                 .CreateLogger();
 
+            Log.Logger.Information($"Starting {nameof(UserManagementWebApi)}: {DateTime.UtcNow}");
             CreateHostBuilder(args).Build().Run();
+            Log.Logger.Information($"Started {nameof(UserManagementWebApi)}: {DateTime.UtcNow}");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
