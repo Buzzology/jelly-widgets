@@ -1,12 +1,7 @@
 using MicroservicesProjectLibrary.Utilities.Startup;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SubscriptionManagementWebApi
 {
@@ -14,7 +9,9 @@ namespace SubscriptionManagementWebApi
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine($"Starting {nameof(SubscriptionManagementWebApi)}: {DateTime.UtcNow}");
             CreateHostBuilder(args).Build().Run();
+            Console.WriteLine($"Started {nameof(SubscriptionManagementWebApi)}: {DateTime.UtcNow}");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
