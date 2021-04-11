@@ -60,7 +60,7 @@ stages:
         workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
       env:
         VALUES_TO_SAVE: "$(UserManagementWebApi)"
-        OUTPUT_NAME: "appsettings.json"
+        OUTPUT_NAME: "UserManagementWebApi/appsettings.json"
 
     - task: PowerShell@2
       displayName: List directory contents"
