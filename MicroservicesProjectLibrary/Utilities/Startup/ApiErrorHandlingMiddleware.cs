@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using MicroservicesProjectLibrary.Utilities.Api;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -15,10 +16,12 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
     public class ApiErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
+        private readonly Logger<ApiErrorHandlingMiddleware> _logger;
 
-        public ApiErrorHandlingMiddleware(RequestDelegate next)
+        public ApiErrorHandlingMiddleware(RequestDelegate next, Logger<ApiErrorHandlingMiddleware> logger)
         {
             this.next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context /* other dependencies */)
@@ -29,13 +32,13 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex, _logger);
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger logger)
         {
-            System.Diagnostics.Debugger.Break();
+            logger.LogError(ex, ex?.Message);
 
             if (!context.Response.HasStarted)
             {
