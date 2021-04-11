@@ -1,5 +1,6 @@
 using MicroservicesProjectLibrary.Utilities.Startup;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
@@ -26,6 +27,7 @@ namespace UserManagementWebApi
                 {
                     config.SetDefaultConfiguration();
                     config.SetAzureKeyVaultConfiguration();
+                    config.AddJsonFile("appsettings.json", true);
                 })
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
