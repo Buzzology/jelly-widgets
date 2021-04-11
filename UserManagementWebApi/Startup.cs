@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using UserManagementWebApi.Utilities;
 
 namespace UserManagementWebApi
@@ -61,11 +63,8 @@ namespace UserManagementWebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            // TODO: remove
-            app.UseDeveloperExceptionPage();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,8 +72,9 @@ namespace UserManagementWebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{nameof(UserManagementWebApi)} v1"));
             }
 
-            //app.UseHttpsRedirection();
             app.UseMiddleware(typeof(ApiErrorHandlingMiddleware));
+            loggerFactory.AddSerilog();
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
