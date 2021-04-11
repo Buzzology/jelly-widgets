@@ -26,6 +26,7 @@ variables:
   imagePullSecret: 'jellywidgetspullsecret' # https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes#use-the-image-pull-secret
   k8sNamespace: 'default'
   environment: 'JellyWidgets'
+  subscriptionName: 'Chris Default Subscription(f21ccf56-7309-4e8a-9611-0f930fa6c2a4)'
 
 stages:
 - stage: Build
@@ -37,6 +38,30 @@ stages:
       vmImage: $(vmImageName)
     steps:    
     
+    - task: PowerShell@2
+      displayName: List directory contents"
+      inputs:
+        targetType: 'inline'
+        script: 'ls UserManagementWebApi/*'    
+          
+    - task: AzureKeyVault@1
+      displayName: 'Get KeyVault Secrets'
+      inputs:
+        azureSubscription: '$(subscriptionName)'
+        KeyVaultName: 'widgetsprodbh5qtqj2ezp6m'
+        SecretsFilter: 'UserManagementWebApi'
+
+    - task: PowerShell@2
+      displayName: "Save UserManagementWebApi appsettings to file."
+      inputs:
+        filePath: 'Infrastructure/scripts/WriteParametersToFile.ps1'
+        failOnStderr: true
+        showWarnings: true
+        workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
+      env:
+        VALUES_TO_SAVE: "$(UserManagementWebApi)"
+        OUTPUT_NAME: "appsettings.json"
+
     - task: PowerShell@2
       displayName: List directory contents"
       inputs:

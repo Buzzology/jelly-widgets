@@ -73,7 +73,7 @@ jobs:
       - task: PowerShell@2
         displayName: "Save variables to file"
         inputs:
-          filePath: "UI/infrastructure/scripts/WriteParametersToFile.ps1"
+          filePath: "Infrastructure/scripts/WriteParametersToFile.ps1"
           failOnStderr: true
           showWarnings: true
           workingDirectory: "$(Build.SourcesDirectory)/UI/infrastructure"
@@ -100,5 +100,3 @@ jobs:
           inlineScript: 'az cdn endpoint purge --resource-group widgets-prod --name jellywidgets --profile-name JellyWidgets --content-paths "/*" --no-wait'
           workingDirectory: '$(Build.SourcesDirectory)/UI/infrastructure'
           failOnStandardError: true
-          
-      

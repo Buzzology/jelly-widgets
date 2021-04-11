@@ -43,7 +43,8 @@ jobs:
       showWarnings: true
       workingDirectory: '$(Build.SourcesDirectory)/Infrastructure'
     env:
-     PIPELINE_VARS: "$(PipelineInfrastructure)"
+      VALUES_TO_SAVE: "$(PipelineInfrastructure)"
+      OUTPUT_NAME: "parameters/parameters.prod.json"
       
   # Run deployment
   - task: AzureCLI@2

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: user-management-web-api-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  tls:
+    - hosts:
+        - jellywidgets.eastus2.cloudapp.azure.com
+      secretName: tls-secret
+  rules:
+    - host: jellywidgets.eastus2.cloudapp.azure.com
+      http:
+        paths:
+          - backend:
+              serviceName: user-management-web-api
+              servicePort: 80
+            path: /user-management-web-api(/|$)(.*)
+          # - backend:
+          #     serviceName: ingress-demo
+          #     servicePort: 80
+          #   path: /hello-world-two(/|$)(.*)
+          # - backend:
+          #     serviceName: aks-helloworld
+          #     servicePort: 80
+          #   path: /(.*)

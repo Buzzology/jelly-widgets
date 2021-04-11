@@ -22,6 +22,7 @@ You can also remove the container from the remote registry using the following c
 1. Open the Azure Cli in the portal
 2. Switch to bash
 3. Upload CreateServicePrincipal.sh from the scripts folder
+   - Update the ACR_NAME and SERVICE_PRINCIPAL_NAME values first
 4. Run `bash ./CreateServicePrincipal.sh`
 5. Save the displayed outputs to a keyvault
 
@@ -45,8 +46,6 @@ kubectl create secret docker-registry jellywidgetspullsecret
     --docker-username=<service-principal-ID>
     --docker-password=<service-principal-password>
 ```
-
-kubectl create secret docker-registry jellywidgetspullsecret    --namespace default    --docker-server=widgetsbh5qtqj2ezp6m.azurecr.io    --docker-username=74ef1024-21fb-4f5c-b79f-dafab18d49f5    --docker-password=wy8X.i9jLqo.aMIJWQuP5-VM5J_sZaNv86
 
 ## Integrate aks with acr
 `az aks update -n widgetsprod-aks -g myResourceGroup --attach-acr <acr-name>`
