@@ -16,6 +16,7 @@ namespace UserManagementWebApi
                 .CreateLogger();
 
             Log.Logger.Information($"Starting {nameof(UserManagementWebApi)}: {DateTime.UtcNow}");
+            Console.WriteLine($"cw Starting {nameof(UserManagementWebApi)}: {DateTime.UtcNow}");
             CreateHostBuilder(args).Build().Run();
             Log.Logger.Information($"Started {nameof(UserManagementWebApi)}: {DateTime.UtcNow}");
         }
