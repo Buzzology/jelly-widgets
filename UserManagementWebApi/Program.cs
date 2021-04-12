@@ -27,7 +27,6 @@ namespace UserManagementWebApi
                 {
                     config.SetDefaultConfiguration();
                     config.SetAzureKeyVaultConfiguration();
-                    config.AddJsonFile("appsettings.json", true);
                 })
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>

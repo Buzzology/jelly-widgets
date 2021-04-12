@@ -14,7 +14,7 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             // Add appsetting files and override with local settings if available
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
-                //.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 //.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
                 //.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
