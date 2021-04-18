@@ -19,6 +19,8 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             })
                 .AddJwtBearer(jwtOptions =>
                 {
+                    System.Console.WriteLine("Configuration HEREERE:");
+                    System.Console.WriteLine(configuration.ToString());
                     var resultJson = configuration.GetSection("AzureAdB2cConfiguration").Value;
                     var azureConfig = JsonConvert.DeserializeObject<AzureAdB2cConfiguration>(resultJson);
 
