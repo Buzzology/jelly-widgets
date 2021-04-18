@@ -22,32 +22,27 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             })
                 .AddJwtBearer(jwtOptions =>
                 {
-                    Log.Logger.Information("Configuration HEREERE:");
-                    Log.Logger.Information(File.ReadAllText("appsettings.json"));
-
-                    Log.Logger.Information("Configuration 2222222:");
-                    foreach (var x in configuration.AsEnumerable())
-                    {
-                        Log.Logger.Information($"{x.Key}:{x.Value}");
-                    }
-                    Log.Logger.Information(File.ReadAllText("appsettings.json"));
-
-                    System.Console.WriteLine(configuration.ToString());
-                    System.Console.WriteLine("4444444444444444444444");
                     var azureConfig = configuration.GetSection("AzureAdB2cConfiguration").Get<AzureAdB2cConfiguration>();
 
-                    System.Console.WriteLine("3333333333333333333");
-                    Log.Logger.Information(azureConfig?.Authority);
                     Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true; // TODO: This should be removed in production and the authority url changed to https
 
                     jwtOptions.RequireHttpsMetadata = false; // TODO: This should be removed in production and the authority url changed to https
                     jwtOptions.Authority = azureConfig.Authority;
                     jwtOptions.Audience = azureConfig.AppClientId;
-                    jwtOptions.Events = new JwtBearerEvents {
+                    jwtOptions.Events = new JwtBearerEvents
+                    {
                         OnAuthenticationFailed = AuthenticationFailed,
+                    };
+                    jwtOptions.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidAudience = $"{azureConfig.AppClientId}",
+                        //ValidIssuer = $"{azureConfig.Instance}{azureConfig.Tenant}/v2.0"
+                        ValidIssuer = "https://jellywidgets.b2clogin.com/33d4fb0b-7363-44e0-a6cf-20d2438c2067/v2.0/"
                     };
                 });
         }
+
+        
 
 
         static Task AuthenticationFailed(AuthenticationFailedContext arg)
