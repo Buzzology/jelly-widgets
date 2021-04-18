@@ -33,9 +33,10 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                     Log.Logger.Information(File.ReadAllText("appsettings.json"));
 
                     System.Console.WriteLine(configuration.ToString());
-                    var resultJson = configuration.GetSection("AzureAdB2cConfiguration")?.Value;
-                    var azureConfig = JsonConvert.DeserializeObject<AzureAdB2cConfiguration>(resultJson);
+                    var azureConfig = configuration.GetValue<AzureAdB2cConfiguration>("AzureAdB2cConfiguration");
 
+                    System.Console.WriteLine("3333333333333333333");
+                    Log.Logger.Information(azureConfig?.Authority);
                     Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true; // TODO: This should be removed in production and the authority url changed to https
 
                     jwtOptions.RequireHttpsMetadata = false; // TODO: This should be removed in production and the authority url changed to https
