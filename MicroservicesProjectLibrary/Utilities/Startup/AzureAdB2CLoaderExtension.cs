@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Serilog;
 using System.IO;
+using System.Linq;
 
 namespace MicroservicesProjectLibrary.Utilities.Startup
 {
@@ -21,13 +22,18 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
             })
                 .AddJwtBearer(jwtOptions =>
                 {
-                    System.Console.WriteLine("Configuration HEREERE:");
-                    System.Console.WriteLine("Configuration HEREERE:");
-                    Log.Logger.Information(configuration.ToString());
+                    Log.Logger.Information("Configuration HEREERE:");
+                    Log.Logger.Information(File.ReadAllText("appsettings.json"));
+
+                    Log.Logger.Information("Configuration 2222222:");
+                    foreach (var x in configuration.AsEnumerable())
+                    {
+                        Log.Logger.Information($"{x.Key}:{x.Value}");
+                    }
                     Log.Logger.Information(File.ReadAllText("appsettings.json"));
 
                     System.Console.WriteLine(configuration.ToString());
-                    var resultJson = configuration.GetSection("AzureAdB2cConfiguration").Value;
+                    var resultJson = configuration.GetSection("AzureAdB2cConfiguration")?.Value;
                     var azureConfig = JsonConvert.DeserializeObject<AzureAdB2cConfiguration>(resultJson);
 
                     Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true; // TODO: This should be removed in production and the authority url changed to https
