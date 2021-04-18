@@ -33,7 +33,8 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                     Log.Logger.Information(File.ReadAllText("appsettings.json"));
 
                     System.Console.WriteLine(configuration.ToString());
-                    var azureConfig = configuration.GetValue<AzureAdB2cConfiguration>("AzureAdB2cConfiguration");
+                    System.Console.WriteLine("4444444444444444444444");
+                    var azureConfig = configuration.GetSection("AzureAdB2cConfiguration").Get<AzureAdB2cConfiguration>();
 
                     System.Console.WriteLine("3333333333333333333");
                     Log.Logger.Information(azureConfig?.Authority);
