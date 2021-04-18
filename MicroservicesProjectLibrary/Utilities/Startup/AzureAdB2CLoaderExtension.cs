@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using Serilog;
+using System.IO;
 
 namespace MicroservicesProjectLibrary.Utilities.Startup
 {
@@ -20,6 +22,10 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                 .AddJwtBearer(jwtOptions =>
                 {
                     System.Console.WriteLine("Configuration HEREERE:");
+                    System.Console.WriteLine("Configuration HEREERE:");
+                    Log.Logger.Information(configuration.ToString());
+                    Log.Logger.Information(File.ReadAllText("appsettings.json");
+
                     System.Console.WriteLine(configuration.ToString());
                     var resultJson = configuration.GetSection("AzureAdB2cConfiguration").Value;
                     var azureConfig = JsonConvert.DeserializeObject<AzureAdB2cConfiguration>(resultJson);
