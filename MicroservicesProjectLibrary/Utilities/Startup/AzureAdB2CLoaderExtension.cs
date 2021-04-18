@@ -24,7 +24,7 @@ namespace MicroservicesProjectLibrary.Utilities.Startup
                     System.Console.WriteLine("Configuration HEREERE:");
                     System.Console.WriteLine("Configuration HEREERE:");
                     Log.Logger.Information(configuration.ToString());
-                    Log.Logger.Information(File.ReadAllText("appsettings.json");
+                    Log.Logger.Information(File.ReadAllText("appsettings.json"));
 
                     System.Console.WriteLine(configuration.ToString());
                     var resultJson = configuration.GetSection("AzureAdB2cConfiguration").Value;
