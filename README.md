@@ -34,3 +34,13 @@ The SPA is built with ReactJS, Redux and TypeScript. It does not currently have 
 ### Login page
 ![image](https://user-images.githubusercontent.com/27006526/119087423-764c7300-ba4a-11eb-8368-a71c267a337b.png)
 
+### Loader
+![image](https://user-images.githubusercontent.com/27006526/119119475-91c97500-ba6e-11eb-96d7-d534bafcbc26.png)
+
+### Tours
+![image](https://user-images.githubusercontent.com/27006526/119119545-a148be00-ba6e-11eb-8df4-953368176127.png)
+
+### Forms
+![image](https://user-images.githubusercontent.com/27006526/119119803-e53bc300-ba6e-11eb-84d4-d18ee978c3b3.png)
+
+
