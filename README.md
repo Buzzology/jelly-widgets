@@ -25,6 +25,8 @@ Currently on hold while I investigate other tech that has become more relevant.
 
 ## Architecture
 https://miro.com/app/board/o9J_lDVjzL8=/
+![image](https://user-images.githubusercontent.com/27006526/119087869-21f5c300-ba4b-11eb-9146-49ebd5763908.png)
+
 
 ## Screenshots of app
 The SPA is built with ReactJS, Redux and TypeScript. It does not currently have any branding but the styling is heavily inspired by Slack.
