@@ -27,7 +27,7 @@ Currently on hold while I investigate other tech that has become more relevant.
 https://miro.com/app/board/o9J_lDVjzL8=/
 
 ## Screenshots of app
-The app is done in ReactJS with TypeScript. It does not currently have any branding but the styling is heavily inspired by Slack.
+The SPA is built with ReactJS, Redux and TypeScript. It does not currently have any branding but the styling is heavily inspired by Slack.
 
 ### Login page
 ![image](https://user-images.githubusercontent.com/27006526/119087423-764c7300-ba4a-11eb-8368-a71c267a337b.png)
