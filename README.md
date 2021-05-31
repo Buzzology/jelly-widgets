@@ -27,6 +27,34 @@ Currently on hold while I investigate other tech that has become more relevant.
 https://miro.com/app/board/o9J_lDVjzL8=/
 ![image](https://user-images.githubusercontent.com/27006526/119087869-21f5c300-ba4b-11eb-9146-49ebd5763908.png)
 
+### Technology Used
+
+#### Front End
+- ReactJS
+- TypeScript
+- Redux
+- Azure MSAL
+- Material UI
+- Yup/Formik
+- ADB2C
+- Static storage/CDN
+
+#### Backend
+- C#/.NET Core
+- gRPC
+- PostgreSQL
+- MongoDB
+- Docker
+- Entity Framework
+- ADB2C
+
+#### Infrastructure
+- Azure DevOps Pipelines
+- AKS
+- Key Vaults
+- Bicep
+- Virtual Machines x 2
+- Azure Container Registry
 
 ## Screenshots of app
 The SPA is built with ReactJS, Redux and TypeScript. It does not currently have any branding but the styling is heavily inspired by Slack.
