@@ -1,7 +1,7 @@
 # Jelly Widgets
 This project was used to get familiar with Azure and AKS when starting a new role. The idea was to build upon a blog post I made a _long_ time ago: https://whatibroke.com/2013/07/24/tfn-generator/
 
-The blog post provided viewers with a tax file number generator that seems to have become pretty popular with business analysts in Australia and NZ. This project's intent was to provide user's with customisable dashboards which could each hold any number of "widgets" to generate test data. Payments are handled using Stripe.
+The blog post provided viewers with a tax file number generator that seems to have become pretty popular with business analysts in Australia and NZ. This project's intent was to provide users with customisable dashboards which could each hold any number of "widgets" to generate test data. Payments are handled using Stripe.
 
 ## Provided widgets
 - Australian Business Number Generator
