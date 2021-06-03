@@ -15,14 +15,6 @@ The blog post provided viewers with a tax file number generator that seems to ha
 - New Zealand IRD Generator
 - New Zealand IRD Validator
 
-## State
-Currently on hold while I investigate other tech that has become more relevant.
-
-## Remaining work
-- Finish deployment to AKS
-- Apply branding to SPA
-- Setup testing
-
 ## Architecture
 https://miro.com/app/board/o9J_lDVjzL8=/
 ![image](https://user-images.githubusercontent.com/27006526/119087869-21f5c300-ba4b-11eb-9146-49ebd5763908.png)
@@ -72,5 +64,13 @@ The SPA is built with ReactJS, Redux and TypeScript. It does not currently have 
 
 ### Forms
 ![image](https://user-images.githubusercontent.com/27006526/119119803-e53bc300-ba6e-11eb-84d4-d18ee978c3b3.png)
+
+## State
+Currently on hold while I investigate other tech that has become more relevant.
+
+## Remaining work
+- Finish deployment to AKS
+- Apply branding to SPA
+- Setup testing
 
 
